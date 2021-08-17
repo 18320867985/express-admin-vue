@@ -1,0 +1,43 @@
+服务器运行在 localhost:\\.\pipe\13debfda-60ee-47eb-92ee-add7258f172c 端口上...
+processId:8304
+mongodb connection success 
+[0mGET /static/css/admin.css [36m304 [0m24.590 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m20.095 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m15.242 ms - -[0m
+[0mGET /static/css/admin.css [36m304 [0m7.815 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m3.503 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m3.473 ms - -[0m
+[0mGET /static/css/admin.css [36m304 [0m1.951 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m1.936 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m1.800 ms - -[0m
+[0mGET /admin/user/data/2/10 [36m302 [0m7.484 ms - 28[0m
+[0mGET /login [36m304 [0m6.033 ms - -[0m
+[0mGET /admin/user/data/2/10 [36m302 [0m1.452 ms - 28[0m
+[0mGET /login [36m304 [0m2.472 ms - -[0m
+[0mGET /admin/index [36m302 [0m2.631 ms - 56[0m
+[0mGET /login [36m304 [0m4.925 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m2.149 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m3.768 ms - -[0m
+[0mGET /static/css/admin.css [36m304 [0m3.413 ms - -[0m
+[0mGET /static/js/admin.js [36m304 [0m1.252 ms - -[0m
+[0mGET /favicon.ico [36m304 [0m3.141 ms - -[0m
+[0mPOST /login/data [32m200 [0m47.678 ms - 66[0m
+[0mGET /admin/index [32m200 [0m3.478 ms - 7903[0m
+[0mGET /static/js/iframe/all.js [36m304 [0m1.596 ms - -[0m
+[0mGET /static/css/iframe/cstfont/iconfont.css [36m304 [0m1.490 ms - -[0m
+[0mGET /static/js/common/jquery-1.11.0.js [36m304 [0m2.846 ms - -[0m
+[0mGET /static/css/iframe/all.css [36m304 [0m2.133 ms - -[0m
+[0mGET /static/js/admin.js [36m304 [0m1.198 ms - -[0m
+[0mGET /admin/user [36m304 [0m2.651 ms - -[0m
+[0mGET /static/css/iframe/all.css [36m304 [0m3.217 ms - -[0m
+[0mGET /static/css/iframe/cstfont/iconfont.css [36m304 [0m2.303 ms - -[0m
+[0mGET /static/css/iframe/all.css [36m304 [0m0.839 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m1.146 ms - -[0m
+[0mGET /static/css/admin.css [36m304 [0m2.898 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m3.313 ms - -[0m
+[0mGET /static/js/admin.js [36m304 [0m1.075 ms - -[0m
+[0mGET /admin/userRole/data [36m304 [0m27.738 ms - -[0m
+[0mGET /admin/user/data/1/10 [36m304 [0m59.089 ms - -[0m
+[0mGET /static/css/fonts/glyphicons-halflings-regular.woff2 [36m304 [0m19.658 ms - -[0m
+[0mGET /admin/index/data [36m304 [0m1.029 ms - -[0m
+[0mGET /favicon.ico [36m304 [0m2.372 ms - -[0m

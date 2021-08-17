@@ -1,0 +1,9 @@
+服务器运行在 localhost:\\.\pipe\8982ce0d-88a1-4335-827b-a00814971e41 端口上...
+processId:3796
+mongodb connection success 
+[0mGET /login [36m304 [0m11.592 ms - -[0m
+[0mGET /static/css/cstFonts/iconfont.css [36m304 [0m7.276 ms - -[0m
+[0mGET /static/css/admin.css [36m304 [0m6.570 ms - -[0m
+[0mGET /static/css/vue-admin.css [36m304 [0m3.530 ms - -[0m
+[0mGET /static/js/admin.js [36m304 [0m3.056 ms - -[0m
+[0mGET /favicon.ico [32m200 [0m1.919 ms - 77[0m
