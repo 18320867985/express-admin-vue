@@ -94,10 +94,10 @@ router.post("/userRole/data", async (req, res) =>
     let code = Number(req.body.code) || 1;
     let order = Number(req.body.order) || 1;
     let o = new mainModel.UserRole({name, code, order});
-    let isok = o.validateSync();
-    if (isok)
+    let isError = o.validateSync();
+    if (isError)
     {
-        res.json(res._err(isok));
+        res.json(res._err(null,isError));
         return;
     }
 

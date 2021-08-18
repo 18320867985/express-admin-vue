@@ -90,10 +90,10 @@ router.post("/contact/data", async (req, res) =>
 
     });
 
-    let isok = o.validateSync();
-    if (isok)
+    let isError = o.validateSync();
+    if (isError)
     {
-        res.json(res._err(isok));
+        res.json(res._err(null,isError));
         return;
     }
 

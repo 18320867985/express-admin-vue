@@ -87,10 +87,10 @@ router.post("/series/data", async (req, res) =>
         imgs: req.body.imgs || [],
     });
 
-    let isok = o.validateSync();
-    if (isok)
+    let isError = o.validateSync();
+    if (isError)
     {
-        res.json(res._err(isok));
+        res.json(res._err(null,isError));
         return;
     }
 

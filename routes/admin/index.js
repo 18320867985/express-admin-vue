@@ -1,9 +1,6 @@
 
 const router = require("./_router");
 
-// sessionCheck
-require("./_sessionCheck");
-
 router.get("/index", (req, res) =>
 {
     res.render("admin/index", {});

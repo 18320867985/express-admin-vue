@@ -87,10 +87,10 @@ router.post("/user/data", async (req, res) =>
         roleId: req.body.roleId
     });
 
-    let isok = user.validateSync();
-    if (isok)
+    let isError = user.validateSync();
+    if (isError)
     {
-        res.json(res._err(isok));
+        res.json(res._err(null,isError));
         return;
     }
 

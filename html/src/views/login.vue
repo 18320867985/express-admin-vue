@@ -190,9 +190,11 @@ export default {
     };
   },
   methods: {
-    loginBtn() {
+   async loginBtn() {
       console.log(this.userName + this.password);
-      this.$router.push("/");
+     let res= await this.$api.login_post({user:this.userName,pwd:this.password});
+    console.log(res)
+
     },
   },
 };
