@@ -103,15 +103,11 @@ app.use((req, res, next) =>
         //[ 'Access-Token' ] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
         let token = req.headers[ 'access-token' ];  // 接受必须是小写
         console.log("headers",req.headers)
-        console.log("headers-common",req.headers.common)
-        console.log("token",token)
         jwt.verify(token, function (err, decorded)
         {
-            console.log("decorded",decorded)
             if (err)
             {
                 res.json(res._notToken(null,{token:"无效的token,请登录去获取token"}));
-
             }else{
                 next();
             }
@@ -128,9 +124,11 @@ app.use((req, res, next) =>
 let indexRouter = require('./routes/index');
 let adminRouter = require('./routes/admin/index');
 let file = require('./routes/file');
+let test = require('./routes/test');
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/file', file);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

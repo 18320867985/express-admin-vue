@@ -1,4 +1,4 @@
-import axios from 'axios'; // 引入axios
+import axios from 'axios'; // 引入axio
 
 let axios_ins = axios.create();
 
@@ -19,8 +19,8 @@ axios_ins.defaults.timeout = 10000;
 axios_ins.interceptors.request.use(function (config)
 {
 	//在发送请求之前做某事
-	console.log("config",config)
-	let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoiNWM3MzUwYWVkZTc0NWExMmQ4OWNlMWI2IiwiaWF0IjoxNjI5MjUzMzcyLCJleHAiOjE2MjkyNTUxNzJ9.T71H69JarTM5FBfq-cMmFjqmbH9OOERDPA0UTEmnPCc';
+	//console.log("config",config)
+	let token=window.sessionStorage.getItem("myToken")||"";
 	config.headers[ 'Access-Token' ] = token ;// 让每个请求携带自定义 token 请根据实际情况自行修改
 	return config;
 
@@ -34,7 +34,7 @@ axios_ins.interceptors.request.use(function (config)
 axios_ins.interceptors.response.use(function (response)
 {
 	//对响应数据做些事
-	console.log("response",response)
+	//console.log("response",response)
 	return response;
 
 }, function (error)

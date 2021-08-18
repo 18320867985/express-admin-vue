@@ -6,7 +6,8 @@ router.get("/data", async (req, res) =>
     res.json(res._ok([ {name: "get"} ], {
         index: 0, //	当前页
         pageItem: 12, //  每页条数
-        allItem: 100 //  总条数
+        allItem: 100, //  总条数
+        msg:"获取分页数test成功"
     }));
 });
 

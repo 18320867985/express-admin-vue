@@ -19,7 +19,7 @@ router.post("/", (req, res) =>
         {
             fs.mkdirSync(path.resolve(_url));
         }
-        let form = new formidable.IncomingForm();  
+        let form = new formidable.IncomingForm();
         form.keepExtensions = true;
         form.uploadDir = "./public/upload"; // 相对路径
         form.multiples = true;
@@ -35,9 +35,9 @@ router.post("/", (req, res) =>
 
             var _path = files.file.path;
             // var p = path.dirname(_path);
-           // var extname = path.extname(_path);
+            // var extname = path.extname(_path);
             var basename = path.basename(_path);
-            let url ="/public/upload/" + basename;
+            let url = "/public/upload/" + basename;
             res.json(res._ok(url));
 
         });

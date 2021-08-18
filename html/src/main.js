@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
-Vue.use(ElementUI, { size: 'small', zIndex: 3000 });
+Vue.use(ElementUI, {size: 'small', zIndex: 3000});
 
 import router from "./routes";
 import store from "./store"

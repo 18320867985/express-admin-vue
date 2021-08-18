@@ -7,17 +7,17 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("参数必须是个数组");
         }
-        var _array_max;
-        var isOne = true;
+        let _array_max;
+        let isOne = true;
         if (arguments.length === 1) {
 
-            for (var i = 0; i < data.length; i++) {
-                var _temp = 0;
+            for (let i = 0; i < data.length; i++) {
+                let _temp = 0;
 
                 if (typeof data[i] !== "number") {
 
                     //  is not a number
-                    var _num = parseFloat(data[i]);
+                    let _num = parseFloat(data[i]);
                     if (isNaN(_num)) {
                         continue;
                     }
@@ -48,15 +48,15 @@ let list = {
 
         if (arguments.length === 2 && typeof fn === "function") {
 
-            var maxVal = 0;
-            for (var i = 0; i < data.length; i++) {
-                var _temp = 0;
-                var item = data[i];
-                var v = fn(item);
+            let maxVal = 0;
+            for (let i = 0; i < data.length; i++) {
+                let _temp = 0;
+                let item = data[i];
+                let v = fn(item);
                 if (typeof v !== "number") {
 
                     //  is not a number
-                    var _num = parseFloat(v);
+                    let _num = parseFloat(v);
                     if (isNaN(_num)) {
                         continue;
                     }
@@ -94,16 +94,16 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("参数必须是个数组");
         }
-        var _array_min;
-        var isOne = true;
+        let _array_min;
+        let isOne = true;
         if (arguments.length === 1) {
-            for (var i = 0; i < data.length; i++) {
-                var _temp = 0;
+            for (let i = 0; i < data.length; i++) {
+                let _temp = 0;
 
                 if (typeof data[i] !== "number") {
 
                     //  is not a number
-                    var _num = Number(data[i]);
+                    let _num = Number(data[i]);
                     if (isNaN(_num)) {
                         continue;
                     }
@@ -132,15 +132,15 @@ let list = {
         }
 
         if (arguments.length === 2 && typeof fn === "function") {
-            var minVal = 0;
-            for (var i = 0; i < data.length; i++) {
-                var _temp = 0;
-                var item = data[i];
-                var v = fn(item);
+            let minVal = 0;
+            for (let i = 0; i < data.length; i++) {
+                let _temp = 0;
+                let item = data[i];
+                let v = fn(item);
                 if (typeof v !== "number") {
 
                     //  is not a number
-                    var _num = parseFloat(v);
+                    let _num = parseFloat(v);
                     if (isNaN(_num)) {
                         continue;
                     }
@@ -179,13 +179,13 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("第一个参数必须是个数组，第二是回调函数");
         }
-        var _arrs = [];
+        let _arrs = [];
         if (data.constructor === Array) {
 
             if (typeof fn !== "function") {
                 return data;
             }
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
                 if (fn(data[i])) {
                     _arrs.push(data[i]);
@@ -201,7 +201,7 @@ let list = {
     // data map
     map: function (data, fn) {
         data = data || [];
-        var arrs = [];
+        let arrs = [];
         if (data.constructor !== Array) {
             throw new Error("第一个参数必须是个数组，第二是回调函数");
         }
@@ -212,7 +212,7 @@ let list = {
                 return data;
             }
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
                 arrs[i] = fn(data[i]) || data[i];
 
@@ -260,8 +260,8 @@ let list = {
         if (data.length > 0) {
             startIndex = typeof startIndex === "number" ? startIndex : 0;
             endIndex = typeof endIndex === "number" ? endIndex : 0;
-            var _arrs = [];
-            for (var i = startIndex; i < data.length; i++) {
+            let _arrs = [];
+            for (let i = startIndex; i < data.length; i++) {
 
                 if (i < endIndex) {
                     _arrs.push(data[i]);
@@ -319,12 +319,12 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("参数必须是个数组");
         }
-        var _sum = 0;
+        let _sum = 0;
         if (data.length > 0) {
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var _num = Number(data[i]);
+                let _num = Number(data[i]);
                 _num = isNaN(_num) ? 0 : _num;
                 _sum = _sum + _num;
 
@@ -344,12 +344,12 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("参数必须是个数组");
         }
-        var _sum = 0;
+        let _sum = 0;
         if (data.length > 0) {
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                var _num = Number(data[i]);
+                let _num = Number(data[i]);
                 _num = isNaN(_num) ? 0 : _num;
                 _sum = _sum + _num;
 
@@ -369,7 +369,7 @@ let list = {
         if (data.constructor !== Array) {
             throw new Error("参数必须是个数组");
         }
-        var _sum = 0;
+    
         if (data.length > 0) {
 
             Array.prototype.splice.call(data, startIndex, endIndex);
@@ -391,15 +391,15 @@ let list = {
         if (data.length <= 0) {
             return [];
         }
-        var temp = [];
+        let temp = [];
         temp.push(data[0]);
-        for (var i = 1; i < data.length; i++) {
+        for (let i = 1; i < data.length; i++) {
 
-            var test = data[i];
-            var isOk = true;
-            for (var y = 0; y < temp.length; y++) {
+            let test = data[i];
+            let isOk = true;
+            for (let y = 0; y < temp.length; y++) {
 
-                var test2 = temp[y];
+                let test2 = temp[y];
                 if (test === test2) {
 
                     isOk = false;
@@ -429,7 +429,7 @@ let list = {
         }
 
         if (typeof fn === "function") {
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 if (fn(data[i])) {
                     return i;
                 }
@@ -445,32 +445,32 @@ let list = {
 let url = {
     //采用正则表达式获取地址栏参数：（ 强烈推荐，既实用又方便！）
     getQueryString: function (name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-        var r = window.location.search.substr(1).match(reg);
+        let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
         if (r != null) return decodeURIComponent(r[2]);
         return null;
     },
 
     //从WebAPI获取日期json数据 转换成日期时间戳
     jsonToDate: function (apidate) {
-        var txts = apidate.replace("/Date(", "").replace(")/", "");
-        return parseInt(Common.trim(txts));
+        let txts = apidate.replace("/Date(", "").replace(")/", "");
+        return parseInt(txts);
 
     },
 
     // 取当前页面名称(不带后缀名)
     getPageName: function () {
-        var a = location.href;
-        var b = a.split("/");
-        var c = b.slice(b.length - 1, b.length).toString(String).split(".");
+        let a = location.href;
+        let b = a.split("/");
+        let c = b.slice(b.length - 1, b.length).toString(String).split(".");
         return c.slice(0, 1);
     },
 
     //取当前页面名称(带后缀名)
     getPageNameExention: function () {
-        var strUrl = location.href;
-        var arrUrl = strUrl.split("/");
-        var strPage = arrUrl[arrUrl.length - 1];
+        let strUrl = location.href;
+        let arrUrl = strUrl.split("/");
+        let strPage = arrUrl[arrUrl.length - 1];
         return strPage;
     }
 
@@ -485,11 +485,11 @@ let cookie = {
             return;
         }
         cookieValue = cookieValue || "";
-        var dt = new Date();
+        let dt = new Date();
         expiresDate = typeof expiresDate === "number" ? expiresDate : 0;
         dt.setDate(dt.getDate() + expiresDate);
-        var expires = dt;
-        document.cookie = encodeURIComponent(Common.trim(cookieName)) + "=" + encodeURIComponent(cookieValue) + ";expires=" + expires;
+        let expires = dt;
+        document.cookie = encodeURIComponent(cookieName) + "=" + encodeURIComponent(cookieValue) + ";expires=" + expires;
 
     },
 
@@ -500,7 +500,7 @@ let cookie = {
             return;
         }
 
-        var cookies = Common.cookie.getAllCookie();
+        let cookies =document.cookie.getAllCookie();
 
         return cookies[cookieName];
 
@@ -508,17 +508,17 @@ let cookie = {
 
     getAllCookie: function () {
 
-        var strs = document.cookie.split(new RegExp(";\\s*"));
-        var obj = {};
-        for (var i = 0; i < strs.length; i++) {
+        let strs = document.cookie.split(new RegExp(";\\s*"));
+        let obj = {};
+        for (let i = 0; i < strs.length; i++) {
 
-            var strs2 = strs[i].split("=");
+            let strs2 = strs[i].split("=");
             try {
-                var _name = decodeURIComponent(strs2[0]);
-                var _val = decodeURIComponent(strs2[1]);
+                let _name = decodeURIComponent(strs2[0]);
+                let _val = decodeURIComponent(strs2[1]);
                 obj[_name] = _val;
             } catch (e) {
-
+                console.log(e)
             }
 
         }
@@ -528,7 +528,7 @@ let cookie = {
 
     removeCookie: function (cookieName) {
 
-        Common.cookie.setCookie(cookieName, "", -1);
+        document.cookie.setCookie(cookieName, "", -1);
 
     },
 
@@ -543,11 +543,11 @@ let localStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item === "") {
             return;
         }
 
-        localStorage.setItem(Common.trim(item), JSON.stringify(value));
+        localStorage.setItem(item, JSON.stringify(value));
     },
 
     // localStorage取值
@@ -556,10 +556,10 @@ let localStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item === "") {
             return;
         }
-        var data = JSON.parse(localStorage.getItem(Common.trim(item)));
+        let data = JSON.parse(localStorage.getItem(item));
         return data;
     },
 
@@ -569,10 +569,10 @@ let localStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item === "") {
             return;
         }
-        localStorage.removeItem(Common.trim(item));
+        localStorage.removeItem(item);
 
     },
     clear: function () {
@@ -590,11 +590,11 @@ let sessionStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item === "") {
             return;
         }
 
-        sessionStorage.setItem(Common.trim(item), JSON.stringify(value));
+        sessionStorage.setItem(item, JSON.stringify(value));
     },
 
     // sessionStorage 取值
@@ -603,10 +603,10 @@ let sessionStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item=== "") {
             return;
         }
-        var data = JSON.parse(sessionStorage.getItem(Common.trim(item)));
+        let data = JSON.parse(sessionStorage.getItem(item));
         return data;
     },
 
@@ -616,10 +616,10 @@ let sessionStorage = {
         if (typeof item !== "string") {
             return;
         }
-        if (Common.trim(item) === "") {
+        if (item === "") {
             return;
         }
-        sessionStorage.removeItem(Common.trim(item));
+        sessionStorage.removeItem(item);
 
     },
 
@@ -631,11 +631,11 @@ let sessionStorage = {
 
 function toDate(value, fmt) {
     fmt = typeof fmt !== "string" ? "yyyy-MM-dd HH:mm:ss" : fmt;
-    var txts = value.toString().replace("/Date(", "").replace(")/", "");
-    var times = Number(txts);
+    let txts = value.toString().replace("/Date(", "").replace(")/", "");
+    let times = Number(txts);
     times = isNaN(times) ? new Date(value).getTime() : times;
-    var dt = new Date(Number(times.toString()));
-    var o = {
+    let dt = new Date(Number(times.toString()));
+    let o = {
         "M+": dt.getMonth() + 1,
         "d+": dt.getDate(),
         "H+": dt.getHours(),
@@ -647,7 +647,7 @@ function toDate(value, fmt) {
     if (/(y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (dt.getFullYear() + "").substr(4 - RegExp.$1.length))
     }
-    for (var k in o) {
+    for (let k in o) {
         if (new RegExp("(" + k + ")").test(fmt)) {
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)))
         }
@@ -657,7 +657,7 @@ function toDate(value, fmt) {
 
 //  根据年月计算天数
 function computerDay(y, m) {
-    var d = 1;
+    let d = 1;
     switch (m) {
         case 1:
             d = 31;
