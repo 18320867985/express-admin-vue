@@ -42,31 +42,36 @@
                                 验证码登录
                             </li>
                         </ul>
-
                         <!-- tab 内容-->
                         <div class="_item-tab-cnt v-tab-cnt">
                             <!--账户登录-->
+
                             <div class="_item-tab-cnt-item v-tab-cnt-item" v-bind:class="{ in: tabIndex == 0 }" id="accountLogin">
-                                <p class="login-error d-hide">~账号和密码登录失败~</p>
 
-                                <div class="__item">
-                                    <input class="" type="text" v-model="userName" placeholder="输入/邮箱/用户名/已验证手机号" autocomplete="on" />
-                                    <span class="vd-req"></span>
-                                </div>
+                                <vee ref="userLogin">
+                                    <div class="__item">
+                                        <vee-item rules="required" v-slot="{ errors }">
+                                            <el-input v-model="userName" placeholder="输入/邮箱/用户名/已验证手机号" autocomplete="on"></el-input>
+                                            <span class="text-danger" v-if="errors.length>0">用户名不能为空！</span>
+                                        </vee-item>
+                                    </div>
 
-                                <div class="__item vd-box">
-                                    <input class="" type="password" v-model="password" placeholder="输入密码" autocomplete="off" />
-                                    <span class="vd-req"></span>
-                                </div>
+                                    <div class="__item">
+                                        <vee-item rules="required" v-slot="{ errors }">
+                                            <el-input v-model="password" placeholder="输入密码" type="password" autocomplete="on"></el-input>
+                                            <span class="text-danger" v-if="errors.length>0">密码不能为空！</span>
+                                        </vee-item>
+                                    </div>
 
-                                <div class="__item bfc">
-                                    <a class="__reg fl" href="#">立即注册</a>
-                                    <a class="__pwdlink fr" href="#">忘记密码？</a>
-                                </div>
+                                    <div class="__item bfc">
+                                        <a class="__reg fl" href="#">立即注册</a>
+                                        <a class="__pwdlink fr" href="#">忘记密码？</a>
+                                    </div>
 
-                                <div class="__item">
-                                    <a class="__btn" href="#" @click.enter.13="loginBtn">登录</a>
-                                </div>
+                                    <div class="__item">
+                                        <a class="__btn" href="#" @click.enter.13="loginBtn">登录</a>
+                                    </div>
+                                </vee>
                             </div>
 
                             <!--手机验证码登录-->
@@ -139,28 +144,51 @@ export default {
     },
     methods: {
         async loginBtn() {
-            let res = await this.$api.login_post({
-                user: this.userName,
-                pwd: this.password,
-            });
-            if (res.code == 1) {
-                window.sessionStorage.setItem("myToken", res.data.token);
-                console.log("sessionStorage save success");
-                this.$message({
-                    showClose: true,
-                    message: "登录成功！",
-                    type: "success",
+            this.$refs.userLogin.validate().then(async success => {
+                if (!success) {
+                    return;
+                }
+                let res = await this.$api.login_post({
+                    user: this.userName,
+                    pwd: this.password,
                 });
-                this.$router.push("/");
-            } else {
-                this.$message({
-                    showClose: true,
-                    message: res.msg,
-                    type: "error",
-                });
-            }
+                if (res.code == 1) {
+                 
+                    let timeout=res.exp*1000-new Date().getTime();
+                    this.$store.dispatch("autoEmitLogout",timeout);
+                    this.$store.commit("setLoginUserinfo",res);
+                    this.$router.push("/");
+
+                    this.$message({
+                        showClose: true,
+                        message: "登录成功！",
+                        type: "success",
+                    });
+                } else {
+                    this.$message({
+                        showClose: true,
+                        message: res.msg,
+                        type: "error",
+                    });
+                }
+
+            })
+
         },
     },
+   watch:{
+        userinfo:function(){
+            if(this.$store.getters.getUserinfo){
+                this.$router.push("/");
+            }
+        }
+     },
+    computed:{
+       userinfo(){
+            return this.$store.getters.getUserinfo     
+       }, 
+    }
+
 };
 </script>
 

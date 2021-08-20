@@ -1,6 +1,5 @@
 
-var express = require("express");
-var router = express.Router();
+let router = require('./_router');
 var path = require("path");
 var fs = require("fs");
 var formidable = require("formidable"); //上传文件

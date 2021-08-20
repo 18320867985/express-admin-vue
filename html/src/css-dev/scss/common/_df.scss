@@ -257,6 +257,14 @@ textarea:focus {
     color: $text-muted;
 }
 
+.border-success {
+    border:1px solid  $text-success;
+}
+
+.border-danger {
+    border: 1px solid $text-danger;
+}
+
 // table
 .tb-fixed {
     table-layout: fixed;

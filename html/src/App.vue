@@ -9,9 +9,11 @@
 		name: 'App',
 		data: function() {
 			return {
-				ttl: "vue dev "
-
 			}
-		}
+		},
+		created() {
+			
+			this.$store.dispatch("initData");
+		},
 	}
 </script>

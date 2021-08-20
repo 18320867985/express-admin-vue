@@ -1,3 +1,4 @@
+
 // 根模块区
 import Layout from "../layout/index.vue"
 import Login from "../views/login.vue"
@@ -59,6 +60,13 @@ const routes = [
 		ttl: "登录",
 		component: Login,
 		hidden: true,
+	},
+	{
+		path: "*",
+		ttl: "",
+		hidden: true,
+		redirect:"/"
+		
 
 	},
 		
@@ -74,7 +82,7 @@ const createRouter = () => new VueRouter({
 	routes
 })
 
-const router = createRouter()
+const router = createRouter();
 export function resetRouter() {
 	const newRouter = createRouter()
 	router.matcher = newRouter.matcher // reset router

@@ -75,7 +75,7 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning",
             }).then(() => {
-                this.$router.push("/login");
+               this.$store.commit("logout");
             });
         },
         // 设置动态导航条
@@ -97,7 +97,6 @@ export default {
     },
     created() {
         this.getnavbars();
-        this.$api.test_get()
     },
     mounted() {
         // 设置 iframe 高度

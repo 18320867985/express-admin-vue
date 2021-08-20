@@ -1,25 +1,6 @@
 
 const router = require("./_router");
 
-router.get("/index", (req, res) =>
-{
-    res.render("admin/index", {});
-});
-
-router.get("/index/data", (req, res) =>
-{
-    if (req.session.login && req.session.login.isLogin)
-    {
-        res.json(res._ok(req.session.login.user));
-        return;
-    } else
-    {
-        res.json(res._err());
-        return;
-    }
-
-});
-
 // user
 require("./user");
 

@@ -1,4 +1,5 @@
 import axios from 'axios'; // 引入axio
+import router from "../routes"
 
 let axios_ins = axios.create();
 
@@ -35,6 +36,17 @@ axios_ins.interceptors.response.use(function (response)
 {
 	//对响应数据做些事
 	//console.log("response",response)
+	if(response.status===200)
+	{	
+		if(response.data.code===2)  // not token 
+		{
+			if(router.history.current.fullPath==="/login"){
+				return;
+			}
+			router.push("/login"); //没有access token 跳回登录页
+			return ;
+		}
+	}
 	return response;
 
 }, function (error)

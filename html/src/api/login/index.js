@@ -10,9 +10,10 @@ async function login_post (params)
 	return res && res.data;
 }
 
-async function test_get (params)
+
+async function login_initdata ()
 {
-	let res = await axios.get("/test/data", params).catch(err =>
+	let res = await axios.post("/init/data").catch(err =>
 	{
 		console.log(err)
 	});
@@ -20,8 +21,9 @@ async function test_get (params)
 }
 
 
+
 export default {
 	login_post,
-	test_get
+	login_initdata
 
 }
