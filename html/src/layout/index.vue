@@ -15,16 +15,25 @@
             <el-aside class="index-aside" :class="{ open: !isCollapse }">
                 <!--导航菜单-->
                 <el-menu :default-active="$route.path" :collapse="isCollapse" router>
-                    <el-submenu v-for="(item, index) in activePaths" :index="index++ + ''" :key="index">
-                        <template slot="title"><i :class="item.meta && item.meta.icon"></i>
-                            <span slot="title">{{ item.meta && item.meta.ttl }} </span>
-                        </template>
-                        <el-menu-item-group>
-                            <router-link :index="index + '-' + index2" class="el-menu-item" :to="child.path ? item.path + '/' + child.path : item.path" active-class="is-active" v-for="(child, index2) in item.children" :key="child.path" tag="li" exact :hidden="child.hidden">
-                                {{ child.meta && child.meta.ttl }}
-                            </router-link>
-                        </el-menu-item-group>
-                    </el-submenu>
+                    <template v-for="(item, index) in activePaths">
+
+                        <el-submenu :index="index++ + ''" :key="index" v-if="item.path!=='/'">
+                            <template slot="title">
+                                <i :class="item.meta && item.meta.icon"></i>
+                                <span slot="title">{{ item.meta && item.meta.ttl }} </span>
+                            </template>
+                            <el-menu-item-group>
+                                <router-link :index="index + '-' + index2" class="el-menu-item" :to="child.path ? item.path + '/' + child.path : item.path" active-class="is-active" v-for="(child, index2) in item.children" :key="child.path" tag="li" exact :hidden="child.hidden">
+                                    {{ child.meta && child.meta.ttl }}
+                                </router-link>
+                            </el-menu-item-group>
+                        </el-submenu>
+                        <el-menu-item :index="index++ + ''" :key="index" v-if="item.path==='/'" class="item-home"  :class="{'active':$route.fullPath==='/'}"  @click="$router.push('/')">
+                              <i :class="item.meta && item.meta.icon"></i>
+                             <span slot="title">{{ item.meta && item.meta.ttl }} </span>
+                        </el-menu-item>
+                    </template>
+                
                 </el-menu>
             </el-aside>
         </el-scrollbar>
@@ -37,7 +46,9 @@
                     <li>
                         <i class="index-h-icon" @click="isCollapse = !isCollapse" :class="isCollapse ? 'el-icon-s-unfold ' : 'el-icon-s-fold'"></i>
                     </li>
-                    <router-link class="li-link" tag="li" v-for="(item, index) in navbars" :key="index" :to="'' + item.path">{{ item.meta.ttl }}</router-link>
+                     <router-link class="li-link" tag="li"  to="/">首页</router-link>
+                    <router-link class="li-link" tag="li" v-for="(item, index) in navbars" :key="index" :to="'' + item.path" >{{ item.meta.ttl }}</router-link>
+                  
                 </ul>
 
                 <!-- 路由页 -->
@@ -75,13 +86,13 @@ export default {
                 cancelButtonText: "取消",
                 type: "warning",
             }).then(() => {
-               this.$store.commit("logout");
+                this.$store.commit("logout");
             });
         },
         // 设置动态导航条
         getnavbars() {
             this.navbars = this.$route.matched.filter(
-                (item) => item.meta && item.meta.ttl
+                (item) => item.meta && item.meta.ttl&&item.path!==''
             );
         },
     },
@@ -92,6 +103,7 @@ export default {
     },
     watch: {
         $route() {
+            console.log("this.$router.options.routes",this.$route.fullPath)
             this.getnavbars();
         },
     },
@@ -109,7 +121,11 @@ export default {
         function resetWidth() {
             var win_h = $el.offsetHeight;
             var h_w = $el.querySelector(".index-h").offsetHeight;
-            document.querySelector(".index-cnt").style.height = win_h - h_w + "px";
+            var $cnt = document.querySelector(".index-cnt");
+            if ($cnt) {
+                $cnt.style.height = win_h - h_w + "px";
+            }
+
         }
     },
 };

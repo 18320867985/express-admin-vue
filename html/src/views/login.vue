@@ -47,19 +47,18 @@
                             <!--账户登录-->
 
                             <div class="_item-tab-cnt-item v-tab-cnt-item" v-bind:class="{ in: tabIndex == 0 }" id="accountLogin">
-
-                                <vee ref="userLogin">
+                                <vee ref="userLogin" v-slot="{ invalid ,dirty}">
                                     <div class="__item">
                                         <vee-item rules="required" v-slot="{ errors }">
-                                            <el-input v-model="userName" placeholder="输入/邮箱/用户名/已验证手机号" autocomplete="on"></el-input>
-                                            <span class="text-danger" v-if="errors.length>0">用户名不能为空！</span>
+                                            <el-input v-model="userName" ref="userName" placeholder="输入/邮箱/用户名/已验证手机号" autocomplete="on"></el-input>
+                                            <span class="text-danger" v-if="errors.length > 0">用户名不能为空！</span>
                                         </vee-item>
                                     </div>
 
                                     <div class="__item">
                                         <vee-item rules="required" v-slot="{ errors }">
-                                            <el-input v-model="password" placeholder="输入密码" type="password" autocomplete="on"></el-input>
-                                            <span class="text-danger" v-if="errors.length>0">密码不能为空！</span>
+                                            <el-input v-model="password" placeholder="输入密码" ref="password" type="password" autocomplete="on"></el-input>
+                                            <span class="text-danger" v-if="errors.length > 0">密码不能为空！</span>
                                         </vee-item>
                                     </div>
 
@@ -69,7 +68,7 @@
                                     </div>
 
                                     <div class="__item">
-                                        <a class="__btn" href="#" @click.enter.13="loginBtn">登录</a>
+                                        <a class="__btn " href="#" @click.enter.13="loginBtn" :class="{'disabled':invalid&&dirty}" ref="loginBtn">登录</a>
                                     </div>
                                 </vee>
                             </div>
@@ -140,23 +139,41 @@ export default {
             userName: "",
             password: "",
             tabIndex: 0,
+            isLoding: false,
         };
     },
     methods: {
         async loginBtn() {
-            this.$refs.userLogin.validate().then(async success => {
+
+            if (this.password === "") {
+                this.$refs.password.focus();
+
+            }
+            if (this.userName === "") {
+                this.$refs.userName.focus();
+            }
+
+            this.$refs.userLogin.validate().then(async (success) => {
                 if (!success) {
                     return;
                 }
+
+                if (this.isLoding) {
+                    return;
+                }
+                this.isLoding = true;
+                this.$refs.loginBtn.innerText = "...正在登录中";
                 let res = await this.$api.login_post({
                     user: this.userName,
                     pwd: this.password,
                 });
-                if (res.code == 1) {
-                 
-                    let timeout=res.exp*1000-new Date().getTime();
-                    this.$store.dispatch("autoEmitLogout",timeout);
-                    this.$store.commit("setLoginUserinfo",res);
+                this.$refs.loginBtn.innerText = "登录";
+                this.isLoding = false;
+
+                if (res && res.code == 1) {
+                    let timeout = res.exp * 1000 - new Date().getTime();
+                    this.$store.dispatch("autoEmitLogout", timeout);
+                    this.$store.commit("setLoginUserinfo", res);
                     this.$router.push("/");
 
                     this.$message({
@@ -171,24 +188,29 @@ export default {
                         type: "error",
                     });
                 }
-
-            })
-
+            });
         },
     },
-   watch:{
-        userinfo:function(){
-            if(this.$store.getters.getUserinfo){
+    watch: {
+        userinfo: function () {
+            if (this.$store.getters.getUserinfo) {
                 this.$router.push("/");
             }
-        }
-     },
-    computed:{
-       userinfo(){
-            return this.$store.getters.getUserinfo     
-       }, 
-    }
+        },
+    },
+    computed: {
+        userinfo() {
+            return this.$store.getters.getUserinfo;
+        },
+    },
+    mounted() {
+        document.querySelector("#accountLogin").addEventListener("keyup", (event) => {
+            if (event.keyCode === 13) {
+                this.loginBtn();
+            }
 
+        })
+    },
 };
 </script>
 

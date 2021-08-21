@@ -21,8 +21,7 @@ const routes = [
 		children: [
 			{
 				path: "",
-				component: Home,
-				meta: { ttl: "Home" },
+				component: Home,	
 			}
 		]
 	}, {

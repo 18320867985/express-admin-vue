@@ -2,7 +2,7 @@
 let jwt= require("jsonwebtoken");
 
 let secret="nodejs_hqs_secret_jwt"; // 自定义加密签名
-let expires=60*60;                  // 有效30分钟
+let expires=60*60;                  // token有效时间60分钟
 
  // 不去检验token的req请求路由url列表
 let notSignTokenUrlList=[

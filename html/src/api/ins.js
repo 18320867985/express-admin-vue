@@ -2,6 +2,7 @@ import axios from 'axios'; // 引入axio
 import router from "../routes"
 
 let axios_ins = axios.create();
+import { Notification} from  "element-ui"
 
 // config
 // 注意 开启跨域要于vue.config.js文件配置优先 
@@ -52,6 +53,10 @@ axios_ins.interceptors.response.use(function (response)
 }, function (error)
 {
 	//请求错误时做些事
+	Notification.error({
+		title: '错误',
+		message: '网络数据加载失败了！'
+	  });
 	return Promise.reject(error);
 });
 

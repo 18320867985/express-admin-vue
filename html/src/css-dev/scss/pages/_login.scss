@@ -308,8 +308,7 @@
 				cursor: pointer;
 			}
 
-            & + li {
-            }
+           
         }
     }
 
@@ -359,6 +358,12 @@
                 text-align: center;
                 background: $bg-active;
                 color: #fff;
+                
+                &.disabled{
+                    cursor:default;
+                    background:lighten($bg-active,40%) ;
+                }
+                
             }
 
             &.__yzm {

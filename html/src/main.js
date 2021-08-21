@@ -17,16 +17,20 @@ Vue.config.productionTip = false;
 
 // 登录状态的检查
 router.afterEach((to) =>
- {
-    if(to.fullPath==="/login"&&store.getters.getUserinfo)
-    {
-        router.push("/");  
-    }
-    if(to.fullPath!=="/login"&&!store.getters.getUserinfo)
-    {
-        router.push("/login");  
-    }
-  })
+{
+  // 等待页面初始化ajax加载数据完成再执行下面逻辑
+  if (!store.getters.getPageLoaded) {return;}
+
+  if (to.fullPath === "/login" && store.getters.getUserinfo)
+  {
+    router.push("/");
+  }
+  if (to.fullPath !== "/login" && !store.getters.getUserinfo)
+  {
+    router.push("/login");
+  }
+
+})
 
 new Vue({
   render: h => h(App),
