@@ -6,7 +6,7 @@ import Home from "../views/home.vue"
 
 // 子模块区
 import Upgoods from "./upgoods.js";
-import Account from "./account.js";
+import User from "./user.js";
 import Recharge from "./recharge.js";
 import Drawrecord from "./drawrecord.js";
 
@@ -32,10 +32,10 @@ const routes = [
 
 	},
 	{
-		path: "/account",
+		path: "/user",
 		component: Layout,
-		meta: { ttl: "账户余额", icon: "el-icon-s-check" },
-		children: Account
+		meta: { ttl: "用户信息", icon: "el-icon-s-check" },
+		children: User
 
 	},
 

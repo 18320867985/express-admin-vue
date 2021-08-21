@@ -8,7 +8,7 @@ router.post("/login/data", async (req, res) =>
 {
     let name = req.body.user || "";
     let pwd = cpy.md5(req.body.pwd || "");
-    var userinfo = await mainModel.User.findOne({name:name, pwd:pwd},{pwd:0});
+    var userinfo = await mainModel.User.findOne({name:name, pwd:pwd},{pwd:0}).populate("roleId", "name code");
     if (!userinfo)
     {
         res.json(res._err(null, "用户名与密码不匹配！"));

@@ -1,12 +1,12 @@
 @import "../../element-scss/common/var.scss";
 
 // 提货报价
-.upgoods{
+.user{
 	
 	.form-inline{	
 		.el-input{
 			
-			max-width: 150px;
+			max-width: 180px;
 		}
 	}
 	
@@ -14,25 +14,11 @@
 		text-align: center;
 	}
 	
-	.upgoods-page{
+	.user-page{
 		margin-top: 20px;
 		text-align: center;
 		.el-pagination__total{
 			margin: 0 10px 0 20px;
 		}
 	}
-}
-
-
-// 提货报价-详情
-.upgoods-dtl{
-	
-	
-}
-
-//  提报规则
-.upgoods-rule{
-	
-
-	
 }

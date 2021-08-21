@@ -62127,10 +62127,17 @@ body,
     margin-right: 20px;
     max-height: 50px;
     vertical-align: middle; }
+  .index-h .username {
+    font-size: 14px;
+    color: #409EFF;
+    margin-right: 30px; }
 
 .index-h-icon {
+  margin-left: -10px;
+  padding: 8px 10px;
   cursor: pointer;
-  color: #333; }
+  color: #333;
+  font-size: 17px; }
 
 .index-cnt {
   -webkit-box-flex: 1;
@@ -62191,7 +62198,7 @@ body,
   overflow-y: auto;
   background: #f8f8f8; }
   .index-main .el-main {
-    padding-top: 50px; }
+    padding: 47px 10px 10px 10px; }
 
 .index-main-nav {
   position: fixed;
@@ -62880,16 +62887,16 @@ body,
 --------------- */
 /* Break-point
 --------------------------*/
-.upgoods .form-inline .el-input {
-  max-width: 150px; }
+.user .form-inline .el-input {
+  max-width: 180px; }
 
-.upgoods .cell {
+.user .cell {
   text-align: center; }
 
-.upgoods .upgoods-page {
+.user .user-page {
   margin-top: 20px;
   text-align: center; }
-  .upgoods .upgoods-page .el-pagination__total {
+  .user .user-page .el-pagination__total {
     margin: 0 10px 0 20px; }
 
 /*设计图width*/

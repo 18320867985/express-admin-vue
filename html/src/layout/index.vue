@@ -3,6 +3,7 @@
     <el-header class="index-h">
         <div>
             <div class="fr">
+                <span class="username">{{getUserinfo&&getUserinfo.roleId&&getUserinfo.roleId.name}}：{{getUserinfo&&getUserinfo.name}}</span>
                 <el-button size="small" @click="logout" round>退出登录</el-button>
             </div>
             <img src="../assets/vue.png" alt="Alternate Text" />
@@ -100,6 +101,9 @@ export default {
         activePaths() {
             return this.$router.options.routes.filter((item) => !item.hidden);
         },
+        getUserinfo(){
+          return  this.$store.getters.getUserinfo;
+        }
     },
     watch: {
         $route() {

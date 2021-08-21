@@ -7,7 +7,7 @@ router.get("/init/data", async (req, res) =>
 {
     let token = req.headers[ 'access-token' ];  // 接受必须是小写
     let decode=  jwt.decode(token);
-    var userinfo = await mainModel.User.findById(decode.data,{pwd:0});
+    var userinfo = await mainModel.User.findById(decode.data,{pwd:0}).populate("roleId", "name code");;
     if (!userinfo)
     {
         res.json(res._err(null, "用户不存在！"));
