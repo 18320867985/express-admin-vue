@@ -2,26 +2,7 @@
 // 联系我们
 const orm = require("./_mongoose");
 
-// var childSchema = new orm.mongoose.Schema({
-//     ttl: {
-//         type: String,
-//         default: ""
-//     },
-//     url: {
-//         type: String,
-//         default: ""
-//     },
-//     src: {
-//         type: String,
-//         default: ""
-//     },
-//     order: {
-//         type: Number,
-//         default: 1
-//     }
-// });
-
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         default: ""
@@ -64,6 +45,6 @@ var schema = new orm.mongoose.Schema({
 });
 
 
-var Contact = orm.db.model("Contact", schema);
+let Contact = orm.db.model("Contact", schema);
 
 module.exports = Contact;
