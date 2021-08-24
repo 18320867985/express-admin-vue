@@ -4,11 +4,6 @@ const mainModel = require("../../models/main");
 const cpy = require("../../libs/crypto");
 const mainCtrl=require("../../controllers/main");
 
-router.get("/user", async (req, res) =>
-{
-    res.render("admin/user.html");
-});
-
 // 检测是否存在
 router.get("/user/data-unique/:v", async (req, res) =>
 {
@@ -41,9 +36,9 @@ router.get("/user/data-dtl/:ids", async (req, res) =>
 router.get("/user/data/:pageIndex/:pageSize", async (req, res) =>
 {
     // paging start
-    let pageIndex = Number(req.params.pageIndex) || 1;
-    let pageSize = Number(req.params.pageSize) || 10;
-    let data= await mainCtrl.user.getData(pageIndex,pageSize,req.query||{});
+    let pageIndex = Number(req.params.pageIndex) ;
+    let pageSize = Number(req.params.pageSize) ;
+    let data= await mainCtrl.user.getData(pageIndex,pageSize,req.query);
     res.json(data);
 
 });

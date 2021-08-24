@@ -1,10 +1,13 @@
 const router = require("./_router");
 const mainModel = require("../../models/main");
+const mainCtrl=require("../../controllers/main");
 
-router.get("/userRole", (req, res) =>
+router.get("/userRole/all", async (req, res) =>
 {
-    res.render("admin/userrole");
+   let data=await  mainCtrl.userRole.getAll();
+   return res.json(data);
 });
+
 
 router.get("/userRole/data", async (req, res) =>
 {

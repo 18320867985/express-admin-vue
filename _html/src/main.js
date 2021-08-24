@@ -6,7 +6,7 @@ import router from "./routes";
 import store from "./store"
 
 import Filter from "./filters";
-Filter.install(Vue);
+Vue.use(Filter);
 
 import vee from './vee';
 Vue.component('vee', vee.ValidationObserver);

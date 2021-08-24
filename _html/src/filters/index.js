@@ -1,8 +1,8 @@
 
 //时间日期的过滤器
-let date={
-    name:"date",
-    value (value, fmt)
+let date = {
+    name: "date",
+    fn (value, fmt)
     {
         if (!value) {return "";}
         fmt = typeof fmt !== "string" ? "yyyy-MM-dd HH:mm:ss" : fmt;
@@ -37,18 +37,28 @@ let date={
 }
 
 
-let filterlist=[
+let filterlist = [
     date
 ];
 
+// 依赖
+// export default{
+    
+//     install(Vue){
+//         filterlist.forEach(item=>
+//             {
+//                 Vue.filter(item.name,item.fn);
+//             });
 
-export default{
+//     }
+// }
 
-    install(Vue){
-        filterlist.forEach(item=>
-            {
-                Vue.filter(item.name,item.value);
-            });
 
-    }
+// 注入
+export default function (Vue)
+{
+    filterlist.forEach(item =>
+    {
+        Vue.filter(item.name, item.fn);
+    });
 }
