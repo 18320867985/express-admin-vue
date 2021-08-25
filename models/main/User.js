@@ -12,11 +12,14 @@ var schema = new orm.mongoose.Schema({
         type: String,
         minlength: [ 8, "最小长度为8位" ]
     },
+    phone: {
+        type: String
+    },
     createDate: {
         type: Date,
         default: Date.now
     },
-    emall: {type: String},
+    email: {type: String},
     roleId: {
         type: orm.mongoose.Schema.Types.ObjectId,
         ref: "UserRole"

@@ -1,0 +1,40 @@
+
+@import "../element-scss/common/var.scss";
+
+/*设计图width*/
+$screenwidth:375;
+
+/*rem 份数*/
+$remSize:18.75;
+
+/* 375/18.75 =20px=1rem */
+
+/*html rem比例*/
+//$rem:($screenwidth/$remSize);
+
+$rem:20;
+
+$text-primary:  $--color-primary;   //darken(#428bca, 6.5%) !default; // #337ab7
+$text-success:  $--color-success;   //#5cb85c !default;
+$text-info: $--color-info;          //#5bc0de !default;
+$text-warning: $--color-warning;    //#f0ad4e !default;
+$text-danger:  $--color-danger;     //#d9534f !default;
+$text-muted: #777;
+$text-placeholder:#8c8c96;
+
+$font-family:"Helvetica Neue",
+Helvetica,
+sans-serif !default;
+
+$font-size:14px !default;
+$font-color:#333;
+$line-height: 1.42858;
+$body-bg:#f8f8f8;
+
+
+
+
+
+
+
+

@@ -257,14 +257,6 @@ textarea:focus {
     color: $text-muted;
 }
 
-.border-success {
-    border:1px solid  $text-success;
-}
-
-.border-danger {
-    border: 1px solid $text-danger;
-}
-
 // table
 .tb-fixed {
     table-layout: fixed;
@@ -364,17 +356,6 @@ textarea::-moz-placeholder {
     color: $text-placeholder !important;
 }
 
-
-/* placeholder 兼容ie8  ie9 */
-.ie8-pwd {
-    position: absolute;
-    z-index: 1;
-    display: inline-block;
-    color: $text-placeholder;
-    text-indent: 10px;
-}
-
-
 /*ellipsis*/
 .elp-no {
     white-space: normal;
@@ -434,186 +415,183 @@ textarea::-moz-placeholder {
 }
 
 
-// 宽度的百分比
-
-.w-0-5 {
+.width-0-5 {
     width: 5%;
     float: left;
-}
-
-.w-1 {
+  }
+  
+  .width-1 {
     width: 10%;
     float: left;
-}
-
-.w-1-5 {
+  }
+  
+  .width-1-5 {
     width: 15%;
     float: left;
-}
-
-.w-2 {
+  }
+  
+  .width-2 {
     width: 20%;
     float: left;
-}
-
-.w-2-5 {
+  }
+  
+  .width-2-5 {
     width: 25%;
     float: left;
-}
-
-.w-3 {
+  }
+  
+  .width-3 {
     width: 30%;
     float: left;
-}
-
-.w-3-5 {
+  }
+  
+  .width-3-5 {
     width: 35%;
     float: left;
-}
-
-.w-4 {
+  }
+  
+  .width-4 {
     width: 40%;
     float: left;
-}
-
-.w-4-5 {
+  }
+  
+  .width-4-5 {
     width: 45%;
     float: left;
-}
-
-.w-5 {
+  }
+  
+  .width-5 {
     width: 50%;
     float: left;
-}
-
-.width-5-5 {
+  }
+  
+  .width-5-5 {
     width: 55%;
     float: left;
-}
-
-.w-6 {
+  }
+  
+  .width-6 {
     width: 60%;
     float: left;
-}
-
-.w-6-5 {
+  }
+  
+  .width-6-5 {
     width: 65%;
     float: left;
-}
-
-.w-7 {
+  }
+  
+  .width-7 {
     width: 70%;
     float: left;
-}
-
-.w-7-5 {
+  }
+  
+  .width-7-5 {
     width: 75%;
     float: left;
-}
-
-.w-8 {
+  }
+  
+  .width-8 {
     width: 80%;
     float: left;
-}
-
-.w-8-5 {
+  }
+  
+  .width-8-5 {
     width: 85%;
     float: left;
-}
-
-.w-9 {
+  }
+  
+  .width-9 {
     width: 90%;
     float: left;
-}
-
-.w-9-5 {
+  }
+  
+  .width-9-5 {
     width: 95%;
     float: left;
-}
-
-.w-100 {
+  }
+  
+  .width-100 {
     width: 100%;
     clear: both;
-}
-
-// 用于表格的百分比
-.tb-0-5 {
+  }
+  
+  /* use table width no float */
+  .table-0-5 {
     width: 5%;
-}
-
-.tb-1 {
+  }
+  
+  .table-1 {
     width: 10%;
-}
-
-.tb-1-5 {
+  }
+  
+  .table-1-5 {
     width: 15%;
-}
-
-.tb-2 {
+  }
+  
+  .table-2 {
     width: 20%;
-}
-
-.tb-2-5 {
+  }
+  
+  .table-2-5 {
     width: 25%;
-}
-
-.tb-3 {
+  }
+  
+  .table-3 {
     width: 30%;
-}
-
-.tb-3-5 {
+  }
+  
+  .table-3-5 {
     width: 35%;
-}
-
-.tb-4 {
+  }
+  
+  .tabel-4 {
     width: 40%;
-}
-
-.tb-4-5 {
+  }
+  
+  .table-4-5 {
     width: 45%;
-}
-
-.tb-5 {
+  }
+  
+  .table-5 {
     width: 50%;
-}
-
-.table-5-5 {
+  }
+  
+  .table-5-5 {
     width: 55%;
-}
-
-.tb-6 {
+  }
+  
+  .table-6 {
     width: 60%;
-}
-
-.tb-6-5 {
+  }
+  
+  .table-6-5 {
     width: 65%;
-}
-
-.tb-7 {
+  }
+  
+  .table-7 {
     width: 70%;
-}
-
-.tb-7-5 {
+  }
+  
+  .table-7-5 {
     width: 75%;
-}
-
-.tb-8 {
+  }
+  
+  .table-8 {
     width: 80%;
-}
-
-.tb-8-5 {
+  }
+  
+  .table-8-5 {
     width: 85%;
-}
-
-.tb-9 {
+  }
+  
+  .table-9 {
     width: 90%;
-}
-
-.tb-9-5 {
+  }
+  
+  .table-9-5 {
     width: 95%;
-}
-
-.tb-100, .table-100 {
+  }
+  
+  .table-100 {
     width: 100%;
-    width: 100%;
-}
+  }

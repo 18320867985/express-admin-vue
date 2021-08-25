@@ -71,10 +71,80 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
     });
 }
 
+// 详情
+async function getDataDtl (ids = [])
+{
+    let list = await mainModel.User.find({
+        _id: {
+            $in: ids
+        }
+    }).populate("roleId", "name code");
+    
+    return resData.ok(list);
+}
+
+// 删除
+async function deleteData (ids = [])
+{
+    let obj = await mainModel.User.deleteMany({
+        _id: {
+            $in: ids
+        }
+    }).catch(err => { });
+
+    if (!obj)
+    {
+        return resData.err();
+    }
+    return resData.ok();
+}
+
+// 检测是否存在
+async function unique(val)
+{
+    let count = await mainModel.User.countDocuments({name: val});
+    if (count > 0)
+    {
+    return false;
+    } else
+    {
+    return true;
+    }
+}
+
+// post
+async function postData(obj)
+{
+    let user = new mainModel.User(obj);
+    let isError = user.validateSync();
+    if (isError)
+    {
+        res.json(res._err(null, isError));
+        return;
+    }
+
+    var count = await mainModel.User.countDocuments({name: user.name});
+    if (count > 0)
+    {
+        return  resData.err("用户名已存在！");
+    };
+
+    var userinfo = await mainModel.User.create(user)
+    if (!userinfo)
+    {
+        return resData.err("添加失败");
+    }
+    return resData.ok(userinfo);
+
+}
 
 module.exports = {
     loginData,
     initData,
-    getData
+    getData,
+    getDataDtl,
+    postData,
+    deleteData,
+    unique,
 
 }

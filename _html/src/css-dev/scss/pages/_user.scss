@@ -1,24 +1,63 @@
 @import "../../element-scss/common/var.scss";
 
 // 提货报价
-.user{
-	
-	.form-inline{	
-		.el-input{
-			
+.user {
+	.form-inline {
+		height: 32px;
+		margin-bottom: 10px;
+		.el-input {
 			max-width: 180px;
 		}
 	}
-	
-	.cell{
+
+	.cell {
 		text-align: center;
 	}
-	
-	.user-page{
+
+	.user-page {
 		margin-top: 20px;
 		text-align: center;
-		.el-pagination__total{
+		.el-pagination__total {
 			margin: 0 10px 0 20px;
 		}
 	}
+
+	.btns-grounp-right {
+		margin-bottom: 10px;
+	}
+
+	.dtl{
+		.el-dialog__title{
+			color:$--color-primary;
+		}
+		.el-dialog__body{
+			padding: 10px 20px 30px;
+		}
+
+		.el-descriptions__title{
+			color:$text-muted;
+		}
+
+		.el-descriptions + .el-descriptions{
+			margin-top: 20px;
+
+		}
+
+		table{
+			table-layout: fixed;
+		}
+	}
+
+	.form-btn-group{
+		margin-bottom: 10px;
+	}
+
+	.form-validate{
+		.text-danger{
+				position: absolute;
+				margin-left: 10px;
+				white-space: nowrap;
+		}
+	}
+
 }

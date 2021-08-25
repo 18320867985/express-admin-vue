@@ -1,11 +1,11 @@
 
-@import "common/normalize.scss";  		 // reset css style 
-  
-@import "common/var.scss";      		 // variable   
-                                  			
-@import "common/df.scss";               //   default scss
+@import "./normalize.scss";               //   default scss       			
 
-@import "../element-scss/all.scss";   // elementui
+@import "./var.scss";               
+
+@import "./df.scss";               //   default scss
+
+@import "../element-scss/index.scss";   // elementui
 
 @import "pages/all.scss";          //  pages
 

@@ -1,11 +1,13 @@
-
 @import "../../element-scss/common/var.scss";
 
 /*登录*/
 
+// line 线条
+$line-blod: #ddd;
+
 .login-hd {
-    border-bottom: 1px solid $line;
-    box-shadow:0 2px 5px rgba(0,0,0,.125);
+    // border-bottom: 1px solid $line;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.125);
 }
 
 .login-hd-logo {
@@ -13,19 +15,19 @@
     height: 66px;
 
     a {
-        display: block;    
+        display: block;
         float: left;
         line-height: 66px;
         font-size: 0;
-		margin-right: 20px;
+        margin-right: 20px;
 
         span {
             position: absolute;
-            clip: rect(0,0,0,0);
+            clip: rect(0, 0, 0, 0);
         }
 
         img {
-            width: 30px;  
+            width: 30px;
             vertical-align: middle;
         }
     }
@@ -37,22 +39,22 @@
     }
 }
 
-.login-cnt{
-	p{
-		margin-bottom: 0;
-	}
+.login-cnt {
+    p {
+        margin-bottom: 0;
+    }
 }
 
 .login-cnt-tip {
     color: #999;
     font-size: 14px;
     line-height: 40px;
-    background: #FFF8F0;
+    background: #fff8f0;
 
     .iconfont {
         font-size: 20px;
         vertical-align: middle;
-        color: $text-danger;
+        color: $--color-danger;
     }
 }
 
@@ -136,22 +138,10 @@
         border: 2px solid #fff;
         border-radius: 50%;
         overflow: hidden;
-        /*&:before {
-            content: "";
-            display: inline-block;
-            padding: 0;
-            border: 11px dotted #999;
-        }*/
     }
 
     .radius-list span.active {
         background: #fff;
-        /*&:before {
-            content: "";
-            display: inline-block;
-            padding: 0;
-            border: 12px dotted #fff;
-        }*/
     }
 
     .radius-list span + span {
@@ -180,9 +170,9 @@
         text-align: center;
         font-size: 0;
         background: #fff;
-        background: rgba(0,0,0, .15);
+        background: rgba(0, 0, 0, 0.15);
         overflow: hidden;
-        transition: .4s;
+        transition: 0.4s;
 
         .iconfont {
             display: inline-block;
@@ -190,20 +180,9 @@
             font-size: 40px;
             line-height: 1;
             margin-top: 10px;
-            opacity: .8;
-            transition: .4s;
+            opacity: 0.8;
+            transition: 0.4s;
         }
-        /*&:before {
-            content: "";
-            position: absolute;
-            z-index: -1;
-            left: 0;
-            top: 0;
-            display: inline-block;
-            transition: .4s;
-            opacity: .5;
-            border: 60px dotted #fff;
-        }*/
     }
 
     .banner-btn-l {
@@ -211,11 +190,11 @@
     }
 
     .banner-btn-l:hover {
-        background: rgba(#fff, .6);
+        background: rgba(#fff, 0.6);
 
         .iconfont {
             opacity: 1;
-            color: $bg-active;
+            color: $--color-primary;
         }
     }
 
@@ -224,37 +203,36 @@
     }
 
     .banner-btn-r:hover {
-        background: rgba(#fff, .6);
+        background: rgba(#fff, 0.6);
         color: #fff;
 
         .iconfont {
             opacity: 1;
-            color: $bg-active;
+            color: $--color-primary;
         }
     }
 }
 
-@keyframes  slide-in{
+@keyframes slide-in {
     0% {
-        opacity:0;
+        opacity: 0;
         transform: translateZ(-500px) translateX(200px) scale(0);
     }
     100% {
         transform: none;
         visibility: visible;
     }
-
 }
 
 .login-cnt-form {
     position: relative;
     z-index: 3;
-	padding-top: 1px;
+    padding-top: 1px;
     background: rgb(45, 80, 209);
-    .login-error{
+    .login-error {
         margin-bottom: 5px;
-         color:$text-danger;
-        }
+        color: $--color-danger;
+    }
 
     ._pwr {
         position: absolute;
@@ -265,16 +243,14 @@
         min-height: 400px;
         padding-bottom: 40px;
         background: #fff;
-        box-shadow: 0 0 5px rgba(0,0,0,.125);
-
-
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.125);
 
         ._tip {
             font-size: 12px;
             text-align: center;
             line-height: 36px;
             color: #999;
-            background: #FFF8F0;
+            background: #fff8f0;
 
             .iconfont {
                 font-size: 20px;
@@ -302,13 +278,11 @@
             font-weight: bold;
 
             &.active {
-                color: $text-danger;
+                color: $--color-danger;
             }
-			&:hover{
-				cursor: pointer;
-			}
-
-           
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
 
@@ -321,7 +295,6 @@
         width: 100%;
 
         .__item {
-
             input {
                 width: 100%;
                 height: 40px;
@@ -329,12 +302,12 @@
                 font-size: 14px;
                 line-height: 20px;
                 border: 1px solid $line-blod;
-				box-shadow: inset 0 1px 1px rgba(0, 0, 0 ,.075);
-				
-				&:focus{
-					border: 1px solid $text-primary !important;	
-					
-				}
+                border-radius: 0px;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+                &:focus {
+                    border: 1px solid $--color-primary !important;
+                }
             }
 
             + .__item {
@@ -343,9 +316,6 @@
 
             .__pwdlink {
                 color: #777;
-                // &:hover{
-                //     color:$bg-active;
-                // }
             }
 
             .__reg {
@@ -356,14 +326,13 @@
                 line-height: 36px;
                 display: block;
                 text-align: center;
-                background: $bg-active;
+                background: $--color-primary;
                 color: #fff;
-                
-                &.disabled{
-                    cursor:default;
-                    background:lighten($bg-active,40%) ;
+
+                &.disabled {
+                    cursor: default;
+                    background: lighten($--color-primary, 20%);
                 }
-                
             }
 
             &.__yzm {
@@ -380,39 +349,36 @@
                     text-align: center;
                     border: 1px solid $line-blod;
                     border-left: none;
-                    color: $text-placeholer;
                     background: transparent;
                     cursor: default;
-                
+
                     &.active2 {
-                        color: $text-primary;
+                        color: $--color-primary;
                         cursor: pointer;
                     }
                 }
             }
         }
-
     }
 }
 
-.v-tab-cnt-item{
-	display: none;
-	&.in {
-		display: block;
-	animation: v-tab-in 1s ease both;
-	}
+.v-tab-cnt-item {
+    display: none;
+    &.in {
+        display: block;
+        animation: v-tab-in 1s ease both;
+    }
 }
- 
-@keyframes v-tab-in{
+
+@keyframes v-tab-in {
     0% {
         transform: rotateY(180deg);
-        opacity:0;
-     
+        opacity: 0;
     }
     100% {
         transform: none;
         opacity: 1;
-        box-shadow:none;
+        box-shadow: none;
     }
 }
 
@@ -450,7 +416,7 @@
                 vertical-align: middle;
 
                 &:hover {
-                    color: $bg-active;
+                    color: $--color-primary;
                 }
             }
         }
@@ -463,6 +429,3 @@
         text-transform: lowercase;
     }
 }
-
-
-

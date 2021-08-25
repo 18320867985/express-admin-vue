@@ -91,7 +91,7 @@ body,
 			&.active {
 				i,
 				span {
-					color: $text-primary;
+					color: $--color-primary;
 				}
 			}
 		}
@@ -138,7 +138,7 @@ body,
 		padding: 8px 15px;
 
 		&:hover {
-			color: $text-primary;
+			color: $--color-primary;
 		}
 
 		&:nth-last-of-type(1) {
