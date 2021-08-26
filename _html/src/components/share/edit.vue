@@ -1,5 +1,5 @@
 <template>
-    <el-dialog :title="title" :visible.sync="editDialogVisible" width="650px" class="dtl">
+    <el-dialog :title="title" :visible.sync="editDialogVisible" :width="width" class="dtl">
         <vee ref="editform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
             <el-form label-width="120px" style="width:400px">
                <slot :editObj="editObj"></slot>
@@ -34,6 +34,10 @@ export default {
         title:{
             type:String,
             default:"修改信息"
+        },
+         width:{
+            type:String,
+            default:"650px"
         }
 
 

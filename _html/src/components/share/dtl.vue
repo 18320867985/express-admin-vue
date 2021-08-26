@@ -1,5 +1,5 @@
 <template>
-     <el-dialog :title="title" :visible.sync="dtlDialogVisible" width="800px" class="dtl">
+     <el-dialog :title="title" :visible.sync="dtlDialogVisible" :width="width" class="dtl" style=" min-width:1440px">
         <template v-for="(item) in dtlObjs">
           <slot :dtlObj="item"></slot>
         </template>
@@ -16,7 +16,12 @@ export default {
         title:{
             type:String,
             default:"查看详情"
+        },
+        width:{
+            type:String,
+            default:"50%"
         }
+
 
     },
     data(){

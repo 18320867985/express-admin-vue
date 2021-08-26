@@ -60,7 +60,87 @@ export const toDateStartOrEnd = {
                 }
             }
             return fmt;
-        }
+        },
+
+
+    }
+}
+
+export const CRUD_Option = {
+
+    methods: {
+
+        async deleteData(ids) {
+            this.deleteLoading = true;
+            let res = await this.api.deleteData(ids);
+            this.deleteLoading = false;
+            if (!res) {
+                return;
+            }
+            if (res.code === 1) {
+                this.$message({
+                    type: "success",
+                    message: "数据删除成功！"
+                })
+                this.getList();
+            } else {
+                this.$message({
+                    type: "error",
+                    message: "数据删除失败！"
+                })
+            }
+        },
+
+        deleteOne(ids) {
+            this.$confirm(`<strongt style='color:red'>是否要删除该文件?</strong>`, '提示', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning',
+                dangerouslyUseHTMLString: true
+            }).then(async () => {
+                this.deleteData(ids);
+            }).catch(() => {
+            });
+        },
+
+        deleteMany(ids) {
+
+            this.$confirm(`<strongt style='color:red'>是否要批量删除该文件?</strong>`, '提示', {
+                confirmButtonText: '批量删除',
+                cancelButtonText: '取消',
+                type: 'warning',
+                dangerouslyUseHTMLString: true
+            }).then(async () => {
+                this.deleteData(ids);
+            }).catch(() => {
+            });
+
+        },
+
+        async dtlData(ids) {
+
+            this.dtlLoading= true;
+            let res = await this.api.getDataDtl(ids);
+            this.dtlLoading= false;
+            if (!res) {
+                return;
+            }
+            if (res.code === 1) {
+                this.dtlObjs = res.data;
+                this.$refs.dtlBox.show();
+            }
+        },
+
+        async dtlOne(id) {
+            this.dtlData([id]);
+           
+        },
+        
+        async dtlMany(ids) {
+            this.dtlData(ids);
+           
+        },
+
 
     }
 }

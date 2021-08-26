@@ -36,10 +36,12 @@
         </el-form-item>
 
     </el-form>
+
+    <!--批量操作-->
     <div class="form-btn-group">
         <el-button-group>
-            <el-button type="primary" icon="el-icon-document" @click="dtlBtn" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="queryLoading"> 批量查看</el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteMany" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
+            <el-button type="primary" icon="el-icon-document" @click="dtlMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="dtlLoading"> 批量查看</el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="deleteMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
         </el-button-group>
         <el-button-group style="margin-left:15px">
             <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"> 添加</el-button>
@@ -70,7 +72,7 @@
 
             <el-table-column label="操作" width="150px">
                 <template v-slot="scope">
-                    <el-link :underline="true" type="primary" @click="dtlData(scope.row._id)">查看</el-link>
+                    <el-link :underline="true" type="primary" @click="dtlOne(scope.row._id)">查看</el-link>
                     <el-link :underline="true" type="warning" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
                     <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
                     <!-- <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])">
@@ -176,7 +178,7 @@
 
     <!--dtl-->
     <vue-dtl ref="dtlBox" title="查看详情" :dtlObjs="dtlObjs" v-slot="scope">
-        <el-descriptions class="margin-top" title="" :column="2" border :key="index" size="small">
+        <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
             <el-descriptions-item label="用户名" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
             <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.roleId.name}}</el-descriptions-item>
@@ -198,12 +200,15 @@ import VuePagination from "../../components/share/pagination.vue";
 
 import {
     pageOption,
-    toDateStartOrEnd
+    toDateStartOrEnd,
+    CRUD_Option
 } from "../../mixins";
 export default {
-    mixins: [pageOption, toDateStartOrEnd],
+    mixins: [pageOption, toDateStartOrEnd,CRUD_Option],
     data() {
         return {
+
+            // axios 接口
             api: {
                 getData: mianApi.user.getData,
                 getDataDtl: mianApi.user.getDataDtl,
@@ -212,6 +217,8 @@ export default {
                 deleteData: mianApi.user.deleteData,
                 getUserRoleAll: mianApi.userRole.getAll
             },
+
+            // 增删查改的对象
             queryObj: {
                 name: null,
                 roleId: null,
@@ -229,13 +236,20 @@ export default {
             editObj: {},
             dtlObjs: [],
 
+            // 表格列表数据
             tableData: [],
+
+            // 批量选择
+            multipleSelection: [],
+          
+            // loading 加载动画
             tableLoading: false,
-            queryLoading: false,
+            dtlLoading: false,
             deleteLoading: false,
 
+            // 其它 列表的s
             userRoleList: [],
-            multipleSelection: [],
+           
         };
     },
     async created() {
@@ -299,77 +313,10 @@ export default {
             this.multipleSelection = val.map(item => item._id);
         },
 
-        async deleteData(ids) {
-            this.deleteLoading = true;
-            let res = await this.api.deleteData(ids);
-            this.deleteLoading = false;
-            if (!res) {
-                return;
-            }
-            if (res.code === 1) {
-                this.$message({
-                    type: "success",
-                    message: "数据删除成功！"
-                })
-                this.getList();
-            } else {
-                this.$message({
-                    type: "error",
-                    message: "数据删除失败！"
-                })
-            }
-        },
-
-        deleteOne(ids) {
-            this.$confirm(`<strongt style='color:red'>是否要删除该文件?</strong>`, '提示', {
-                confirmButtonText: '删除',
-                cancelButtonText: '取消',
-                type: 'warning',
-                dangerouslyUseHTMLString: true
-            }).then(async () => {
-                this.deleteData(ids);
-
-            }).catch(() => {
-
-            });
-        },
-
-        deleteMany() {
-
-            this.$confirm(`<strongt style='color:red'>是否要批量删除该文件?</strong>`, '提示', {
-                confirmButtonText: '批量删除',
-                cancelButtonText: '取消',
-                type: 'warning',
-                dangerouslyUseHTMLString: true
-            }).then(async () => {
-                this.deleteData(this.multipleSelection);
-
-            }).catch(() => {
-
-            });
-
-        },
-
-        async dtlData(ids) {
-
-            this.queryLoading = true;
-            let res = await this.api.getDataDtl(ids);
-            this.queryLoading = false;
-            if (!res) {
-                return;
-            }
-            if (res.code === 1) {
-                this.dtlObjs = res.data;
-                this.$refs.dtlBox.show();
-            }
-        },
-
-        dtlBtn() {
-            this.dtlData(this.multipleSelection);
-        },
-
+       
         addBtn() {
-            this.$refs.addBox.show()
+            this.$refs.addBox.show();
+            this.getUserRoleAll();
         },
 
         editBtn(item) {
@@ -377,6 +324,7 @@ export default {
             this.editObj = Object.assign({}, item, {
                 roleId: item.roleId._id
             });
+            this.getUserRoleAll();
             this.$refs.editBox.show()
         },
 
