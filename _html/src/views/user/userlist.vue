@@ -72,9 +72,10 @@
                 <template v-slot="scope">
                     <el-link :underline="true" type="primary" @click="dtlData(scope.row._id)">查看</el-link>
                     <el-link :underline="true" type="warning" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
-                    <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])">
+                    <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
+                    <!-- <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])">
                         <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px">删除</el-link>
-                    </el-popconfirm>
+                    </el-popconfirm> -->
                 </template>
             </el-table-column>
 
@@ -319,12 +320,27 @@ export default {
             }
         },
 
+        deleteOne(ids) {
+            this.$confirm(`<strongt style='color:red'>是否要删除该文件?</strong>`, '提示', {
+                confirmButtonText: '删除',
+                cancelButtonText: '取消',
+                type: 'warning',
+                dangerouslyUseHTMLString: true
+            }).then(async () => {
+                this.deleteData(ids);
+
+            }).catch(() => {
+
+            });
+        },
+
         deleteMany() {
 
-            this.$confirm('是否确定批量删除该文件?', '提示', {
-                confirmButtonText: '确定',
+            this.$confirm(`<strongt style='color:red'>是否要批量删除该文件?</strong>`, '提示', {
+                confirmButtonText: '批量删除',
                 cancelButtonText: '取消',
-                type: 'warning'
+                type: 'warning',
+                dangerouslyUseHTMLString: true
             }).then(async () => {
                 this.deleteData(this.multipleSelection);
 
