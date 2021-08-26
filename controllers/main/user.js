@@ -138,12 +138,39 @@ async function postData(obj)
 
 }
 
+// 修改
+async function putData(obj){
+    let _id=obj._id||"";
+    let roleId = obj.roleId;
+    let phone = obj.phone;
+    let email = obj.email;
+    try
+    {
+        roleId = mainModel.orm.mongoose.Types.ObjectId(roleId).toHexString();
+    } catch (error)
+    {  
+        return resData.err("用户类型 roleId 有误！");
+    }
+
+    let v = await mainModel.User.findByIdAndUpdate(_id, {$set: {roleId,phone,email}},{new:true});
+    if (!v)
+    {
+        return resData.err("修改失败");
+    } else
+    {
+      return  resData.ok(v);
+    }
+
+}
+
+
 module.exports = {
     loginData,
     initData,
     getData,
     getDataDtl,
     postData,
+    putData,
     deleteData,
     unique,
 

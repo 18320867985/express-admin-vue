@@ -52,25 +52,9 @@ router.post("/user/data", async (req, res) =>
 // 修改
 router.put("/user/data", async (req, res) =>
 {
-    let id = req.body._id;
-    let roleId = req.body.roleId;
-    try
-    {
-        roleId = mainModel.orm.mongoose.Types.ObjectId(roleId).toHexString();
-    } catch (error)
-    {
-        res.json(res._err("用户类型 roleId 有误！"));
-        return;
-    }
-    let v = await mainModel.User.findByIdAndUpdate(id, {$set: {roleId}}, {new: true});
-    if (!v)
-    {
-        res.json(res._err("修改失败"));
-        return;
-    } else
-    {
-        res.json(res._ok(v))
-    }
+   let data=await mainCtrl.user.putData(req.body||{})
+    res.json(data);
+   
 });
 
 // 删除

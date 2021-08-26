@@ -38,9 +38,8 @@
     </el-form>
     <div class="form-btn-group">
         <el-button-group>
-            <el-button type="primary" icon="el-icon-document" @click="dtlList" :disabled="multipleSelection.length===0" v-loading.body.lock="queryFullscreenLoading"> 查看</el-button>
-            <el-button type="warning" icon="el-icon-edit" :disabled="multipleSelection.length===0">修改</el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteMany" :disabled="multipleSelection.length===0">删除</el-button>
+            <el-button type="primary" icon="el-icon-document" @click="dtlList" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="queryLoading"> 批量查看</el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="deleteMany" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
         </el-button-group>
         <el-button-group style="margin-left:15px">
             <el-button type="primary" icon="el-icon-folder-add" @click="addDialogVisible=true"> 添加</el-button>
@@ -49,7 +48,7 @@
 
     <!-- 查询表格 -->
     <div class="user-table">
-        <el-table :data="tableData" border style="width: 100%" v-loading="loading" @selection-change="handleSelectionChange">
+        <el-table :data="tableData" border style="width: 100%" v-loading="tableLoading" @selection-change="handleSelectionChange">
 
             <el-table-column type="selection" width="55"></el-table-column>
 
@@ -57,13 +56,26 @@
 
             <el-table-column prop="name" label="用户名" sortable> </el-table-column>
 
-            <el-table-column label="联系人电话"></el-table-column>
+            <el-table-column label="联系人电话" prop="phone"></el-table-column>
+
+             <el-table-column label="邮箱" prop="email"></el-table-column>
 
             <el-table-column prop="roleId.name" label="用户类型" sortable> </el-table-column>
 
             <el-table-column label="创建时间" sortable>
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
+                </template>
+            </el-table-column>
+
+            <el-table-column label="操作" width="150px">
+                <template v-slot="scope">
+                    <el-link :underline="true" type="primary" @click="dtlData(scope.row._id)">查看</el-link>
+                    <el-link :underline="true" type="warning"  style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
+                    <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])" >
+                          <el-link :underline="true" type="danger" slot="reference"  style="margin-left:8px">删除</el-link>
+                    </el-popconfirm>
+                  
                 </template>
             </el-table-column>
 
@@ -150,10 +162,54 @@
                 </vee-item>
 
                 <el-form-item>
-                    <el-button type="primary" :disabled="invalid&&dirty" @click="addData(reset)">立即创建</el-button>
+                    <el-button type="primary" :disabled="invalid&&dirty" @click="addData(reset)" :loading="addLoading">立即创建</el-button>
                     <el-button @click="addDialogVisible = false">取消</el-button>
                 </el-form-item>
 
+            </el-form>
+        </vee>
+
+    </el-dialog>
+
+    <!--edit-->
+    <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="650px" class="dtl" >
+        <vee ref="editform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
+            <el-form label-width="120px" style="width:400px">
+
+                    <el-form-item label="用户名">
+                        <span>{{editObj.name}}</span>
+                    </el-form-item>
+              
+                <vee-item rules="required|phone" v-slot="{ failedRules }">
+                    <el-form-item label="手机号">
+                        <el-input placeholder="==手机号==" v-model="editObj.phone" maxlength="11"></el-input>
+                        <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
+                        <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
+                    </el-form-item>
+                </vee-item>
+
+                <vee-item rules="required|email" v-slot="{ failedRules }">
+                    <el-form-item label="邮箱">
+                        <el-input placeholder="==邮箱==" v-model="editObj.email"></el-input>
+                        <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
+                        <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
+                    </el-form-item>
+                </vee-item>
+
+                <vee-item rules="required" v-slot="{ failedRules }">
+                    <el-form-item label="选择用户类型">
+                        <el-select v-model="editObj.roleId" placeholder="==选择用户类型==" style="width:280px">
+                            <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
+                            <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                        </el-select>
+                        <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
+                    </el-form-item>
+                </vee-item>
+                
+                <el-form-item>
+                    <el-button type="primary" :disabled="invalid&&dirty" @click="editData(reset)"  :loading="eidtLoading">立即修改</el-button>
+                    <el-button @click="editDialogVisible = false">取消</el-button>
+                </el-form-item>
             </el-form>
         </vee>
 
@@ -177,9 +233,8 @@ export default {
                 getData: mianApi.user.getData,
                 getDataDtl: mianApi.user.getDataDtl,
                 postData: mianApi.user.postData,
-                // putData: mianApi.user.putData,
+                putData: mianApi.user.putData,
                 deleteData: mianApi.user.deleteData,
-
                 getUserRoleAll: mianApi.userRole.getAll
             },
             queryObj: {
@@ -196,16 +251,22 @@ export default {
                 phone: null,
                 email: null
             },
+            editObj:{},
             dtlObjs: [],
-
+            
             tableData: [],
-            loading: false,
-            queryFullscreenLoading: false,
+            tableLoading: false,
+            queryLoading: false,
+            deleteLoading: false,
+            addLoading:false,
+            eidtLoading:false,
 
-            userRoleList: [],
-            multipleSelection: [],
             dtlDialogVisible: false,
             addDialogVisible: false,
+            editDialogVisible:false,
+        
+            userRoleList: [],
+            multipleSelection: [],   
         };
     },
     async created() {
@@ -216,6 +277,9 @@ export default {
 
         async getUserRoleAll() {
             let res = await this.api.getUserRoleAll();
+             if (!res) {
+                return;
+            }
             if (res.code === 1) {
                 this.userRoleList = res.data.map((item) => {
                     return {
@@ -228,11 +292,10 @@ export default {
 
         async getList() {
 
-            this.loading = true;
+            this.tableLoading = true;
             let res = await this.api.getData(this.pageIndex, this.pageSize, this.queryObj);
-            this.loading = false;
+            this.tableLoading = false;
             if (!res) {
-                console.log("数据加载失败");
                 return;
             }
             if (res.code === 1) {
@@ -278,22 +341,10 @@ export default {
             this.multipleSelection = val.map(item => item._id);
         },
 
-        deleteMany() {
-
-            if (this.multipleSelection.length === 0) {
-                this.$message({
-                    message: '你还没有选择数据项',
-                    type: 'warning'
-                });
-                return;
-            }
-
-            this.$confirm('是否确定批量删除该文件?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                type: 'warning'
-            }).then(async () => {
-                let res = await this.api.deleteData(this.multipleSelection);
+       async deleteData(ids) {
+            this.deleteLoading=true;
+            let res = await this.api.deleteData(ids);
+             this.deleteLoading=false;
                 if (!res) {
                     return;
                 }
@@ -309,34 +360,54 @@ export default {
                         message: "数据删除失败！"
                     })
                 }
+        },
+
+        deleteMany() {
+
+            this.$confirm('是否确定批量删除该文件?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(async () => {
+                this.deleteData( this.multipleSelection);
+
             }).catch(() => {
 
             });
 
         },
 
-        async dtlList() {
+        async dtlData(ids) {
 
-            this.queryFullscreenLoading = true;
-            let res = await this.api.getDataDtl(this.multipleSelection);
-            this.queryFullscreenLoading = false;
-
+            this.queryLoading = true;
+            let res = await this.api.getDataDtl(ids);
+            this.queryLoading = false;
+             if (!res) {
+                return;
+            }
             if (res.code === 1) {
                 this.dtlObjs = res.data;
                 this.dtlDialogVisible = true;
             }
         },
 
+        async dtlList() {
+          this.dtlData(this.multipleSelection); 
+        },
+        
         addData(reset) {
             this.$refs.addform.validate().then(async (success) => {
                 if (!success) {
                     return;
                 }
+                this.addLoading=true;
                 let res = await this.api.postData(this.addObj);
+                this.addLoading=false;
+
                 if (!res) {
                     return
                 }
-                if (res && res.code == 1) {
+                if (res.code == 1) {
                     this.$message({
                         showClose: true,
                         message: "数据添加成功",
@@ -357,6 +428,48 @@ export default {
                 }
 
             });
+        },
+
+        editBtn(item){
+            this.editDialogVisible=true;
+            this.editObj=Object.assign({},item,{roleId:item.roleId._id}) ;
+        },
+
+        editData(reset){
+          
+             this.$refs.editform.validate().then(async (success) => {
+                if (!success) {
+                    return;
+                }
+                
+                this.eidtLoading=true;
+                let res = await this.api.putData(this.editObj);
+                this.eidtLoading=false;
+                if (!res) {
+                    return
+                }
+                if (res && res.code == 1) {
+                    this.$message({
+                        showClose: true,
+                        message: "数据修改成功",
+                        type: "success",
+                    });
+                    reset();
+                    for (let prop of Object.keys(this.editObj)) {
+                        this.editObj[prop] = null;
+                    }
+                    this.editDialogVisible = false;
+                    this.getList();
+                } else {
+                    this.$message({
+                        showClose: true,
+                        message: res.msg,
+                        type: "error",
+                    });
+                }
+
+            });
+
         }
 
     },

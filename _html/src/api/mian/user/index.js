@@ -19,15 +19,6 @@ async function getDataDtl (ids)
 	return res && res.data;
 }
 
-async function postData (obj)
-{
-	let res = await axios.post(`/main/user/data`,obj).catch(err =>
-	{
-		console.log(err)
-	});
-	return res && res.data;
-}
-
 async function deleteData (ids)
 {
 	let res = await axios.delete(`/main/user/data/${ids}`).catch(err =>
@@ -37,10 +28,30 @@ async function deleteData (ids)
 	return res && res.data;
 }
 
+async function postData (obj)
+{
+	let res = await axios.post(`/main/user/data`,obj).catch(err =>
+	{
+		console.log(err)
+	});
+	return res && res.data;
+}
+
+async function putData (obj)
+{
+	let res = await axios.put(`/main/user/data/`,obj).catch(err =>
+	{
+		console.log(err)
+	});
+	return res && res.data;
+}
+
+
 export default {
 	getData,
 	deleteData,
 	getDataDtl,
-	postData
+	postData,
+	putData
 
 }
