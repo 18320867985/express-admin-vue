@@ -38,11 +38,11 @@
     </el-form>
     <div class="form-btn-group">
         <el-button-group>
-            <el-button type="primary" icon="el-icon-document" @click="dtlList" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="queryLoading"> 批量查看</el-button>
+            <el-button type="primary" icon="el-icon-document" @click="dtlBtn" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="queryLoading"> 批量查看</el-button>
             <el-button type="danger" icon="el-icon-delete" @click="deleteMany" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
         </el-button-group>
         <el-button-group style="margin-left:15px">
-            <el-button type="primary" icon="el-icon-folder-add" @click="addDialogVisible=true"> 添加</el-button>
+            <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"> 添加</el-button>
         </el-button-group>
     </div>
 
@@ -58,7 +58,7 @@
 
             <el-table-column label="联系人电话" prop="phone"></el-table-column>
 
-             <el-table-column label="邮箱" prop="email"></el-table-column>
+            <el-table-column label="邮箱" prop="email"></el-table-column>
 
             <el-table-column prop="roleId.name" label="用户类型" sortable> </el-table-column>
 
@@ -71,11 +71,10 @@
             <el-table-column label="操作" width="150px">
                 <template v-slot="scope">
                     <el-link :underline="true" type="primary" @click="dtlData(scope.row._id)">查看</el-link>
-                    <el-link :underline="true" type="warning"  style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
-                    <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])" >
-                          <el-link :underline="true" type="danger" slot="reference"  style="margin-left:8px">删除</el-link>
+                    <el-link :underline="true" type="warning" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
+                    <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])">
+                        <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px">删除</el-link>
                     </el-popconfirm>
-                  
                 </template>
             </el-table-column>
 
@@ -83,148 +82,123 @@
     </div>
 
     <!-- 分页 -->
-    <div class="user-page" v-if="tableData.length > 0">
-        <div class="block">
-            <el-pagination background layout=" prev, pager, next, jumper,total, sizes" :total="pageCount" :page-size="pageSize" :current-page="pageIndex" @size-change="handleSizeChange" @current-change="handleCurrentChange" :page-sizes="pageSizeList">
-            </el-pagination>
-        </div>
-    </div>
-
-    <!--dtl-->
-    <el-dialog title="查看详情" :visible.sync="dtlDialogVisible" width="800px" class="dtl">
-        <template v-for="(item,  index) in dtlObjs">
-            <el-descriptions class="margin-top" title="" :column="2" border :key="index" size="small">
-                <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{item._id}} </el-descriptions-item>
-                <el-descriptions-item label="用户名" label-class-name="table-1-5" content-class-name="table-3-5"> {{item.name}} </el-descriptions-item>
-                <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{item.roleId.name}}</el-descriptions-item>
-                <el-descriptions-item label="手机" label-class-name="table-1-5" content-class-name="table-3-5">{{item.phone}}</el-descriptions-item>
-                <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{item.createDate|date}}</el-descriptions-item>
-                <el-descriptions-item label="邮箱" label-class-name="table-1-5" content-class-name="table-3-5"> {{item.email}}</el-descriptions-item>
-            </el-descriptions>
-        </template>
-    </el-dialog>
+    <vue-pagination :getList="getList" :pageObj="pageObj" :tableData="tableData"></vue-pagination>
 
     <!--add-->
-    <el-dialog title="添加用户" :visible.sync="addDialogVisible" width="650px" class="dtl">
-        <vee ref="addform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
-            <el-form label-width="120px" style="width:400px">
+    <vue-add ref="addBox" title="添加用户" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
+        <vee-item rules="required|userName|unique:/main/user/data-unique" v-slot="{ failedRules  }">
+            <el-form-item label="用户名">
+                <el-input placeholder="==用户名==" v-model="scope.addObj.name"></el-input>
+                <span class="text-danger" v-if="failedRules.required">用户名不能为空！</span>
+                <span class="text-danger" v-if="failedRules.userName">用户名格式不对！</span>
+                <span class="text-danger" v-if="failedRules.unique">用户名已存在！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required|userName|unique:/main/user/data-unique" v-slot="{ failedRules  }">
-                    <el-form-item label="用户名">
-                        <el-input placeholder="==用户名==" v-model="addObj.name"></el-input>
-                        <span class="text-danger" v-if="failedRules.required">用户名不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.userName">用户名格式不对！</span>
-                        <span class="text-danger" v-if="failedRules.unique">用户名已存在！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|min:8" v-slot="{ failedRules }" vid="addObj.pwd">
+            <el-form-item label="密码">
+                <el-input placeholder="==密码==" type="password" v-model="scope.addObj.pwd"></el-input>
+                <span class="text-danger" v-if="failedRules.required">密码不能为空！</span>
+                <span class="text-danger" v-if="failedRules.min">密码长度最少要8位！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required|min:8" v-slot="{ failedRules }" vid="addObj.pwd">
-                    <el-form-item label="密码">
-                        <el-input placeholder="==密码==" type="password" v-model="addObj.pwd"></el-input>
-                        <span class="text-danger" v-if="failedRules.required">密码不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.min">密码长度最少要8位！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|confirmed:addObj.pwd" v-slot="{ failedRules }">
 
-                <vee-item rules="required|confirmed:addObj.pwd" v-slot="{ failedRules }">
+            <el-form-item label="确认密码">
+                <el-input placeholder="==确认密码==" type="password" v-model="scope.addObj.pwd2"></el-input>
+                <span class="text-danger" v-if="failedRules.required ">确认密码不能为空！</span>
+                <span class="text-danger" v-if="failedRules.confirmed ">确认密码不相同！</span>
+            </el-form-item>
+        </vee-item>
 
-                    <el-form-item label="确认密码">
-                        <el-input placeholder="==确认密码==" type="password" v-model="addObj.pwd2"></el-input>
-                        <span class="text-danger" v-if="failedRules.required ">确认密码不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.confirmed ">确认密码不相同！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|phone" v-slot="{ failedRules }">
+            <el-form-item label="手机号">
+                <el-input placeholder="==手机号==" v-model="scope.addObj.phone" maxlength="11"></el-input>
+                <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
+                <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required|phone" v-slot="{ failedRules }">
-                    <el-form-item label="手机号">
-                        <el-input placeholder="==手机号==" v-model="addObj.phone" maxlength="11"></el-input>
-                        <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|email" v-slot="{ failedRules }">
+            <el-form-item label="邮箱">
+                <el-input placeholder="==邮箱==" v-model="scope.addObj.email"></el-input>
+                <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
+                <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required|email" v-slot="{ failedRules }">
-                    <el-form-item label="邮箱">
-                        <el-input placeholder="==邮箱==" v-model="addObj.email"></el-input>
-                        <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
-                    </el-form-item>
-                </vee-item>
-
-                <vee-item rules="required" v-slot="{ failedRules }">
-                    <el-form-item label="选择用户类型">
-                        <el-select v-model="addObj.roleId" placeholder="==选择用户类型==" style="width:280px">
-                            <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
-                            <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
-                    </el-form-item>
-                </vee-item>
-
-                <el-form-item>
-                    <el-button type="primary" :disabled="invalid&&dirty" @click="addData(reset)" :loading="addLoading">立即创建</el-button>
-                    <el-button @click="addDialogVisible = false">取消</el-button>
-                </el-form-item>
-
-            </el-form>
-        </vee>
-
-    </el-dialog>
+        <vee-item rules="required" v-slot="{ failedRules }">
+            <el-form-item label="选择用户类型">
+                <el-select v-model="scope.addObj.roleId" placeholder="==选择用户类型==" style="width:280px">
+                    <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
+                    <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+                <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
+            </el-form-item>
+        </vee-item>
+    </vue-add>
 
     <!--edit-->
-    <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="650px" class="dtl" >
-        <vee ref="editform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
-            <el-form label-width="120px" style="width:400px">
+    <vue-edit ref="editBox" title="修改用户" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
+        <el-form-item label="用户名">
+            <span>{{scope.editObj.name}}</span>
+        </el-form-item>
 
-                    <el-form-item label="用户名">
-                        <span>{{editObj.name}}</span>
-                    </el-form-item>
-              
-                <vee-item rules="required|phone" v-slot="{ failedRules }">
-                    <el-form-item label="手机号">
-                        <el-input placeholder="==手机号==" v-model="editObj.phone" maxlength="11"></el-input>
-                        <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|phone" v-slot="{ failedRules }">
+            <el-form-item label="手机号">
+                <el-input placeholder="==手机号==" v-model="scope.editObj.phone" maxlength="11"></el-input>
+                <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
+                <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required|email" v-slot="{ failedRules }">
-                    <el-form-item label="邮箱">
-                        <el-input placeholder="==邮箱==" v-model="editObj.email"></el-input>
-                        <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
-                        <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
-                    </el-form-item>
-                </vee-item>
+        <vee-item rules="required|email" v-slot="{ failedRules }">
+            <el-form-item label="邮箱">
+                <el-input placeholder="==邮箱==" v-model="scope.editObj.email"></el-input>
+                <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
+                <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
+            </el-form-item>
+        </vee-item>
 
-                <vee-item rules="required" v-slot="{ failedRules }">
-                    <el-form-item label="选择用户类型">
-                        <el-select v-model="editObj.roleId" placeholder="==选择用户类型==" style="width:280px">
-                            <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
-                            <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                        </el-select>
-                        <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
-                    </el-form-item>
-                </vee-item>
-                
-                <el-form-item>
-                    <el-button type="primary" :disabled="invalid&&dirty" @click="editData(reset)"  :loading="eidtLoading">立即修改</el-button>
-                    <el-button @click="editDialogVisible = false">取消</el-button>
-                </el-form-item>
-            </el-form>
-        </vee>
+        <vee-item rules="required" v-slot="{ failedRules }">
+            <el-form-item label="选择用户类型">
+                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==" style="width:280px">
+                    <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
+                    <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+                <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
+            </el-form-item>
+        </vee-item>
 
-    </el-dialog>
+    </vue-edit>
+
+    <!--dtl-->
+    <vue-dtl ref="dtlBox" title="查看详情" :dtlObjs="dtlObjs" v-slot="scope">
+        <el-descriptions class="margin-top" title="" :column="2" border :key="index" size="small">
+            <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
+            <el-descriptions-item label="用户名" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
+            <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.roleId.name}}</el-descriptions-item>
+            <el-descriptions-item label="手机" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.phone}}</el-descriptions-item>
+            <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>
+            <el-descriptions-item label="邮箱" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.email}}</el-descriptions-item>
+        </el-descriptions>
+    </vue-dtl>
 
 </div>
 </template>
 
 <script>
 import mianApi from "../../api/mian";
+import VueEdit from "../../components/share/edit.vue";
+import VueAdd from "../../components/share/add.vue";
+import VueDtl from "../../components/share/dtl.vue";
+import VuePagination from "../../components/share/pagination.vue";
+
 import {
     pageOption,
     toDateStartOrEnd
 } from "../../mixins";
-
 export default {
     mixins: [pageOption, toDateStartOrEnd],
     data() {
@@ -251,22 +225,16 @@ export default {
                 phone: null,
                 email: null
             },
-            editObj:{},
+            editObj: {},
             dtlObjs: [],
-            
+
             tableData: [],
             tableLoading: false,
             queryLoading: false,
             deleteLoading: false,
-            addLoading:false,
-            eidtLoading:false,
 
-            dtlDialogVisible: false,
-            addDialogVisible: false,
-            editDialogVisible:false,
-        
             userRoleList: [],
-            multipleSelection: [],   
+            multipleSelection: [],
         };
     },
     async created() {
@@ -277,7 +245,7 @@ export default {
 
         async getUserRoleAll() {
             let res = await this.api.getUserRoleAll();
-             if (!res) {
+            if (!res) {
                 return;
             }
             if (res.code === 1) {
@@ -293,28 +261,17 @@ export default {
         async getList() {
 
             this.tableLoading = true;
-            let res = await this.api.getData(this.pageIndex, this.pageSize, this.queryObj);
+            let res = await this.api.getData(this.pageObj.pageIndex, this.pageObj.pageSize, this.queryObj);
             this.tableLoading = false;
             if (!res) {
                 return;
             }
             if (res.code === 1) {
-                this.pageCount = res.pageCount;
-                this.pageIndex = res.pageIndex;
-                this.pageSize = res.pageSize;
+                this.pageObj.pageCount = res.pageCount;
+                this.pageObj.pageIndex = res.pageIndex;
+                this.pageObj.pageSize = res.pageSize;
                 this.tableData = res.data;
             }
-        },
-
-        async handleSizeChange(pageSize) {
-            this.pageSize = pageSize;
-            this.pageIndex = 1;
-            this.getList();
-        },
-
-        async handleCurrentChange(pageIndex) {
-            this.pageIndex = pageIndex;
-            this.getList();
         },
 
         async search() {
@@ -333,7 +290,7 @@ export default {
             for (let prop of Object.keys(this.queryObj)) {
                 this.queryObj[prop] = null;
             }
-            this.pageIndex = 1;
+            this.pageObj.pageIndex = 1;
             this.getList();
         },
 
@@ -341,25 +298,25 @@ export default {
             this.multipleSelection = val.map(item => item._id);
         },
 
-       async deleteData(ids) {
-            this.deleteLoading=true;
+        async deleteData(ids) {
+            this.deleteLoading = true;
             let res = await this.api.deleteData(ids);
-             this.deleteLoading=false;
-                if (!res) {
-                    return;
-                }
-                if (res.code === 1) {
-                    this.$message({
-                        type: "success",
-                        message: "数据删除成功！"
-                    })
-                    this.getList();
-                } else {
-                    this.$message({
-                        type: "error",
-                        message: "数据删除失败！"
-                    })
-                }
+            this.deleteLoading = false;
+            if (!res) {
+                return;
+            }
+            if (res.code === 1) {
+                this.$message({
+                    type: "success",
+                    message: "数据删除成功！"
+                })
+                this.getList();
+            } else {
+                this.$message({
+                    type: "error",
+                    message: "数据删除失败！"
+                })
+            }
         },
 
         deleteMany() {
@@ -369,7 +326,7 @@ export default {
                 cancelButtonText: '取消',
                 type: 'warning'
             }).then(async () => {
-                this.deleteData( this.multipleSelection);
+                this.deleteData(this.multipleSelection);
 
             }).catch(() => {
 
@@ -382,96 +339,38 @@ export default {
             this.queryLoading = true;
             let res = await this.api.getDataDtl(ids);
             this.queryLoading = false;
-             if (!res) {
+            if (!res) {
                 return;
             }
             if (res.code === 1) {
                 this.dtlObjs = res.data;
-                this.dtlDialogVisible = true;
+                this.$refs.dtlBox.show();
             }
         },
 
-        async dtlList() {
-          this.dtlData(this.multipleSelection); 
+        dtlBtn() {
+            this.dtlData(this.multipleSelection);
         },
-        
-        addData(reset) {
-            this.$refs.addform.validate().then(async (success) => {
-                if (!success) {
-                    return;
-                }
-                this.addLoading=true;
-                let res = await this.api.postData(this.addObj);
-                this.addLoading=false;
 
-                if (!res) {
-                    return
-                }
-                if (res.code == 1) {
-                    this.$message({
-                        showClose: true,
-                        message: "数据添加成功",
-                        type: "success",
-                    });
-                    reset();
-                    for (let prop of Object.keys(this.addObj)) {
-                        this.addObj[prop] = null;
-                    }
-                    this.addDialogVisible = false;
-                    this.getList();
-                } else {
-                    this.$message({
-                        showClose: true,
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
+        addBtn() {
+            this.$refs.addBox.show()
+        },
 
+        editBtn(item) {
+            this.editDialogVisible = true;
+            this.editObj = Object.assign({}, item, {
+                roleId: item.roleId._id
             });
+            this.$refs.editBox.show()
         },
-
-        editBtn(item){
-            this.editDialogVisible=true;
-            this.editObj=Object.assign({},item,{roleId:item.roleId._id}) ;
-        },
-
-        editData(reset){
-          
-             this.$refs.editform.validate().then(async (success) => {
-                if (!success) {
-                    return;
-                }
-                
-                this.eidtLoading=true;
-                let res = await this.api.putData(this.editObj);
-                this.eidtLoading=false;
-                if (!res) {
-                    return
-                }
-                if (res && res.code == 1) {
-                    this.$message({
-                        showClose: true,
-                        message: "数据修改成功",
-                        type: "success",
-                    });
-                    reset();
-                    for (let prop of Object.keys(this.editObj)) {
-                        this.editObj[prop] = null;
-                    }
-                    this.editDialogVisible = false;
-                    this.getList();
-                } else {
-                    this.$message({
-                        showClose: true,
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-
-            });
-
-        }
 
     },
+
+    components: {
+        VueDtl,
+        VueAdd,
+        VueEdit,
+        VuePagination
+    }
 };
 </script>

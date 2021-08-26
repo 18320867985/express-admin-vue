@@ -1,0 +1,96 @@
+<template>
+<el-dialog :title="title"  :visible.sync="addDialogVisible" width="650px" class="dtl">
+    <vee ref="addform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
+        <el-form label-width="120px" style="width:400px">
+              <slot :addObj="addObj"></slot>
+            <el-form-item>
+                <el-button type="primary" :disabled="invalid&&dirty" @click="addData(reset)" :loading="addLoading">{{btnText}}</el-button>
+                <el-button @click="addDialogVisible = false">取消</el-button>
+            </el-form-item>
+
+        </el-form>
+    </vee>
+
+</el-dialog>
+</template>
+
+<script>
+export default {
+    props:{
+        postData:{
+            type:Function,
+            default:function(){}
+        },
+        addObj:{
+            type:Object,
+        },
+        getList:{
+              type:Function,
+            default:function(){} 
+        },
+        btnText:{
+            type:String,
+            default:"立即添加"
+        },
+        title:{
+            type:String,
+            default:"修改信息"
+        }
+
+
+    },
+    data() {
+          return{
+               addLoading:false,
+               addDialogVisible:false,
+          
+          }
+
+    },
+    methods: {
+
+         addData(reset) {
+            this.$refs.addform.validate().then(async (success) => {
+                if (!success) {
+                    return;
+                }
+                this.addLoading=true;
+                let res = await this.postData(this.addObj);
+                this.addLoading=false;
+
+                if (!res) {
+                    return
+                }
+                if (res.code == 1) {
+                    this.$message({
+                        showClose: true,
+                        message: "数据添加成功",
+                        type: "success",
+                    });
+                    reset();
+                    for (let prop of Object.keys(this.addObj)) {
+                        this.addObj[prop] = null;
+                    }
+                    this.addDialogVisible = false;
+                    this.getList();
+                } else {
+                    this.$message({
+                        showClose: true,
+                        message: res.msg,
+                        type: "error",
+                    });
+                }
+
+            });
+        },
+
+        show(){
+            this.addDialogVisible=true;
+        },
+
+        hide(){
+             this.addDialogVisible=false;
+        }
+    },
+}
+</script>
