@@ -15,7 +15,7 @@
         <el-scrollbar wrap-class="scrollbar-wrapper" class="index-cnt-aside" :class="{ open: !isCollapse }">
             <el-aside class="index-aside" :class="{ open: !isCollapse }">
                 <!--导航菜单-->
-                <el-menu :default-active="$route.path" :collapse="isCollapse" router>
+                <el-menu :default-active="$route.path" :collapse="isCollapse" router ref="menu">
                     <template v-for="(item, index) in activePaths">
 
                         <el-submenu :index="index++ + ''" :key="index" v-if="item.path!=='/'">
@@ -29,12 +29,12 @@
                                 </router-link>
                             </el-menu-item-group>
                         </el-submenu>
-                        <el-menu-item :index="index++ + ''" :key="index" v-if="item.path==='/'" class="item-home"  :class="{'active':$route.fullPath==='/'}"  @click="$router.push('/')">
-                              <i :class="item.meta && item.meta.icon"></i>
-                             <span slot="title">{{ item.meta && item.meta.ttl }} </span>
+                        <el-menu-item :index="index++ + ''" :key="index" v-if="item.path==='/'" class="item-home" :class="{'active':$route.fullPath==='/'}">
+                            <i :class="item.meta && item.meta.icon"></i>
+                            <span slot="title">{{ item.meta && item.meta.ttl }} </span>
                         </el-menu-item>
                     </template>
-                
+
                 </el-menu>
             </el-aside>
         </el-scrollbar>
@@ -47,9 +47,9 @@
                     <li>
                         <i class="index-h-icon" @click="isCollapse = !isCollapse" :class="isCollapse ? 'el-icon-s-unfold ' : 'el-icon-s-fold'"></i>
                     </li>
-                     <router-link class="li-link" tag="li"  to="/">首页</router-link>
-                    <router-link class="li-link" tag="li" v-for="(item, index) in navbars" :key="index" :to="'' + item.path" >{{ item.meta.ttl }}</router-link>
-                  
+                    <router-link class="li-link" tag="li" to="/">首页</router-link>
+                    <router-link class="li-link" tag="li" v-for="(item, index) in navbars" :key="index" :to="'' + item.path">{{ item.meta.ttl }}</router-link>
+
                 </ul>
 
                 <!-- 路由页 -->
@@ -92,17 +92,38 @@ export default {
         },
         // 设置动态导航条
         getnavbars() {
-            this.navbars = this.$route.matched.filter(
-                (item) => item.meta && item.meta.ttl&&item.path!==''
-            );
+            this.navbars = this.$route.matched.filter((item) => item.meta && item.meta.ttl && item.path !== '');
         },
+
+        openCurrentMenu() {
+            let currentPath = this.$router.history.current.fullPath;
+            let rts = this.$router.options.routes;
+            let result = 0;
+            for (let i = 0; i < rts.length; i++) {
+                let path = rts[i].path;
+                if (path === currentPath) {
+                    result = i;
+                    break;
+                } 
+                let children = rts[i].children || [];
+                for (let i2 = 0; i2 < children.length; i2++) {
+                    let path2 = children[i2].path === "" ? path : path + "/" + children[i2].path;
+                    if(currentPath===path2){
+                        result = i;
+                        break;  
+                    }
+                    
+                }
+            }
+            return result;
+        }
     },
     computed: {
         activePaths() {
             return this.$router.options.routes.filter((item) => !item.hidden);
         },
-        getUserinfo(){
-          return  this.$store.getters.getUserinfo;
+        getUserinfo() {
+            return this.$store.getters.getUserinfo;
         }
     },
     watch: {
@@ -114,6 +135,7 @@ export default {
         this.getnavbars();
     },
     mounted() {
+
         // 设置 iframe 高度
         var $el = document.querySelector(".index");
         resetWidth();
@@ -130,6 +152,13 @@ export default {
             }
 
         }
+
+        // open menu
+        let openIndex = this.openCurrentMenu();
+        if(openIndex>0){
+            this.$refs.menu.open(openIndex)
+        }
+  
     },
 };
 </script>
