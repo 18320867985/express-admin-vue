@@ -31,7 +31,21 @@ async function initData (token)
     return resData.ok({userinfo}, {msg: "获取用户信息成功！"});
 }
 
-// 分页
+/*** CRUD  ***/
+// unique
+async function unique (val)
+{
+    let count = await mainModel.User.countDocuments({name: val});
+    if (count > 0)
+    {
+        return false;
+    } else
+    {
+        return true;
+    }
+}
+
+// get list
 async function getData (pageIndex = 1, pageSize = 10, search = {})
 {
     let query = {
@@ -71,7 +85,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
     });
 }
 
-// 详情
+// dtl
 async function getDataDtl (ids = [])
 {
     let list = await mainModel.User.find({
@@ -79,11 +93,11 @@ async function getDataDtl (ids = [])
             $in: ids
         }
     }).populate("roleId", "name code");
-    
+
     return resData.ok(list);
 }
 
-// 删除
+//  delete
 async function deleteData (ids = [])
 {
     let obj = await mainModel.User.deleteMany({
@@ -99,48 +113,36 @@ async function deleteData (ids = [])
     return resData.ok();
 }
 
-// 检测是否存在
-async function unique(val)
-{
-    let count = await mainModel.User.countDocuments({name: val});
-    if (count > 0)
-    {
-    return false;
-    } else
-    {
-    return true;
-    }
-}
-
 // post
-async function postData(obj)
+async function postData (obj)
 {
     let user = new mainModel.User(obj);
     let isError = user.validateSync();
     if (isError)
     {
-        res.json(res._err(null, isError));
+        res.json(resData.err(null, isError));
         return;
     }
 
     var count = await mainModel.User.countDocuments({name: user.name});
     if (count > 0)
     {
-        return  resData.err("用户名已存在！");
+        return resData.err("用户名已存在！");
     };
 
-    var userinfo = await mainModel.User.create(user)
-    if (!userinfo)
+    var createObj = await mainModel.User.create(user)
+    if (!createObj)
     {
         return resData.err("添加失败");
     }
-    return resData.ok(userinfo);
+    return resData.ok(createObj);
 
 }
 
-// 修改
-async function putData(obj){
-    let _id=obj._id||"";
+// put
+async function putData (obj)
+{
+    let _id = obj._id || "";
     let roleId = obj.roleId;
     let phone = obj.phone;
     let email = obj.email;
@@ -148,17 +150,17 @@ async function putData(obj){
     {
         roleId = mainModel.orm.mongoose.Types.ObjectId(roleId).toHexString();
     } catch (error)
-    {  
+    {
         return resData.err("用户类型 roleId 有误！");
     }
 
-    let v = await mainModel.User.findByIdAndUpdate(_id, {$set: {roleId,phone,email}},{new:true});
+    let v = await mainModel.User.findByIdAndUpdate(_id, {$set: {roleId, phone, email}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");
     } else
     {
-      return  resData.ok(v);
+        return resData.ok(v);
     }
 
 }
@@ -167,11 +169,11 @@ async function putData(obj){
 module.exports = {
     loginData,
     initData,
+    unique,
     getData,
     getDataDtl,
+    deleteData,
     postData,
     putData,
-    deleteData,
-    unique,
 
 }

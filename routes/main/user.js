@@ -1,10 +1,9 @@
 
 const router = require("./_router");
-const mainModel = require("../../models/main");
 const cpy = require("../../libs/crypto");
 const mainCtrl = require("../../controllers/main");
 
-// 检测是否存在
+// unique
 router.get("/user/data-unique/:v", async (req, res) =>
 {
     let name = req.params.v || "";
@@ -12,18 +11,7 @@ router.get("/user/data-unique/:v", async (req, res) =>
     res.json(data)
 });
 
-// 获取ids数组获取详细信息
-router.get("/user/data-dtl/:ids", async (req, res) =>
-{
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.user.getDataDtl(ids);
-    res.json(data);
-
-});
-
-
-// 分页
+// get list
 router.get("/user/data/:pageIndex/:pageSize", async (req, res) =>
 {
     // paging start
@@ -34,7 +22,27 @@ router.get("/user/data/:pageIndex/:pageSize", async (req, res) =>
 
 });
 
-//  添加
+// get dtl
+router.get("/user/data-dtl/:ids", async (req, res) =>
+{
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+    let data = await mainCtrl.user.getDataDtl(ids);
+    res.json(data);
+
+});
+
+// delete
+router.delete("/user/data/:ids", async (req, res) =>
+{
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+    let data = await mainCtrl.user.deleteData(ids);
+    res.json(data);
+
+});
+
+//  post
 router.post("/user/data", async (req, res) =>
 {
     let obj = req.body || {};
@@ -49,7 +57,7 @@ router.post("/user/data", async (req, res) =>
     res.json(data);
 });
 
-// 修改
+// put
 router.put("/user/data", async (req, res) =>
 {
    let data=await mainCtrl.user.putData(req.body||{})
@@ -57,14 +65,5 @@ router.put("/user/data", async (req, res) =>
    
 });
 
-// 删除
-router.delete("/user/data/:ids", async (req, res) =>
-{
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.user.deleteData(ids);
-    res.json(data);
-
-});
 
 module.exports = router;

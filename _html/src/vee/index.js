@@ -3,7 +3,7 @@ import {extend} from 'vee-validate';
 import axios from "../api/ins";
 
 // 内置规则
-import {required, email, confirmed, min} from 'vee-validate/dist/rules';
+import {required, email, confirmed, min,min_value,max,max_value,integer} from 'vee-validate/dist/rules';
 
 extend('email', {
   ...email,
@@ -20,9 +20,28 @@ extend('confirmed', {
   message: "密码不相同！"
 });
 
+extend('integer', {
+  ...integer,
+  message: "必须为整型数字"
+});
+
 extend('min', {
   ...min,
   message: "最小的长度！"
+});
+extend('max', {
+  ...max,
+  message: "最大的长度！"
+});
+
+extend('min_value', {
+  ...min_value,
+  message: "最小的值！"
+});
+
+extend('max_value', {
+  ...max_value,
+  message: "最大的值！"
 });
 
 // 自定义规则

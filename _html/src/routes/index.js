@@ -13,24 +13,64 @@ const routes = [
 		path: "/",
 		component: Layout,
 		name: "",
-		meta: { ttl: "首页", icon: "el-icon-s-home" },
+		meta: {ttl: "首页", icon: "el-icon-s-home"},
 		//	redirect: '/basic',
 		children: [
 			{
 				path: "",
-				component: Home,	
+				component: Home,
 			}
 		]
 	},
-	
+
 	{
 		path: "/user",
 		component: Layout,
-		meta: { ttl: "用户信息", icon: "el-icon-s-check" },
+		meta: {ttl: "用户信息", icon: "el-icon-user"},
 		children: User
 
 	},
-	
+
+	{
+		path: "/rotation",
+		component: Layout,
+		meta: {ttl: "图片管理", icon: "el-icon-picture"},
+		children: User
+
+	},
+
+	{
+		path: "/series",
+		component: Layout,
+		meta: {ttl: "产品系列", icon: "el-icon-box"},
+		children: User
+
+	},
+
+	{
+		path: "/svcnet",
+		component: Layout,
+		meta: {ttl: "服务中心", icon: "el-icon-data-line"},
+		children: User
+
+	},
+
+	{
+		path: "/article",
+		component: Layout,
+		meta: {ttl: "文章管理", icon: "el-icon-notebook-2"},
+		children: User
+
+	},
+
+	{
+		path: "/contact",
+		component: Layout,
+		meta: {ttl: "关于我们", icon: "el-icon-office-building"},
+		children: User
+
+	},
+
 	{
 		path: "/login",
 		ttl: "登录",
@@ -41,11 +81,11 @@ const routes = [
 		path: "*",
 		ttl: "",
 		hidden: true,
-		redirect:"/"
-		
+		redirect: "/"
+
 
 	},
-		
+
 ];
 
 import Vue from 'vue';
@@ -54,12 +94,13 @@ Vue.use(VueRouter);
 
 const createRouter = () => new VueRouter({
 	mode: 'history', // require service support
-	scrollBehavior: () => ({ y: 0 }),
+	scrollBehavior: () => ({y: 0}),
 	routes
 })
 
 const router = createRouter();
-export function resetRouter() {
+export function resetRouter ()
+{
 	const newRouter = createRouter()
 	router.matcher = newRouter.matcher // reset router
 }
