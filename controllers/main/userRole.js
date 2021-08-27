@@ -12,24 +12,34 @@ async function getAll ()
 /*** CRUD  ***/
 
 // unique
-async function unique (val)
+async function unique (val, id)
 {
-    let count = await mainModel.UserRole.countDocuments({name: val});
-    if (count > 0)
+    let obj = await mainModel.UserRole.findOne({name: val});
+    if (obj)
     {
+        if (obj._id.toString() === id)
+        {
+            return true;
+        }
         return false;
+
     } else
     {
         return true;
     }
 }
 // unique
-async function uniqueVid (val)
+async function uniqueVid (val, id)
 {
-    let count = await mainModel.UserRole.countDocuments({vid: val});
-    if (count > 0)
+    let obj = await mainModel.UserRole.findOne({vid: val});
+    if (obj)
     {
+        if (obj._id.toString() === id)
+        {
+            return true;
+        }
         return false;
+
     } else
     {
         return true;
@@ -70,9 +80,9 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
     let list = await mainModel.UserRole.find(query, {pwd: 0}).populate("roleId", "name code").skip(index2).limit(pageSize);
 
     return resData.ok(list, {
-        pageIndex, 
-        pageSize, 
-        pageCount, 
+        pageIndex,
+        pageSize,
+        pageCount,
     });
 }
 
@@ -106,7 +116,7 @@ async function deleteData (ids = [])
 
 // post
 async function postData (obj)
-{
+{  
     let UserRole = new mainModel.UserRole(obj);
     let isError = UserRole.validateSync();
     if (isError)
@@ -131,7 +141,7 @@ async function putData (obj)
     let name = obj.name;
     let vid = obj.vid;
     let order = obj.order;
- 
+
     let v = await mainModel.UserRole.findByIdAndUpdate(_id, {$set: {name, vid, order}}, {new: true});
     if (!v)
     {
@@ -143,7 +153,7 @@ async function putData (obj)
 
 }
 
-module.exports= {
+module.exports = {
     getAll,
     unique,
     uniqueVid,
@@ -152,6 +162,6 @@ module.exports= {
     deleteData,
     postData,
     putData,
-  
-   
+
+
 }

@@ -33,12 +33,20 @@ async function initData (token)
 
 /*** CRUD  ***/
 // unique
-async function unique (val)
+async function unique (val,id)
 {
-    let count = await mainModel.User.countDocuments({name: val});
-    if (count > 0)
+    let obj = await mainModel.User.findOne({name: val});
+    if (obj)
     {
-        return false;
+        if (obj._id.toString() === id)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     } else
     {
         return true;

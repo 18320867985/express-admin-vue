@@ -105,7 +105,7 @@ export const CRUD_Option = {
 
         deleteMany(ids) {
 
-            this.$confirm(`<strongt style='color:red'>是否要批量删除该文件?</strong>`, '提示', {
+            this.$confirm(`<strongt style='color:red'>是否要批量删除该文件? 请谨慎操作！</strong>`, '提示', {
                 confirmButtonText: '批量删除',
                 cancelButtonText: '取消',
                 type: 'warning',

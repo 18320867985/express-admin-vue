@@ -58,11 +58,11 @@ extend('phone', value =>
 });
 
 // remote 异步验证 例如： rule="required:true,min:4,unique:admin/user/data/unique"
-extend('unique', (value, [ url ]) =>
+extend('unique', (value, [ url,id ]) =>
 {
   return new Promise((resolve) =>
   {
-    axios.get(`${url}/${value}`).then(res =>
+    axios.get(`${url}`,{params:{value,id}}).then(res =>
     {
       let data = res.data;
       resolve(data);

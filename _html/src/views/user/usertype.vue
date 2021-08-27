@@ -101,22 +101,21 @@
 
     <!--edit-->
     <vue-edit ref="editBox" title="修改用户类型" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
-        <!--|unique:/main/userRole/data-unique-->
-        <vee-item rules="required" v-slot="{ failedRules  }">
+   
+        <vee-item :rules="'required|unique:/main/userRole/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="用户类型">
                 <el-input placeholder="==用户类型==" v-model="scope.editObj.name" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">用户类型不能为空！</span>
-                <span class="text-danger" v-if="failedRules.userName">用户类型格式不对！</span>
-                <!-- <span class="text-danger" v-if="failedRules.unique">用户类型已存在！</span> -->
+                <span class="text-danger" v-if="failedRules.unique">用户类型已存在！</span>
             </el-form-item>
         </vee-item>
-        <!--|unique:/main/userRole/data-unique-vid -->
-         <vee-item rules="required|integer" v-slot="{ failedRules  }">
+    
+         <vee-item :rules="'required|integer|unique:/main/userRole/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="VID">
                 <el-input placeholder="==VID==" v-model="scope.editObj.vid" maxlength="8">></el-input>
                 <span class="text-danger" v-if="failedRules.required">vid不能为空！</span>
                 <span class="text-danger" v-if="failedRules.integer">必须为整型数字！</span>
-                <!-- <span class="text-danger" v-if="failedRules.unique">vid的值已存在！</span> -->
+                <span class="text-danger" v-if="failedRules.unique">vid的值已存在！</span>
             </el-form-item>
         </vee-item>
 
@@ -179,7 +178,7 @@ export default {
             addObj: {
                 name: null,
                 vid: null,
-                order: null,
+                order:null,
             },
             editObj: {},
             dtlObjs: [],

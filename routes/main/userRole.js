@@ -8,18 +8,22 @@ router.get("/userRole/all", async (req, res) =>
 });
 
 // unique
-router.get("/userRole/data-unique/:v", async (req, res) =>
+router.get("/userRole/data-unique", async (req, res) =>
 {
-    let name = req.params.v || "";
-    let data = await mainCtrl.userRole.unique(name);
+    let query=req.query||{};
+    let value = query.value || "";
+    let id = query.id || "";
+    let data = await mainCtrl.userRole.unique(value,id);
     res.json(data)
 });
 
 // unique
-router.get("/userRole/data-unique-vid/:v", async (req, res) =>
+router.get("/userRole/data-unique-vid", async (req, res) =>
 {
-    let vid = req.params.v || "";
-    let data = await mainCtrl.userRole.uniqueVid(vid);
+    let query=req.query||{};
+    let value = query.value || "";
+    let id = query.id || "";
+    let data = await mainCtrl.userRole.uniqueVid(value,id);
     res.json(data)
 });
 // get list
@@ -59,8 +63,8 @@ router.post("/userRole/data", async (req, res) =>
     let obj = req.body || {};
     var userRole = {
         name: obj.name,
-        vid: Number(obj.vid),
-        order: Number(obj.order),
+        vid: obj.vid,
+        order:obj.order||0,
     }
     let data = await mainCtrl.userRole.postData(userRole);
     res.json(data);

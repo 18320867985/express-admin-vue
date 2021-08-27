@@ -4,10 +4,12 @@ const cpy = require("../../libs/crypto");
 const mainCtrl = require("../../controllers/main");
 
 // unique
-router.get("/user/data-unique/:v", async (req, res) =>
+router.get("/userRole/data-unique", async (req, res) =>
 {
-    let name = req.params.v || "";
-    let data = await mainCtrl.user.unique(name);
+    let query=req.query||{};
+    let value = query.value || "";
+    let id = query.id || "";
+    let data = await mainCtrl.userRole.unique(value,id);
     res.json(data)
 });
 
