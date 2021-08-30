@@ -24,7 +24,7 @@ async function unique (val, id)
 // unique
 async function uniqueVid (val, id)
 {
-    let obj = await mainModel.Rotation.findOne({vid: val});
+    let obj = await mainModel.Rotation.findOne({vname: val});
     if (obj)
     {
         if (obj._id.toString() === id)
@@ -127,10 +127,10 @@ async function putData (obj)
 {
     let _id = obj._id || "";
     let name = obj.name;
-    let vid = obj.vid;
+    let vname = obj.vname;
     let order = obj.order;
 
-    let v = await mainModel.Rotation.findByIdAndUpdate(_id, {$set: {name, vid, order}}, {new: true});
+    let v = await mainModel.Rotation.findByIdAndUpdate(_id, {$set: {name, vname, order}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");

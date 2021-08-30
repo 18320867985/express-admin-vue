@@ -51,14 +51,16 @@
 
             <el-table-column prop="name" label="名称" sortable> </el-table-column>
 
-            <el-table-column prop="vname" label="vname" sortable> </el-table-column>
+            <el-table-column prop="vname" label="标记名称" sortable> </el-table-column>
 
-            <el-table-column label="order" prop="排序"></el-table-column>
+            <el-table-column prop="order" label="排序"></el-table-column>
 
             <el-table-column label="图片列表(个数)">
                 <template v-slot="scope">
-                    {{scope.row.imgs.length+' 张图片'}}
+                    <span v-if="scope.row.imgs.length>0"> {{scope.row.imgs.length+' 张图片'}}</span>
+                    <span v-if="!scope.row.imgs.length"> 没有图片</span>
                 </template>
+
             </el-table-column>
 
             <el-table-column label="创建时间" sortable>
@@ -87,89 +89,63 @@
     <vue-pagination :getList="getList" :pageObj="pageObj" :tableData="tableData"></vue-pagination>
 
     <!--add-->
-    <vue-add ref="addBox" title="添加用户" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
-        <vee-item rules="required|userName|unique:/main/user/data-unique" v-slot="{ failedRules  }">
-            <el-form-item label="用户名">
-                <el-input placeholder="==用户名==" v-model="scope.addObj.name"></el-input>
-                <span class="text-danger" v-if="failedRules.required">用户名不能为空！</span>
-                <span class="text-danger" v-if="failedRules.userName">用户名格式不对！</span>
-                <span class="text-danger" v-if="failedRules.unique">用户名已存在！</span>
+    <vue-add ref="addBox" title="添加轮播图" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
+        <vee-item rules="required|unique:/main/rotation/data-unique" v-slot="{ failedRules  }">
+            <el-form-item label="名称">
+                <el-input placeholder="==名称==" v-model="scope.addObj.name"></el-input>
+                <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
+                <span class="text-danger" v-if="failedRules.unique">名称已存在！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|min:8" v-slot="{ failedRules }" vid="addObj.pwd">
-            <el-form-item label="密码">
-                <el-input placeholder="==密码==" type="password" v-model="scope.addObj.pwd"></el-input>
-                <span class="text-danger" v-if="failedRules.required">密码不能为空！</span>
-                <span class="text-danger" v-if="failedRules.min">密码长度最少要8位！</span>
+        <vee-item rules="required|unique:/main/rotation/data-unique-vid" v-slot="{ failedRules  }">
+            <el-form-item label="标记名称">
+                <el-input placeholder="==标记名称==" v-model="scope.addObj.vname" maxlength="32">></el-input>
+                <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
+                <span class="text-danger" v-if="failedRules.unique">标记名称已存在！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|confirmed:addObj.pwd" v-slot="{ failedRules }">
-
-            <el-form-item label="确认密码">
-                <el-input placeholder="==确认密码==" type="password" v-model="scope.addObj.pwd2"></el-input>
-                <span class="text-danger" v-if="failedRules.required ">确认密码不能为空！</span>
-                <span class="text-danger" v-if="failedRules.confirmed ">确认密码不相同！</span>
+        <vee-item rules="integer" v-slot="{ failedRules }">
+            <el-form-item label="排序">
+                <el-input placeholder="==排序==" v-model="scope.addObj.order" maxlength="8"></el-input>
+                <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|phone" v-slot="{ failedRules }">
-            <el-form-item label="手机号">
-                <el-input placeholder="==手机号==" v-model="scope.addObj.phone" maxlength="11"></el-input>
-                <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
-                <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
+        <vee-item>
+            <el-form-item label="上传图片">
+                <file-upload url="/file" @change="fileChange" :size="5" :fileType="'image/*'"></file-upload>
+                <img :src="$baseURL+src" alt=""  style="max-width:100%; border: 1px solid #ddd; margin-top:10px; display:none;">
             </el-form-item>
+
+
         </vee-item>
 
-        <vee-item rules="required|email" v-slot="{ failedRules }">
-            <el-form-item label="邮箱">
-                <el-input placeholder="==邮箱==" v-model="scope.addObj.email"></el-input>
-                <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
-                <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
-            </el-form-item>
-        </vee-item>
-
-        <vee-item rules="required" v-slot="{ failedRules }">
-            <el-form-item label="选择用户类型">
-                <el-select v-model="scope.addObj.roleId" placeholder="==选择用户类型==" style="width:280px">
-                    <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
-                    <el-option v-for="item in RotationList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
-            </el-form-item>
-        </vee-item>
     </vue-add>
 
     <!--edit-->
-    <vue-edit ref="editBox" title="修改用户" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
-        <el-form-item label="用户名">
-            <span>{{scope.editObj.name}}</span>
-        </el-form-item>
-
-        <vee-item rules="required|phone" v-slot="{ failedRules }">
-            <el-form-item label="手机号">
-                <el-input placeholder="==手机号==" v-model="scope.editObj.phone" maxlength="11"></el-input>
-                <span class="text-danger" v-if="failedRules.required ">手机号不能为空！</span>
-                <span class="text-danger" v-if="failedRules.phone ">手机号格式不对！</span>
+    <vue-edit ref="editBox" title="修改轮播图" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
+        <vee-item :rules="'required|unique:/main/rotation/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
+            <el-form-item label="名称">
+                <el-input placeholder="==用户名==" v-model="scope.editObj.name"></el-input>
+                <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
+                <span class="text-danger" v-if="failedRules.unique">名称已存在！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|email" v-slot="{ failedRules }">
-            <el-form-item label="邮箱">
-                <el-input placeholder="==邮箱==" v-model="scope.editObj.email"></el-input>
-                <span class="text-danger" v-if="failedRules.required ">邮箱不能为空！</span>
-                <span class="text-danger" v-if="failedRules.email ">邮箱格式不对！</span>
+        <vee-item :rules="'required|unique:/main/rotation/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
+            <el-form-item label="标记名称">
+                <el-input placeholder="==标记名称==" v-model="scope.editObj.vname" maxlength="32">></el-input>
+                <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
+                <span class="text-danger" v-if="failedRules.unique">标记名称已存在！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required" v-slot="{ failedRules }">
-            <el-form-item label="选择用户类型">
-                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==" style="width:280px">
-                    <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
-                    <el-option v-for="item in RotationList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                <span class="text-danger" v-if="failedRules.required ">选择用户类型不能为空！</span>
+        <vee-item rules="integer" v-slot="{ failedRules }">
+            <el-form-item label="排序">
+                <el-input placeholder="==排序==" v-model="scope.editObj.order" maxlength="8"></el-input>
+                <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
             </el-form-item>
         </vee-item>
 
@@ -180,7 +156,7 @@
         <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
             <el-descriptions-item label="轮播图片标题" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
-            <el-descriptions-item label="vname" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.vname}}</el-descriptions-item>
+            <el-descriptions-item label="标记名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.vname}}</el-descriptions-item>
             <el-descriptions-item label="排序" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.order}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>
             <el-descriptions-item label="修改时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.editDate|date}}</el-descriptions-item>
@@ -189,7 +165,7 @@
                 <template v-for="(img,index ) in scope.dtlObj.imgs">
                     <div class="imgs-cont" :key="index">
                         <div class="imgs-cont-l">
-                            <img :src="$baseURL+ img.src" alt="图片">
+                            <img :src="$baseURL+ img.src" alt="图片" style="max-width:100%;">
                         </div>
                         <div class="imgs-cont-r">
                             <el-descriptions title="" :column="1">
@@ -200,6 +176,9 @@
                         </div>
                     </div>
                 </template>
+
+                <template v-if="scope.dtlObj.imgs.length===0">没有图片</template>
+
             </el-descriptions-item>
         </el-descriptions>
     </vue-dtl>
@@ -213,6 +192,7 @@ import VueEdit from "../../components/share/edit.vue";
 import VueAdd from "../../components/share/add.vue";
 import VueDtl from "../../components/share/dtl.vue";
 import VuePagination from "../../components/share/pagination.vue";
+import  FileUpload from '../../components/share/fileUpload.vue'
 
 import {
     pageOption,
@@ -241,11 +221,8 @@ export default {
             },
             addObj: {
                 name: null,
-                pwd: null,
-                pwd2: null,
-                roleId: null,
-                phone: null,
-                email: null
+                vname: null,
+                order: 0,
             },
             editObj: {},
             dtlObjs: [],
@@ -263,6 +240,8 @@ export default {
 
             // 其它 列表的
             RotationList: [],
+            src:""
+            
 
         };
     },
@@ -317,12 +296,14 @@ export default {
 
         editBtn(item) {
             this.editDialogVisible = true;
-            this.editObj = Object.assign({}, item, {
-                roleId: item.roleId._id
-            });
+            this.editObj = Object.assign({}, item);
 
             this.$refs.editBox.show()
         },
+        fileChange(data){
+            console.log(data)
+
+        }
 
     },
 
@@ -330,7 +311,8 @@ export default {
         VueDtl,
         VueAdd,
         VueEdit,
-        VuePagination
+        VuePagination,
+        FileUpload
     }
 };
 </script>

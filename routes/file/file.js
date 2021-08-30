@@ -1,8 +1,10 @@
 
 let router = require('./_router');
-var path = require("path");
-var fs = require("fs");
-var formidable = require("formidable"); //上传文件
+let path = require("path");
+let fs = require("fs");
+let formidable = require("formidable"); 
+let resData= require("../../libs/resData");
+
 
 router.get("/", (req, res) =>
 {
@@ -27,23 +29,23 @@ router.post("/", (req, res) =>
             // 写入数据库
             if (err)
             {
-                res.json(res._err(err));
+                res.json(resData.err(err));
                 return;
                 //throw err;
             }
-
+            console.log("files.file.path",files.file.path)
             var _path = files.file.path;
             // var p = path.dirname(_path);
             // var extname = path.extname(_path);
             var basename = path.basename(_path);
             let url = "/public/upload/" + basename;
-            res.json(res._ok(url));
+            res.json(resData.ok(url));
 
         });
 
     } catch (error)
     {
-        res.json(res._err(error));
+        res.json(resData.err(error));
         return;
     }
 });
