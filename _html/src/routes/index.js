@@ -6,6 +6,7 @@ import Home from "../views/home.vue"
 
 // 子模块区
 import User from "./user.js";
+import Rotation from "./rotation.js";
 
 const routes = [
 
@@ -35,7 +36,7 @@ const routes = [
 		path: "/rotation",
 		component: Layout,
 		meta: {ttl: "图片管理", icon: "el-icon-picture"},
-		children: User
+		children: Rotation
 
 	},
 

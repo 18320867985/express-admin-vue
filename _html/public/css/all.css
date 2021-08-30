@@ -64371,3 +64371,34 @@ body,
   position: absolute;
   margin-left: 10px;
   white-space: nowrap; }
+
+.user .imgs-cont {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px; }
+
+.user .imgs-cont-l {
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 200px;
+          flex: 0 0 200px;
+  -ms-flex-item-align: stretch;
+      align-self: stretch;
+  border: 1px solid #EBEEF5;
+  border-right: none; }
+  .user .imgs-cont-l img {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    vertical-align: middle;
+    max-height: 104px; }
+
+.user .imgs-cont-r {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1; }

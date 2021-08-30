@@ -1,4 +1,4 @@
-import axios from "../../ins.js";
+import axios from "../ins.js";
 
 // get list 
 async function getData (pageIndex=1,pageSize=10,params)

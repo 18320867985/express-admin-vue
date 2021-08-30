@@ -12,6 +12,9 @@ import vee from './vee';
 Vue.component('vee', vee.ValidationObserver);
 Vue.component('vee-item', vee.ValidationProvider);
 
+import config from "./api/_config";
+Vue.prototype.$baseURL=config.baseURL;
+
 import App from './App.vue';
 Vue.config.productionTip = false;
 

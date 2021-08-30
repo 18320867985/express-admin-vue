@@ -1,9 +1,9 @@
-import axios from "../../ins.js";
+import axios from "../ins.js";
 
 // get all list 
 async function getAll (params)
 {
-	let res = await axios.get(`/main/userRole/all/`, {params}).catch(err =>
+	let res = await axios.get(`/main/rotation/all/`, {params}).catch(err =>
 	{
 		console.log(err)
 	});
@@ -13,7 +13,7 @@ async function getAll (params)
 // get list 
 async function getData (pageIndex=1,pageSize=10,params)
 {
-	let res = await axios.get(`/main/UserRole/data/${pageIndex}/${pageSize}`, {params}).catch(err =>
+	let res = await axios.get(`/main/rotation/data/${pageIndex}/${pageSize}`, {params}).catch(err =>
 	{
 		console.log(err)
 	});
@@ -23,7 +23,7 @@ async function getData (pageIndex=1,pageSize=10,params)
 // get dtl
 async function getDataDtl (ids)
 {
-	let res = await axios.get(`/main/UserRole/data-dtl/${ids}`).catch(err =>
+	let res = await axios.get(`/main/rotation/data-dtl/${ids}`).catch(err =>
 	{
 		console.log(err)
 	});
@@ -33,7 +33,7 @@ async function getDataDtl (ids)
 // delete
 async function deleteData (ids)
 {
-	let res = await axios.delete(`/main/UserRole/data/${ids}`).catch(err =>
+	let res = await axios.delete(`/main/rotation/data/${ids}`).catch(err =>
 	{
 		console.log(err)
 	});
@@ -43,7 +43,7 @@ async function deleteData (ids)
 // post
 async function postData (obj)
 {
-	let res = await axios.post(`/main/UserRole/data`,obj).catch(err =>
+	let res = await axios.post(`/main/rotation/data`,obj).catch(err =>
 	{
 		console.log(err)
 	});
@@ -53,7 +53,7 @@ async function postData (obj)
 // put 
 async function putData (obj)
 {
-	let res = await axios.put(`/main/UserRole/data/`,obj).catch(err =>
+	let res = await axios.put(`/main/rotation/data/`,obj).catch(err =>
 	{
 		console.log(err)
 	});

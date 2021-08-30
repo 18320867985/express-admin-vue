@@ -1,6 +1,7 @@
 import axios from 'axios' //引入axios
+import config from "./_config"
 
-let baseURL = '';
+let baseURL =config.baseURL;
 
 // 注意 开启跨域要于vue.config.js文件配置优先
 //let baseURL = 'http://192.168.1.226:60002/'; 

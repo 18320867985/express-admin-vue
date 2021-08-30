@@ -1,5 +1,6 @@
 import axios from 'axios'; // 引入axio
 import router from "../routes"
+import config from "./_config"
 
 let axios_ins = axios.create();
 import {Notification} from "element-ui"
@@ -7,7 +8,7 @@ import {Notification} from "element-ui"
 // config
 // 注意 开启跨域要于vue.config.js文件配置优先 
 
-let baseURL = 'http://localhost:3000';
+let baseURL = config.baseURL;
 //let contentType = "application/x-www-form-urlencoded;charset=UTF-8";
 
 axios_ins.defaults.baseURL = baseURL;

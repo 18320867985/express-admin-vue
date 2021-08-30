@@ -16,7 +16,7 @@ var childSchema = new orm.mongoose.Schema({
    },
    order:{
        type:Number,
-       default:1
+       default:0
    }
 });
 
@@ -24,23 +24,23 @@ var schema = new orm.mongoose.Schema({
     name:{type:String,
        index:true,
       },
-      code:{
-          type:String,
-          unique:true, 
-      },
+      vname:{
+        type:String,
+        unique:true, 
+    },
     
-    createdt:{
+    createDate:{
             type:Date,
             default:Date.now
     },
-    modidt:{
+    editDate:{
         type:Date,
         default:Date.now
     },
     
     order:{
         type:Number,
-        default:1
+        default:0
     },
 
     imgs:{
