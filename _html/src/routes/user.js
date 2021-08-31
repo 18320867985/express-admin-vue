@@ -1,7 +1,7 @@
 
 //  user
-import  user from "../views/user/userlist.vue";
-import  usertype from "../views/user/usertype.vue";
+import  user from "../views/user/userList.vue";
+import  usertype from "../views/user/userType.vue";
 
 export default [{
 		path: "",

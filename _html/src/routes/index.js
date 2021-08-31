@@ -7,6 +7,7 @@ import Home from "../views/home.vue"
 // 子模块区
 import User from "./user.js";
 import Rotation from "./rotation.js";
+import Series from "./series.js";
 
 const routes = [
 
@@ -44,7 +45,7 @@ const routes = [
 		path: "/series",
 		component: Layout,
 		meta: {ttl: "产品系列", icon: "el-icon-box"},
-		children: User
+		children: Series
 
 	},
 

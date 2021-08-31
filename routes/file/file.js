@@ -29,11 +29,9 @@ router.post("/", (req, res) =>
             // 写入数据库
             if (err)
             {
-                res.json(resData.err(err));
-                return;
-                //throw err;
+                throw err;
             }
-            console.log("files.file.path",files.file.path)
+
             var _path = files.file.path;
             // var p = path.dirname(_path);
             // var extname = path.extname(_path);
