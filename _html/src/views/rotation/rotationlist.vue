@@ -47,7 +47,7 @@
 
             <el-table-column type="selection" width="55"></el-table-column>
 
-            <el-table-column prop="_id" label="ID" width="200"> </el-table-column>
+            <el-table-column prop="_id" label="id" width="200"> </el-table-column>
 
             <el-table-column prop="name" label="名称" sortable> </el-table-column>
 
@@ -114,12 +114,32 @@
         </vee-item>
 
         <vee-item>
-            <el-form-item label="上传图片">
-                <file-upload url="/file" @change="fileChange" :size="5" :fileType="'image/*'"></file-upload>
-                <img :src="$baseURL+src" alt=""  style="max-width:100%; border: 1px solid #ddd; margin-top:10px; display:none;">
+            <el-form-item label="上传图片" class="file-upload">
+                <file-upload url="/file" @change="addFileChange" :size="5" :fileType="'image/*'"></file-upload>
+                <template v-for="(item ,index) in scope.addObj.imgs">
+                    <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
+                        <el-form label-width="40px">
+                            <img :src="$baseURL+item.src" alt="" v-if="scope.addObj.imgs.length>0" style="max-width:100%; " />
+
+                            <el-form-item label="标题">
+                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="URL">
+                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="排序">
+                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="显示">
+                                <el-switch v-model="item.enabled"></el-switch>
+                            </el-form-item>
+                            <el-link type="danger" class="del" @click="addDelImg(index)">删除</el-link>
+                        </el-form>
+
+                    </div>
+                </template>
+
             </el-form-item>
-
-
         </vee-item>
 
     </vue-add>
@@ -148,6 +168,34 @@
                 <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
             </el-form-item>
         </vee-item>
+        <vee-item>
+            <el-form-item label="上传图片" class="file-upload">
+                <file-upload url="/file" @change="editFileChange" :size="5" :fileType="'image/*'"></file-upload>
+                <template v-for="(item ,index) in scope.editObj.imgs">
+                    <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
+                        <el-form label-width="40px">
+                            <img :src="$baseURL+item.src" alt="" v-if="scope.editObj.imgs.length>0" style="max-width:100%; " />
+
+                            <el-form-item label="标题">
+                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="URL">
+                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="排序">
+                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
+                            </el-form-item>
+                            <el-form-item label="显示">
+                                <el-switch v-model="item.enabled"></el-switch>
+                            </el-form-item>
+                            <el-link type="danger" class="del" @click="editDelImg(index)">删除</el-link>
+                        </el-form>
+
+                    </div>
+                </template>
+
+            </el-form-item>
+        </vee-item>
 
     </vue-edit>
 
@@ -169,9 +217,10 @@
                         </div>
                         <div class="imgs-cont-r">
                             <el-descriptions title="" :column="1">
-                                <el-descriptions-item label="ttl">{{img.ttl}}</el-descriptions-item>
-                                <el-descriptions-item label="url">{{img.url}}</el-descriptions-item>
-                                <el-descriptions-item label="排序">{{img.order}}</el-descriptions-item>
+                                <el-descriptions-item label="图片标题">{{img.ttl}}</el-descriptions-item>
+                                <el-descriptions-item label="跳转地址">{{img.url}}</el-descriptions-item>
+                                <el-descriptions-item label="图片排序">{{img.order}}</el-descriptions-item>
+                                <el-descriptions-item label="是否显示">{{img.enabled?'是':'否'}}</el-descriptions-item>
                             </el-descriptions>
                         </div>
                     </div>
@@ -192,7 +241,7 @@ import VueEdit from "../../components/share/edit.vue";
 import VueAdd from "../../components/share/add.vue";
 import VueDtl from "../../components/share/dtl.vue";
 import VuePagination from "../../components/share/pagination.vue";
-import  FileUpload from '../../components/share/fileUpload.vue'
+import FileUpload from '../../components/share/fileUpload.vue'
 
 import {
     pageOption,
@@ -223,6 +272,7 @@ export default {
                 name: null,
                 vname: null,
                 order: 0,
+                imgs: []
             },
             editObj: {},
             dtlObjs: [],
@@ -239,9 +289,6 @@ export default {
             deleteLoading: false,
 
             // 其它 列表的
-            RotationList: [],
-            src:""
-            
 
         };
     },
@@ -292,17 +339,49 @@ export default {
 
         addBtn() {
             this.$refs.addBox.show();
+            this.addObj.imgs = [];
         },
 
         editBtn(item) {
+            console.log(item)
             this.editDialogVisible = true;
             this.editObj = Object.assign({}, item);
-
             this.$refs.editBox.show()
         },
-        fileChange(data){
-            console.log(data)
 
+        addFileChange(data) {
+
+            let obj = {
+                url: null,
+                src: data.data,
+                ttl: null,
+                order: null,
+                enabled: true
+            };
+            let imgs = this.addObj.imgs || [];
+            imgs.unshift(obj);
+
+        },
+
+        addDelImg(index) {
+            this.addObj.imgs.splice(index, 1);
+        },
+
+        editFileChange(data) {
+
+            let obj = {
+                url: null,
+                src: data.data,
+                ttl: null,
+                order: null,
+                enabled: true
+            };
+            let imgs = this.editObj.imgs || [];
+            imgs.unshift(obj);
+
+        },
+        editDelImg(index) {
+            this.editObj.imgs.splice(index, 1);
         }
 
     },

@@ -37,7 +37,6 @@ export default {
         fileUpload() {
             let formData = new FormData();
             let data = this.$refs.fileInput.files[0];
-            console.log("data.size ",data.size )
             if (data.size >(this.size*1024*1024)) {
                 alert("文件大于" + this.size + "M");
                 return;

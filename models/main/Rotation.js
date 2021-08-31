@@ -14,6 +14,10 @@ var childSchema = new orm.mongoose.Schema({
        type:String,
        default:""
    },
+   enabled:{
+       type:Boolean,
+       defualt:true
+   },
    order:{
        type:Number,
        default:0

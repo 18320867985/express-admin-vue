@@ -75,11 +75,25 @@
 			display: inline-block;
 			height: 100%;
 			width: 100%;
-			vertical-align: middle;max-height: 104px;
+			vertical-align: middle;max-height: 141px;
 		}
 	}
 
 	.imgs-cont-r {
 		flex: 1;
 	}
+
+	.file-upload{
+
+		.del{
+			position: absolute;
+			right: 15px;
+			margin-top: -38px;
+		}
+		.el-form-item--small.el-form-item{
+			margin-bottom: 5px;
+		}
+
+	}
+
 }

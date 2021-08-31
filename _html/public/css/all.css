@@ -64396,9 +64396,17 @@ body,
     height: 100%;
     width: 100%;
     vertical-align: middle;
-    max-height: 104px; }
+    max-height: 141px; }
 
 .user .imgs-cont-r {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1; }
+
+.user .file-upload .del {
+  position: absolute;
+  right: 15px;
+  margin-top: -38px; }
+
+.user .file-upload .el-form-item--small.el-form-item {
+  margin-bottom: 5px; }

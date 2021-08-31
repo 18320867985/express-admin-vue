@@ -46,8 +46,8 @@
         <el-table :data="tableData" border style="width: 100%" v-loading="tableLoading" @selection-change="handleSelectionChange">
 
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="_id" label="ID" width="200"> </el-table-column>
-            <el-table-column prop="vid" label="VID" ></el-table-column>
+            <el-table-column prop="_id" label="id" width="200"> </el-table-column>
+            <el-table-column prop="vid" label="标记id" ></el-table-column>
             <el-table-column prop="name" label="用户类型" sortable> </el-table-column>
             <el-table-column prop="order" label="排序" sortable> </el-table-column>
             <el-table-column label="创建时间" sortable>
@@ -82,11 +82,11 @@
         </vee-item>
 
          <vee-item rules="required|integer|unique:/main/userRole/data-unique-vid" v-slot="{ failedRules  }">
-            <el-form-item label="VID">
-                <el-input placeholder="==VID==" v-model="scope.addObj.vid" maxlength="8">></el-input>
-                <span class="text-danger" v-if="failedRules.required">vid不能为空！</span>
+            <el-form-item label="标记id">
+                <el-input placeholder="==标记id==" v-model="scope.addObj.vid" maxlength="8">></el-input>
+                <span class="text-danger" v-if="failedRules.required">标记id不能为空！</span>
                 <span class="text-danger" v-if="failedRules.integer">必须为整型数字！</span>
-                <span class="text-danger" v-if="failedRules.unique">vid的值已存在！</span>
+                <span class="text-danger" v-if="failedRules.unique">标记id已存在！</span>
             </el-form-item>
         </vee-item>
 
@@ -111,11 +111,11 @@
         </vee-item>
     
          <vee-item :rules="'required|integer|unique:/main/userRole/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
-            <el-form-item label="VID">
-                <el-input placeholder="==VID==" v-model="scope.editObj.vid" maxlength="8">></el-input>
-                <span class="text-danger" v-if="failedRules.required">vid不能为空！</span>
+            <el-form-item label="标记id">
+                <el-input placeholder="==标记id==" v-model="scope.editObj.vid" maxlength="8">></el-input>
+                <span class="text-danger" v-if="failedRules.required">标记id不能为空！</span>
                 <span class="text-danger" v-if="failedRules.integer">必须为整型数字！</span>
-                <span class="text-danger" v-if="failedRules.unique">vid的值已存在！</span>
+                <span class="text-danger" v-if="failedRules.unique">v标记id已存在！</span>
             </el-form-item>
         </vee-item>
 
@@ -132,7 +132,7 @@
     <vue-dtl ref="dtlBox" title="查看详情" :dtlObjs="dtlObjs" v-slot="scope">
         <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
-            <el-descriptions-item label="VID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.vid}} </el-descriptions-item>
+            <el-descriptions-item label="标记id" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.vid}} </el-descriptions-item>
             <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}}</el-descriptions-item>
             <el-descriptions-item label="排序" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.order}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>

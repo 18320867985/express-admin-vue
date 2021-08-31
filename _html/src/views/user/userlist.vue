@@ -54,7 +54,7 @@
 
             <el-table-column type="selection" width="55"></el-table-column>
 
-            <el-table-column prop="_id" label="ID" width="200"> </el-table-column>
+            <el-table-column prop="_id" label="id" width="200"> </el-table-column>
 
             <el-table-column prop="name" label="用户名" sortable> </el-table-column>
 

@@ -60,6 +60,7 @@ router.post("/rotation/data", async (req, res) =>
         name: obj.name,
         vname: obj.vname,
         order:obj.order||0,
+        imgs:obj.imgs
     }
     let data = await mainCtrl.rotation.postData(rotation);
     res.json(data);

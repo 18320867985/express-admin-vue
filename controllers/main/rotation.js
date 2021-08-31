@@ -129,8 +129,9 @@ async function putData (obj)
     let name = obj.name;
     let vname = obj.vname;
     let order = obj.order;
+    let imgs = obj.imgs;
 
-    let v = await mainModel.Rotation.findByIdAndUpdate(_id, {$set: {name, vname, order}}, {new: true});
+    let v = await mainModel.Rotation.findByIdAndUpdate(_id, {$set: {name, vname, order,imgs}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");
