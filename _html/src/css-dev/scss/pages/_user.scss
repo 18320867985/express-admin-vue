@@ -75,7 +75,9 @@
 			display: inline-block;
 			height: 100%;
 			width: 100%;
-			vertical-align: middle;max-height: 141px;
+			vertical-align: middle;
+			height: 139px;
+			box-sizing: border-box;
 		}
 	}
 
