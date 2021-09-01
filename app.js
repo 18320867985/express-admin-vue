@@ -49,9 +49,9 @@ app.use((req, res, next) =>
 });
 
 // route 路由
-let indexRouter = require('./routes/index');
-let adminRouter = require('./routes/main/index');
-let fileRouter = require('./routes/file/index');
+let indexRouter = require('./_routers/index');
+let adminRouter = require('./_routers/main/index');
+let fileRouter = require('./_routers/file/index');
 app.use('/', indexRouter);
 app.use('/main', adminRouter);
 app.use('/file', fileRouter);

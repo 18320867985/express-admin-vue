@@ -6,10 +6,12 @@
 /html/node_modules
 
 /_html/node_modules
+/__html/node_modules
 
 #  node  html-webpack Dependency directory
 /html-webpack/node_modules
 /_html-webpack/node_modules
+/__html-webpack/node_modules
 
 # Visual Studio  Dependency directory
 /vs
