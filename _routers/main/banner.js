@@ -1,5 +1,5 @@
 
-const router = require("./router");
+const router = require("./_router");
 const mainModel = require("../../_models/main");
 
 router.get("/banner", async (req, res) =>

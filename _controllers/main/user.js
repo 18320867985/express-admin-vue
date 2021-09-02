@@ -1,5 +1,6 @@
 const mainModel = require("../../_models/main");
 const jwt = require("../../libs/jwt");
+const cpy = require("../../libs/crypto");
 const resData = require("../../libs/resData");
 
 // 登录
@@ -122,8 +123,15 @@ async function deleteData (ids = [])
 }
 
 // post
-async function postData (obj)
+async function postData (params)
 {
+    var obj = {
+        name: params.name,
+        pwd: cpy.md5(params.pwd),
+        email: params.email,
+        roleId: params.roleId,
+        phone: params.phone
+    }
     let user = new mainModel.User(obj);
     let isError = user.validateSync();
     if (isError)

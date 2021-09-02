@@ -4,7 +4,7 @@ import axios from "../ins.js";
 // get list 
 async function getData (pageIndex=1,pageSize=10,params)
 {
-	let res = await axios.get(`/main/rotation/data/${pageIndex}/${pageSize}`, {params}).catch(err =>
+	let res = await axios.get(`/main/series/data/${pageIndex}/${pageSize}`, {params}).catch(err =>
 	{
 		console.log(err)
 	});
@@ -14,7 +14,7 @@ async function getData (pageIndex=1,pageSize=10,params)
 // get dtl
 async function getDataDtl (ids)
 {
-	let res = await axios.get(`/main/rotation/data-dtl/${ids}`).catch(err =>
+	let res = await axios.get(`/main/series/data-dtl/${ids}`).catch(err =>
 	{
 		console.log(err)
 	});
@@ -24,7 +24,7 @@ async function getDataDtl (ids)
 // delete
 async function deleteData (ids)
 {
-	let res = await axios.delete(`/main/rotation/data/${ids}`).catch(err =>
+	let res = await axios.delete(`/main/series/data/${ids}`).catch(err =>
 	{
 		console.log(err)
 	});
@@ -34,7 +34,7 @@ async function deleteData (ids)
 // post
 async function postData (obj)
 {
-	let res = await axios.post(`/main/rotation/data`,obj).catch(err =>
+	let res = await axios.post(`/main/series/data`,obj).catch(err =>
 	{
 		console.log(err)
 	});
@@ -44,7 +44,7 @@ async function postData (obj)
 // put 
 async function putData (obj)
 {
-	let res = await axios.put(`/main/rotation/data/`,obj).catch(err =>
+	let res = await axios.put(`/main/series/data/`,obj).catch(err =>
 	{
 		console.log(err)
 	});
@@ -54,7 +54,6 @@ async function putData (obj)
 
 
 export default {
-
 	getData,
 	deleteData,
 	getDataDtl,

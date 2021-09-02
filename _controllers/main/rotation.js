@@ -109,8 +109,7 @@ async function postData (obj)
     let isError = Rotation.validateSync();
     if (isError)
     {
-        res.json(resData.err(null, isError));
-        return;
+        return resData.err(null, isError);
     }
 
     var createObj = await mainModel.Rotation.create(Rotation)

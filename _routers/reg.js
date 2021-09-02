@@ -1,5 +1,5 @@
 
-var router = require('./router');
+var router = require('./_router');
 const mainModel = require("../_models/main");
 
 router.get("/reg", (req, res) =>

@@ -1,18 +1,18 @@
 
 //  user
-import  user from "../views/user/userList.vue";
-import  seriesType from "../views/series/seriesType.vue"
+import  Series from "../views/series/series.vue";
+import  SeriesType from "../views/series/seriesType.vue"
 
 export default [
     {
 		path: "",
-		component: user,
-		meta:{ ttl:"用户列表"},
+		component: Series,
+		meta:{ ttl:"系列列表"},
 
 	},
 	{
 		path: "seriesType",
-		component: seriesType,
+		component: SeriesType,
 		meta:{ ttl:"系列类型"},
 
 	},

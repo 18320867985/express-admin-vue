@@ -1,4 +1,4 @@
-let router = require('./router');
+let router = require('./_router');
 let mainCtrl = require("../_controllers/main");
 
 router.get("/init/data", async (req, res) =>

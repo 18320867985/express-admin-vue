@@ -1,20 +1,12 @@
 const mainModel = require("../../_models/main");
 const resData = require("../../libs/resData");
-const jwt = require("../../libs/jwt");
-
-// get all list
-async function getAll ()
-{
-    let list = await mainModel.SeriesType.find();
-    return resData.ok(list);
-}
 
 /*** CRUD  ***/
 
 // unique
 async function unique (val, id)
 {
-    let obj = await mainModel.SeriesType.findOne({name: val});
+    let obj = await mainModel.Series.findOne({name: val});
     if (obj)
     {
         if (obj._id.toString() === id)
@@ -28,10 +20,11 @@ async function unique (val, id)
         return true;
     }
 }
+
 // unique
 async function uniqueVid (val, id)
 {
-    let obj = await mainModel.SeriesType.findOne({vname: val});
+    let obj = await mainModel.Series.findOne({vname: val});
     if (obj)
     {
         if (obj._id.toString() === id)
@@ -51,14 +44,13 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 {
     let query = {
         name: new RegExp(search.name, "i"),
-        createDate: {
-            $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
-            $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
-        }
+        // createDate: {
+        //     $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
+        //     $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
+        // }
     };
 
-   
-    let pageCount = await mainModel.SeriesType.countDocuments(query);
+    let pageCount = await mainModel.Series.countDocuments(query);
     if (pageCount <= 0)
     {
         // not data
@@ -73,7 +65,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
     pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
     let index2 = (pageIndex - 1) * pageSize;
 
-    let list = await mainModel.SeriesType.find(query).skip(index2).limit(pageSize);
+    let list = await mainModel.Series.find(query).skip(index2).limit(pageSize);
 
     return resData.ok(list, {
         pageIndex,
@@ -85,7 +77,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 // dtl
 async function getDataDtl (ids = [])
 {
-    let list = await mainModel.SeriesType.find({
+    let list = await mainModel.Series.find({
         _id: {
             $in: ids
         }
@@ -97,7 +89,7 @@ async function getDataDtl (ids = [])
 //  delete
 async function deleteData (ids = [])
 {
-    let obj = await mainModel.SeriesType.deleteMany({
+    let obj = await mainModel.Series.deleteMany({
         _id: {
             $in: ids
         }
@@ -117,15 +109,19 @@ async function postData (params)
         name: params.name,
         vname: params.vname,
         order:params.order||0,
+        imgs:params.imgs,
+        seriesType_id:params.seriesType_id
     }
-    let SeriesType = new mainModel.SeriesType(obj);
-    let isError = SeriesType.validateSync();
+    
+    let Series = new mainModel.Series(obj);
+    let isError = Series.validateSync();
     if (isError)
     {
+       
         return resData.err(null, isError);
     }
 
-    var createObj = await mainModel.SeriesType.create(SeriesType)
+    var createObj = await mainModel.Series.create(Series)
     if (!createObj)
     {
         return resData.err("添加失败");
@@ -141,8 +137,9 @@ async function putData (obj)
     let name = obj.name;
     let vname = obj.vname;
     let order = obj.order;
+    let imgs = obj.imgs;
 
-    let v = await mainModel.SeriesType.findByIdAndUpdate(_id, {$set: {name, vname, order}}, {new: true});
+    let v = await mainModel.Series.findByIdAndUpdate(_id, {$set: {name, vname, order,imgs}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");
@@ -154,7 +151,6 @@ async function putData (obj)
 }
 
 module.exports = {
-    getAll,
     unique,
     uniqueVid,
     getData,
@@ -162,6 +158,5 @@ module.exports = {
     deleteData,
     postData,
     putData,
-
 
 }

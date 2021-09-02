@@ -4,7 +4,7 @@
     <!-- 表单 -->
     <el-form :inline="true" class="form-inline">
         <el-form-item label="">
-            <el-input placeholder="==图片的标题==" v-model="queryObj.name"></el-input>
+            <el-input placeholder="==轮播图的标题==" v-model="queryObj.name"></el-input>
         </el-form-item>
 
         <el-form-item label="">
@@ -89,8 +89,8 @@
     <vue-pagination :getList="getList" :pageObj="pageObj" :tableData="tableData"></vue-pagination>
 
     <!--add-->
-    <vue-add ref="addBox" title="添加图片" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
-        <vee-item rules="required|unique:/main/rotation/data-unique" v-slot="{ failedRules  }">
+    <vue-add ref="addBox" title="添加轮播图" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
+        <vee-item rules="required|unique:/main/series/data-unique" v-slot="{ failedRules  }">
             <el-form-item label="名称">
                 <el-input placeholder="==名称==" v-model="scope.addObj.name"></el-input>
                 <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
@@ -98,7 +98,7 @@
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|unique:/main/rotation/data-unique-vid" v-slot="{ failedRules  }">
+        <vee-item rules="required|unique:/main/series/data-unique-vid" v-slot="{ failedRules  }">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.addObj.vname" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
@@ -106,7 +106,17 @@
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="integer" v-slot="{ failedRules }">
+         <vee-item rules="required" v-slot="{ failedRules }">
+            <el-form-item label="选择系列类型">
+                <el-select v-model="scope.addObj.seriesType_id" placeholder="==选择系列类型==" style="width:280px">
+                    <el-option label="==选择系列类型==" style="color:#999;" :value="null"></el-option>
+                    <el-option v-for="item in seriesTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+                <span class="text-danger" v-if="failedRules.required ">选择系列类型不能为空！</span>
+            </el-form-item>
+        </vee-item>
+        
+         <vee-item rules="integer" v-slot="{ failedRules }">
             <el-form-item label="排序">
                 <el-input placeholder="==排序==" v-model="scope.addObj.order" maxlength="8"></el-input>
                 <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
@@ -145,8 +155,8 @@
     </vue-add>
 
     <!--edit-->
-    <vue-edit ref="editBox" title="修改图片" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
-        <vee-item :rules="'required|unique:/main/rotation/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
+    <vue-edit ref="editBox" title="修改轮播图" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
+        <vee-item :rules="'required|unique:/main/series/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="名称">
                 <el-input placeholder="==用户名==" v-model="scope.editObj.name"></el-input>
                 <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
@@ -154,11 +164,20 @@
             </el-form-item>
         </vee-item>
 
-        <vee-item :rules="'required|unique:/main/rotation/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
+        <vee-item :rules="'required|unique:/main/series/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.editObj.vname" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
                 <span class="text-danger" v-if="failedRules.unique">标记名称已存在！</span>
+            </el-form-item>
+        </vee-item>
+          <vee-item rules="required" v-slot="{ failedRules }">
+            <el-form-item label="选择系列类型">
+                <el-select v-model="scope.editObj.seriesType_id" placeholder="==选择系列类型==" style="width:280px">
+                    <el-option label="==选择系列类型==" style="color:#999;" :value="null"></el-option>
+                    <el-option v-for="item in seriesTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
+                </el-select>
+                <span class="text-danger" v-if="failedRules.required ">选择系列类型不能为空！</span>
             </el-form-item>
         </vee-item>
 
@@ -255,11 +274,12 @@ export default {
 
             // axios 接口
             api: {
-                getData: mianApi.rotation.getData,
-                getDataDtl: mianApi.rotation.getDataDtl,
-                postData: mianApi.rotation.postData,
-                putData: mianApi.rotation.putData,
-                deleteData: mianApi.rotation.deleteData,
+                getData: mianApi.series.getData,
+                getDataDtl: mianApi.series.getDataDtl,
+                postData: mianApi.series.postData,
+                putData: mianApi.series.putData,
+                deleteData: mianApi.series.deleteData,
+                getSeriesTypeAll: mianApi.seriesType.getAll
             },
 
             // 增删查改的对象
@@ -289,13 +309,30 @@ export default {
             deleteLoading: false,
 
             // 其它 列表的
+            seriesTypeList:[],
 
         };
     },
     async created() {
         this.getList();
+        this.getSeriesTypeAll();
     },
     methods: {
+
+         async getSeriesTypeAll() {
+            let res = await this.api.getSeriesTypeAll();
+            if (!res) {
+                return;
+            }
+            if (res.code === 1) {
+                this.seriesTypeList = res.data.map((item) => {
+                    return {
+                        label: item.name,
+                        value: item._id
+                    };
+                });
+            }
+        },
 
         async getList() {
 

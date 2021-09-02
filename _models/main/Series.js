@@ -3,6 +3,7 @@
 const orm = require("./_mongoose");
 
 var childSchema = new orm.mongoose.Schema({
+
     ttl: {
         type: String,
         default: ""
@@ -34,10 +35,6 @@ var schema = new orm.mongoose.Schema({
     vname:{
         type:String,
         default:""
-    },
-    desc: {
-        type: String,
-        default: ""
     },
     order: {
         type: Number,

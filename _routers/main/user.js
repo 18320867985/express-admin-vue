@@ -1,15 +1,14 @@
 
-const router = require("./router");
-const cpy = require("../../libs/crypto");
+const router = require("./_router");
 const mainCtrl = require("../../_controllers/main");
 
 // unique
-router.get("/userRole/data-unique", async (req, res) =>
+router.get("/user/data-unique", async (req, res) =>
 {
     let query=req.query||{};
     let value = query.value || "";
     let id = query.id || "";
-    let data = await mainCtrl.userRole.unique(value,id);
+    let data = await mainCtrl.user.unique(value,id);
     res.json(data)
 });
 
@@ -48,14 +47,7 @@ router.delete("/user/data/:ids", async (req, res) =>
 router.post("/user/data", async (req, res) =>
 {
     let obj = req.body || {};
-    var user = {
-        name: obj.name,
-        pwd: cpy.md5(obj.pwd),
-        email: obj.email,
-        roleId: obj.roleId,
-        phone: obj.phone
-    }
-    let data = await mainCtrl.user.postData(user);
+    let data = await mainCtrl.user.postData(obj);
     res.json(data);
 });
 

@@ -1,4 +1,4 @@
-const router = require("./router");
+const router = require("./_router");
 const mainCtrl = require("../../_controllers/main");
 
 router.get("/userRole/all", async (req, res) =>
@@ -61,12 +61,7 @@ router.delete("/userRole/data/:ids", async (req, res) =>
 router.post("/userRole/data", async (req, res) =>
 {
     let obj = req.body || {};
-    var userRole = {
-        name: obj.name,
-        vid: obj.vid,
-        order:obj.order||0,
-    }
-    let data = await mainCtrl.userRole.postData(userRole);
+    let data = await mainCtrl.userRole.postData(obj);
     res.json(data);
 });
 

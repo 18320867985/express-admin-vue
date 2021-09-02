@@ -1,4 +1,4 @@
- let router = require('./router');
+ let router = require('./_router');
 
 require("./login");
 require("./reg");

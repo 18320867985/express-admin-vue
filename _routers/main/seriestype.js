@@ -1,4 +1,4 @@
-const router = require("./router");
+const router = require("./_router");
 const mainCtrl = require("../../_controllers/main");
 
 router.get("/seriesType/all", async (req, res) =>
@@ -61,12 +61,7 @@ router.delete("/seriesType/data/:ids", async (req, res) =>
 router.post("/seriesType/data", async (req, res) =>
 {
     let obj = req.body || {};
-    var seriesType = {
-        name: obj.name,
-        vname: obj.vname,
-        order:obj.order||0,
-    }
-    let data = await mainCtrl.seriesType.postData(seriesType);
+    let data = await mainCtrl.seriesType.postData(obj);
     res.json(data);
 });
 

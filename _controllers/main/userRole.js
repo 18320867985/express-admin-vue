@@ -115,14 +115,18 @@ async function deleteData (ids = [])
 }
 
 // post
-async function postData (obj)
+async function postData (params)
 {  
+    var obj = {
+        name: params.name,
+        vid: params.vid,
+        order:params.order||0,
+    }
     let UserRole = new mainModel.UserRole(obj);
     let isError = UserRole.validateSync();
     if (isError)
-    {
-        res.json(resData.err(null, isError));
-        return;
+    {   
+        return  resData.err(null, isError);
     }
 
     var createObj = await mainModel.UserRole.create(UserRole)
