@@ -4,7 +4,7 @@
     <!-- 表单 -->
     <el-form :inline="true" class="form-inline">
         <el-form-item label="">
-            <el-input placeholder="==轮播图的标题==" v-model="queryObj.name"></el-input>
+            <el-input placeholder="==名称==" v-model="queryObj.name"></el-input>
         </el-form-item>
 
         <el-form-item label="">

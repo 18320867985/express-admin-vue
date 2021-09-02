@@ -6,7 +6,7 @@ const resData = require("../../libs/resData");
 // unique
 async function unique (val, id)
 {
-    let obj = await mainModel.Series.findOne({name: val});
+    let obj = await mainModel.Contact.findOne({name: val});
     if (obj)
     {
         if (obj._id.toString() === id)
@@ -24,7 +24,7 @@ async function unique (val, id)
 // unique
 async function uniqueVid (val, id)
 {
-    let obj = await mainModel.Series.findOne({vname: val});
+    let obj = await mainModel.Contact.findOne({vname: val});
     if (obj)
     {
         if (obj._id.toString() === id)
@@ -50,7 +50,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
         }
     };
 
-    let pageCount = await mainModel.Series.countDocuments(query);
+    let pageCount = await mainModel.Contact.countDocuments(query);
     if (pageCount <= 0)
     {
         // not data
@@ -65,7 +65,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
     pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
     let index2 = (pageIndex - 1) * pageSize;
 
-    let list = await mainModel.Series.find(query).skip(index2).limit(pageSize);
+    let list = await mainModel.Contact.find(query).skip(index2).limit(pageSize);
 
     return resData.ok(list, {
         pageIndex,
@@ -77,7 +77,7 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 // dtl
 async function getDataDtl (ids = [])
 {
-    let list = await mainModel.Series.find({
+    let list = await mainModel.Contact.find({
         _id: {
             $in: ids
         }
@@ -89,7 +89,7 @@ async function getDataDtl (ids = [])
 //  delete
 async function deleteData (ids = [])
 {
-    let obj = await mainModel.Series.deleteMany({
+    let obj = await mainModel.Contact.deleteMany({
         _id: {
             $in: ids
         }
@@ -109,19 +109,21 @@ async function postData (params)
         name: params.name,
         vname: params.vname,
         order:params.order||0,
-        imgs:params.imgs,
-        seriesType_id:params.seriesType_id
+        x:params.x,
+        y:params.y,
+        addr:params.addr,
+        phone:params.phone,
+       // imgs:params.imgs,
     }
     
-    let Series = new mainModel.Series(obj);
-    let isError = Series.validateSync();
+    let Contact = new mainModel.Contact(obj);
+    let isError = Contact.validateSync();
     if (isError)
     {
-       
         return resData.err(null, isError);
     }
 
-    var createObj = await mainModel.Series.create(Series)
+    var createObj = await mainModel.Contact.create(Contact)
     if (!createObj)
     {
         return resData.err("添加失败");
@@ -137,9 +139,11 @@ async function putData (obj)
     let name = obj.name;
     let vname = obj.vname;
     let order = obj.order;
-    let imgs = obj.imgs;
-
-    let v = await mainModel.Series.findByIdAndUpdate(_id, {$set: {name, vname, order,imgs}}, {new: true});
+    let phone = obj.phone;
+    let x = obj.x;
+    let y = obj.y;
+   
+    let v = await mainModel.Contact.findByIdAndUpdate(_id, {$set: {name, vname, order,phone,x,y}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");

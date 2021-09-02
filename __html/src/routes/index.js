@@ -9,6 +9,7 @@ import User from "./user.js";
 import Rotation from "./rotation.js";
 import Series from "./series.js";
 import Svcnet from "./svcnet.js";
+import Contact from "./contact.js";
 
 const routes = [
 
@@ -70,7 +71,7 @@ const routes = [
 		path: "/contact",
 		component: Layout,
 		meta: {ttl: "关于我们", icon: "el-icon-office-building"},
-		children: User
+		children: Contact
 
 	},
 

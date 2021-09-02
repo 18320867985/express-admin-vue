@@ -53,17 +53,17 @@
 
             <el-table-column prop="vname" label="标记名称" sortable> </el-table-column>
 
+            <el-table-column prop="addr" label="地址" width="200px"> </el-table-column>
+
+            <el-table-column prop="x" label="坐标X"> </el-table-column>
+
+            <el-table-column prop="y" label="坐标Y"> </el-table-column>
+
+            <el-table-column prop="phone" label="手机号码"> </el-table-column>
+
             <el-table-column prop="order" label="排序"></el-table-column>
 
-            <el-table-column label="图片列表(个数)">
-                <template v-slot="scope">
-                    <span v-if="scope.row.imgs.length>0"> {{scope.row.imgs.length+' 张图片'}}</span>
-                    <span v-if="!scope.row.imgs.length"> 没有图片</span>
-                </template>
-
-            </el-table-column>
-
-            <el-table-column label="创建时间" sortable>
+            <el-table-column label="创建时间" sortable width="150px">
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
                 </template>
@@ -89,8 +89,8 @@
     <vue-pagination :getList="getList" :pageObj="pageObj" :tableData="tableData"></vue-pagination>
 
     <!--add-->
-    <vue-add ref="addBox" title="添加产品系列" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
-        <vee-item rules="required|unique:/main/series/data-unique" v-slot="{ failedRules  }">
+    <vue-add ref="addBox" title="添加联系" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
+        <vee-item rules="required|unique:/main/contact/data-unique" v-slot="{ failedRules  }">
             <el-form-item label="名称">
                 <el-input placeholder="==名称==" v-model="scope.addObj.name"></el-input>
                 <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
@@ -98,7 +98,7 @@
             </el-form-item>
         </vee-item>
 
-        <vee-item rules="required|unique:/main/series/data-unique-vid" v-slot="{ failedRules  }">
+        <vee-item rules="required|unique:/main/contact/data-unique-vid" v-slot="{ failedRules  }">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.addObj.vname" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
@@ -106,78 +106,88 @@
             </el-form-item>
         </vee-item>
 
-         <vee-item rules="required" v-slot="{ failedRules }">
-            <el-form-item label="选择系列类型">
-                <el-select v-model="scope.addObj.seriesType_id" placeholder="==选择系列类型==" style="width:280px">
-                    <el-option label="==选择系列类型==" style="color:#999;" :value="null"></el-option>
-                    <el-option v-for="item in seriesTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                <span class="text-danger" v-if="failedRules.required ">选择系列类型不能为空！</span>
+        <vee-item rules="required" v-slot="{ failedRules  }">
+            <el-form-item label="地址">
+                <el-input placeholder="==地址==" v-model="scope.addObj.addr" maxlength="64">></el-input>
+                <span class="text-danger" v-if="failedRules.required">地址不能为空！</span>
             </el-form-item>
         </vee-item>
-        
-         <vee-item rules="integer" v-slot="{ failedRules }">
+
+        <vee-item rules="required|phone" v-slot="{ failedRules  }">
+            <el-form-item label="手机号码">
+                <el-input placeholder="==手机号码==" v-model="scope.addObj.phone" maxlength="11">></el-input>
+                <span class="text-danger" v-if="failedRules.required">手机号码不能为空！</span>
+                <span class="text-danger" v-if="failedRules.phone">手机号码格式不对！</span>
+            </el-form-item>
+        </vee-item>
+        <vee-item rules="required|between:-180,180" v-slot="{ failedRules  }">
+            <el-form-item label="坐标X">
+                <el-input placeholder="==坐标X==" v-model="scope.addObj.x" maxlength="7">></el-input>
+                <span class="text-danger" v-if="failedRules.required">坐标X不能为空！</span>
+                <span class="text-danger" v-if="failedRules.between">坐标X数值格式不对！</span>
+            </el-form-item>
+        </vee-item>
+        <vee-item rules="required|between:-180,180" v-slot="{ failedRules  }">
+            <el-form-item label="坐标Y">
+                <el-input placeholder="==坐标Y==" v-model="scope.addObj.y" maxlength="7">></el-input>
+                <span class="text-danger" v-if="failedRules.required">坐标Y不能为空！</span>
+                <span class="text-danger" v-if="failedRules.between">坐标Y数值格式不对！</span>
+            </el-form-item>
+        </vee-item>
+        <vee-item rules="integer" v-slot="{ failedRules }">
             <el-form-item label="排序">
                 <el-input placeholder="==排序==" v-model="scope.addObj.order" maxlength="8"></el-input>
                 <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item>
-            <el-form-item label="上传图片" class="file-upload">
-                <file-upload url="/file" @change="addFileChange" :size="5" :fileType="'image/*'"></file-upload>
-                <template v-for="(item ,index) in scope.addObj.imgs">
-                    <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
-                        <el-form label-width="40px">
-                            <img :src="$baseURL+item.src" alt="" v-if="scope.addObj.imgs.length>0" style="max-width:100%; " />
-
-                            <el-form-item label="标题">
-                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="URL">
-                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="排序">
-                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="显示">
-                                <el-switch v-model="item.enabled"></el-switch>
-                            </el-form-item>
-                            <el-link type="danger" class="del" @click="addDelImg(index)">删除</el-link>
-                        </el-form>
-
-                    </div>
-                </template>
-
-            </el-form-item>
-        </vee-item>
-
     </vue-add>
 
     <!--edit-->
-    <vue-edit ref="editBox" title="修改产品系列" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
-        <vee-item :rules="'required|unique:/main/series/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
+    <vue-edit ref="editBox" title="修改联系" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
+        <vee-item :rules="'required|unique:/main/contact/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="名称">
-                <el-input placeholder="==用户名==" v-model="scope.editObj.name"></el-input>
+                <el-input placeholder="==名称==" v-model="scope.editObj.name"></el-input>
                 <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
                 <span class="text-danger" v-if="failedRules.unique">名称已存在！</span>
             </el-form-item>
         </vee-item>
 
-        <vee-item :rules="'required|unique:/main/series/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
+        <vee-item :rules="'required|unique:/main/contact/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.editObj.vname" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
                 <span class="text-danger" v-if="failedRules.unique">标记名称已存在！</span>
             </el-form-item>
         </vee-item>
-          <vee-item rules="required" v-slot="{ failedRules }">
-            <el-form-item label="选择系列类型">
-                <el-select v-model="scope.editObj.seriesType_id" placeholder="==选择系列类型==" style="width:280px">
-                    <el-option label="==选择系列类型==" style="color:#999;" :value="null"></el-option>
-                    <el-option v-for="item in seriesTypeList" :key="item.value" :label="item.label" :value="item.value"></el-option>
-                </el-select>
-                <span class="text-danger" v-if="failedRules.required ">选择系列类型不能为空！</span>
+
+        <vee-item rules="required" v-slot="{ failedRules  }">
+            <el-form-item label="地址">
+                <el-input placeholder="==地址==" v-model="scope.editObj.addr" maxlength="64">></el-input>
+                <span class="text-danger" v-if="failedRules.required">地址不能为空！</span>
+            </el-form-item>
+        </vee-item>
+
+        <vee-item rules="required|phone" v-slot="{ failedRules  }">
+            <el-form-item label="手机号码">
+                <el-input placeholder="==手机号码==" v-model="scope.editObj.phone" maxlength="11">></el-input>
+                <span class="text-danger" v-if="failedRules.required">手机号码不能为空！</span>
+                <span class="text-danger" v-if="failedRules.phone">手机号码格式不对！</span>
+            </el-form-item>
+        </vee-item>
+
+        <vee-item rules="required|between:-180,180" v-slot="{ failedRules  }">
+            <el-form-item label="坐标X">
+                <el-input placeholder="==坐标X==" v-model="scope.editObj.x" maxlength="7">></el-input>
+                <span class="text-danger" v-if="failedRules.required">坐标X不能为空！</span>
+                <span class="text-danger" v-if="failedRules.between">坐标X数值格式不对！</span>
+            </el-form-item>
+        </vee-item>
+        <vee-item rules="required|between:-180,180" v-slot="{ failedRules  }">
+            <el-form-item label="坐标Y">
+                <el-input placeholder="==坐标Y==" v-model="scope.editObj.y" maxlength="7">></el-input>
+                <span class="text-danger" v-if="failedRules.required">坐标Y不能为空！</span>
+                <span class="text-danger" v-if="failedRules.between">坐标Y数值格式不对！</span>
             </el-form-item>
         </vee-item>
 
@@ -185,34 +195,6 @@
             <el-form-item label="排序">
                 <el-input placeholder="==排序==" v-model="scope.editObj.order" maxlength="8"></el-input>
                 <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
-            </el-form-item>
-        </vee-item>
-        <vee-item>
-            <el-form-item label="上传图片" class="file-upload">
-                <file-upload url="/file" @change="editFileChange" :size="5" :fileType="'image/*'"></file-upload>
-                <template v-for="(item ,index) in scope.editObj.imgs">
-                    <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
-                        <el-form label-width="40px">
-                            <img :src="$baseURL+item.src" alt="" v-if="scope.editObj.imgs.length>0" style="max-width:100%; " />
-
-                            <el-form-item label="标题">
-                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="URL">
-                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="排序">
-                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="显示">
-                                <el-switch v-model="item.enabled"></el-switch>
-                            </el-form-item>
-                            <el-link type="danger" class="del" @click="editDelImg(index)">删除</el-link>
-                        </el-form>
-
-                    </div>
-                </template>
-
             </el-form-item>
         </vee-item>
 
@@ -224,30 +206,13 @@
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
             <el-descriptions-item label="名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
             <el-descriptions-item label="标记名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.vname}}</el-descriptions-item>
+            <el-descriptions-item label="地址" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.addr}}</el-descriptions-item>
+            <el-descriptions-item label="手机号码" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.phone}}</el-descriptions-item>
             <el-descriptions-item label="排序" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.order}}</el-descriptions-item>
+            <el-descriptions-item label="坐标X" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.x}}</el-descriptions-item>
+            <el-descriptions-item label="坐标Y" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.y}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>
-            <el-descriptions-item label="修改时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.editDate|date}}</el-descriptions-item>
-            <el-descriptions-item label="图片列表" label-class-name="table-1-5" content-class-name="table-3-5">
 
-                <template v-for="(img,index ) in scope.dtlObj.imgs">
-                    <div class="imgs-cont" :key="index">
-                        <div class="imgs-cont-l">
-                            <img :src="$baseURL+ img.src" alt="图片" style="max-width:100%;">
-                        </div>
-                        <div class="imgs-cont-r">
-                            <el-descriptions title="" :column="1">
-                                <el-descriptions-item label="图片标题">{{img.ttl}}</el-descriptions-item>
-                                <el-descriptions-item label="跳转地址">{{img.url}}</el-descriptions-item>
-                                <el-descriptions-item label="图片排序">{{img.order}}</el-descriptions-item>
-                                <el-descriptions-item label="是否显示">{{img.enabled?'是':'否'}}</el-descriptions-item>
-                            </el-descriptions>
-                        </div>
-                    </div>
-                </template>
-
-                <template v-if="scope.dtlObj.imgs.length===0">没有图片</template>
-
-            </el-descriptions-item>
         </el-descriptions>
     </vue-dtl>
 
@@ -260,7 +225,6 @@ import VueEdit from "../../components/share/edit.vue";
 import VueAdd from "../../components/share/add.vue";
 import VueDtl from "../../components/share/dtl.vue";
 import VuePagination from "../../components/share/pagination.vue";
-import FileUpload from '../../components/share/fileUpload.vue'
 
 import {
     pageOption,
@@ -274,12 +238,11 @@ export default {
 
             // axios 接口
             api: {
-                getData: mianApi.series.getData,
-                getDataDtl: mianApi.series.getDataDtl,
-                postData: mianApi.series.postData,
-                putData: mianApi.series.putData,
-                deleteData: mianApi.series.deleteData,
-                getSeriesTypeAll: mianApi.seriesType.getAll
+                getData: mianApi.contact.getData,
+                getDataDtl: mianApi.contact.getDataDtl,
+                postData: mianApi.contact.postData,
+                putData: mianApi.contact.putData,
+                deleteData: mianApi.contact.deleteData,
             },
 
             // 增删查改的对象
@@ -291,8 +254,11 @@ export default {
             addObj: {
                 name: null,
                 vname: null,
+                addr: null,
+                phone: null,
                 order: 0,
-                imgs: []
+                x: null,
+                y: null,
             },
             editObj: {},
             dtlObjs: [],
@@ -309,30 +275,14 @@ export default {
             deleteLoading: false,
 
             // 其它 列表的
-            seriesTypeList:[],
+            seriesTypeList: [],
 
         };
     },
     async created() {
         this.getList();
-        this.getSeriesTypeAll();
     },
     methods: {
-
-         async getSeriesTypeAll() {
-            let res = await this.api.getSeriesTypeAll();
-            if (!res) {
-                return;
-            }
-            if (res.code === 1) {
-                this.seriesTypeList = res.data.map((item) => {
-                    return {
-                        label: item.name,
-                        value: item._id
-                    };
-                });
-            }
-        },
 
         async getList() {
 
@@ -377,51 +327,14 @@ export default {
         addBtn() {
             this.$refs.addBox.show();
             this.addObj.imgs = [];
-            this.getSeriesTypeAll();
         },
 
         editBtn(item) {
             console.log(item)
             this.editDialogVisible = true;
             this.editObj = Object.assign({}, item);
-            this.$refs.editBox.show();
-            this.getSeriesTypeAll();
+            this.$refs.editBox.show()
         },
-
-        addFileChange(data) {
-
-            let obj = {
-                url: null,
-                src: data.data,
-                ttl: null,
-                order: null,
-                enabled: true
-            };
-            let imgs = this.addObj.imgs || [];
-            imgs.unshift(obj);
-
-        },
-
-        addDelImg(index) {
-            this.addObj.imgs.splice(index, 1);
-        },
-
-        editFileChange(data) {
-
-            let obj = {
-                url: null,
-                src: data.data,
-                ttl: null,
-                order: null,
-                enabled: true
-            };
-            let imgs = this.editObj.imgs || [];
-            imgs.unshift(obj);
-
-        },
-        editDelImg(index) {
-            this.editObj.imgs.splice(index, 1);
-        }
 
     },
 
@@ -429,8 +342,7 @@ export default {
         VueDtl,
         VueAdd,
         VueEdit,
-        VuePagination,
-        FileUpload
+        VuePagination
     }
 };
 </script>

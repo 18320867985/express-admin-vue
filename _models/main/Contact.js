@@ -7,9 +7,8 @@ let schema = new orm.mongoose.Schema({
         type: String,
         default: ""
     },
-    code: {
+    vname: {
         type: String,
-        required: true,
         default: ""
     },
     desc: {
@@ -20,7 +19,7 @@ let schema = new orm.mongoose.Schema({
         type: Number,
         default: 1
     },
-    createdt: {
+    createDate: {
         type: Date,
         default: Date.now
     },
@@ -37,7 +36,7 @@ let schema = new orm.mongoose.Schema({
         type: String,
         default: ""
     },
-    tel: {
+    phone: {
         type: String,
         default: ""
     }

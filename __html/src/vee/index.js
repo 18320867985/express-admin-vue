@@ -3,7 +3,7 @@ import {extend} from 'vee-validate';
 import axios from "../api/ins";
 
 // 内置规则
-import {required, email, confirmed, min,min_value,max,max_value,integer} from 'vee-validate/dist/rules';
+import {required, email, confirmed, min,min_value,max,max_value,integer,between} from 'vee-validate/dist/rules';
 
 extend('email', {
   ...email,
@@ -42,6 +42,11 @@ extend('min_value', {
 extend('max_value', {
   ...max_value,
   message: "最大的值！"
+});
+
+extend('between', {
+  ...between,
+  message: "between"
 });
 
 // 自定义规则

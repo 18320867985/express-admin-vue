@@ -203,7 +203,7 @@
     <vue-dtl ref="dtlBox" title="查看详情" :dtlObjs="dtlObjs" v-slot="scope">
         <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
-            <el-descriptions-item label="轮播图片标题" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
+            <el-descriptions-item label="名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
             <el-descriptions-item label="标记名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.vname}}</el-descriptions-item>
             <el-descriptions-item label="排序" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.order}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>

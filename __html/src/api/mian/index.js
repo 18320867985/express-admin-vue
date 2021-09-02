@@ -6,6 +6,7 @@ import rotation  from "./rotation.js";
 import seriesType  from "./seriesType";
 import series  from "./series";
 import svcnet  from "./svcnet";
+import contact  from "./contact";
 
 export default{
 	user,
@@ -13,5 +14,6 @@ export default{
 	rotation,
 	seriesType,
 	series,
-	svcnet
+	svcnet,
+	contact
 }

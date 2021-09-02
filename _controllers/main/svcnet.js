@@ -44,10 +44,10 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 {
     let query = {
         name: new RegExp(search.name, "i"),
-        // createDate: {
-        //     $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
-        //     $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
-        // }
+        createDate: {
+            $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
+            $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
+        }
     };
 
     let pageCount = await mainModel.Svcnet.countDocuments(query);
