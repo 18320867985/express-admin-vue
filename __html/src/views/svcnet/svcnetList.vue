@@ -93,7 +93,7 @@
     <vue-pagination :getList="getList" :pageObj="pageObj" :tableData="tableData"></vue-pagination>
 
     <!--add-->
-    <vue-add ref="addBox" title="添加轮播图" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
+    <vue-add ref="addBox" title="添加服务网点" :addObj="addObj" :getList="getList" :postData="api.postData" v-slot="scope">
         <vee-item rules="required|unique:/main/svcnet/data-unique" v-slot="{ failedRules  }">
             <el-form-item label="名称">
                 <el-input placeholder="==名称==" v-model="scope.addObj.name"></el-input>
@@ -164,7 +164,7 @@
     </vue-add>
 
     <!--edit-->
-    <vue-edit ref="editBox" title="修改轮播图" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
+    <vue-edit ref="editBox" title="修改服务网点" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
         <vee-item :rules="'required|unique:/main/svcnet/data-unique,'+scope.editObj._id" v-slot="{ failedRules  }">
             <el-form-item label="名称">
                 <el-input placeholder="==用户名==" v-model="scope.editObj.name"></el-input>
