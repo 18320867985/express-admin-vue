@@ -8,6 +8,7 @@ import Home from "../views/home.vue"
 import User from "./user.js";
 import Rotation from "./rotation.js";
 import Series from "./series.js";
+import Svcnet from "./svcnet.js";
 
 const routes = [
 
@@ -53,7 +54,7 @@ const routes = [
 		path: "/svcnet",
 		component: Layout,
 		meta: {ttl: "服务中心", icon: "el-icon-data-line"},
-		children: User
+		children: Svcnet
 
 	},
 

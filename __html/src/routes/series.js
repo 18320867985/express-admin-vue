@@ -1,6 +1,6 @@
 
 //  user
-import  Series from "../views/series/series.vue";
+import  Series from "../views/series/seriesList.vue";
 import  SeriesType from "../views/series/seriesType.vue"
 
 export default [

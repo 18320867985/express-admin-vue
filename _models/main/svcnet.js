@@ -17,7 +17,11 @@ var childSchema = new orm.mongoose.Schema({
     },
     order: {
         type: Number,
-        default: 1
+        default: 0
+    },
+    enabled:{
+        type:Boolean,
+        default:true
     }
 });
 
@@ -25,9 +29,8 @@ var schema = new orm.mongoose.Schema({
     name: {
         type: String,
     },
-    code:{
+    vname:{
         type:String,
-        required:true,
         default:""
     },
     desc: {
@@ -36,9 +39,9 @@ var schema = new orm.mongoose.Schema({
     },
     order: {
         type: Number,
-        default: 1
+        default: 0
     },
-    createdt: {
+    createDate: {
         type: Date,
         default: Date.now
     },
@@ -46,7 +49,7 @@ var schema = new orm.mongoose.Schema({
         type:String,
         default:""
     },
-    tel:{
+    phone:{
         type:String,
         default:""
     },
