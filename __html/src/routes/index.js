@@ -10,6 +10,7 @@ import Rotation from "./rotation.js";
 import Series from "./series.js";
 import Svcnet from "./svcnet.js";
 import Contact from "./contact.js";
+import Article from "./article.js";
 
 const routes = [
 
@@ -63,7 +64,7 @@ const routes = [
 		path: "/article",
 		component: Layout,
 		meta: {ttl: "文章管理", icon: "el-icon-notebook-2"},
-		children: User
+		children: Article
 
 	},
 

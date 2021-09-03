@@ -3,32 +3,31 @@
 const orm = require("./_mongoose");
 
 var schema = new orm.mongoose.Schema({
-    title: {
+    name: {
         type: String,
-        default:""
+        default: ""
     },
-    code:{
-        type:String,
-        required:true,
-        default:""
+    vname: {
+        type: String,
+        default: ""
     },
     desc: {
         type: String,
         default: ""
     },
-    content:{
-        type:String,
-        default:""
+    content: {
+        type: String,
+        default: ""
     },
     order: {
         type: Number,
-        default: 1
+        default: 0
     },
-    createdt: {
+    createDate: {
         type: Date,
         default: Date.now
     },
-   
+
 });
 
 var Article = orm.db.model("Article", schema);

@@ -7,6 +7,7 @@ import seriesType  from "./seriesType";
 import series  from "./series";
 import svcnet  from "./svcnet";
 import contact  from "./contact";
+import article  from "./article";
 
 export default{
 	user,
@@ -15,5 +16,6 @@ export default{
 	seriesType,
 	series,
 	svcnet,
-	contact
+	contact,
+	article
 }
