@@ -17,7 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.7",
     "morgan": "~1.9.0",
-    "multer": "^1.4.1"
+    "multer": "^1.4.1",
+    "ueditor": "^1.2.3"
   },
   "description": "express",
   "main": "app.js",

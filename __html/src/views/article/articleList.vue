@@ -118,7 +118,7 @@
 
         <vee-item rules="integer">
             <el-form-item label="内容">
-                 <vue-ueditor-wrap v-model="content" :config="myConfig"></vue-ueditor-wrap>
+                <vue-ueditor-wrap v-model="scope.addObj.content" :config="myConfig"></vue-ueditor-wrap>
             </el-form-item>
         </vee-item>
 
@@ -232,24 +232,18 @@ export default {
             // 其它 列表的
             seriesTypeList: [],
             myConfig: {
-
-                // 如果需要上传功能,找后端服务器接口地址
-                 serverUrl: this.$baseURL + '/ueditor/ue',
-                // serverUrl: 'http://localhost:8090/ueditor/ueditorConfig',
-                // 你的UEditor资源存放的路径,相对于打包后的index.html
-                UEDITOR_HOME_URL: '/ueditor/',
                 // 编辑器不自动被内容撑高
                 autoHeightEnabled: false,
-                // 工具栏是否可以浮动
-                autoFloatEnabled: false,
                 // 初始容器高度
                 initialFrameHeight: 240,
                 // 初始容器宽度
                 initialFrameWidth: '100%',
-                // 关闭自动保存
-                enableAutoSave: true
-            },
-            content: ''
+                // 上传文件接口（这个地址是我为了方便各位体验文件上传功能搭建的临时接口，请勿在生产环境使用！！！）
+                serverUrl: this.$baseURL+'/ueditor/ue?action=uploadimage',
+                // UEditor 资源文件的存放路径，如果你使用的是 vue-cli 生成的项目，通常不需要设置该选项，vue-ueditor-wrap 会自动处理常见的情况，如果需要特殊配置，参考下方的常见问题2
+                UEDITOR_HOME_URL: '/ueditor/'
+            }
+
         };
     },
     async created() {
@@ -317,6 +311,7 @@ export default {
         VueEdit,
         VuePagination,
         VueUeditorWrap
+
     }
 };
 </script>
