@@ -1,13 +1,14 @@
-export const pageOption={
-   
-    data(){
+export const pageOption = {
+
+    data ()
+    {
         return {
-           pageObj:{
-            pageIndex:1,
-            pageSize:10,
-            pageCount:0,
-            pageSizeList:[1,2,5,10,20,30,40,50,100,200,500]
-           }
+            pageObj: {
+                pageIndex: 1,
+                pageSize: 10,
+                pageCount: 0,
+                pageSizeList: [ 1, 2, 5, 10, 20, 30, 40, 50, 100, 200, 500 ]
+            }
         }
     }
 
@@ -70,20 +71,24 @@ export const CRUD_Option = {
 
     methods: {
 
-        async deleteData(ids) {
+        async deleteData (ids)
+        {
             this.deleteLoading = true;
             let res = await this.api.deleteData(ids);
             this.deleteLoading = false;
-            if (!res) {
+            if (!res)
+            {
                 return;
             }
-            if (res.code === 1) {
+            if (res.code === 1)
+            {
                 this.$message({
                     type: "success",
                     message: "数据删除成功！"
                 })
                 this.getList();
-            } else {
+            } else
+            {
                 this.$message({
                     type: "error",
                     message: "数据删除失败！"
@@ -91,55 +96,90 @@ export const CRUD_Option = {
             }
         },
 
-        deleteOne(ids) {
+        deleteOne (ids)
+        {
             this.$confirm(`<strongt style='color:red'>是否要删除该文件?</strong>`, '提示', {
                 confirmButtonText: '删除',
                 cancelButtonText: '取消',
                 type: 'warning',
                 dangerouslyUseHTMLString: true
-            }).then(async () => {
+            }).then(async () =>
+            {
                 this.deleteData(ids);
-            }).catch(() => {
+            }).catch(() =>
+            {
             });
         },
 
-        deleteMany(ids) {
+        deleteMany (ids)
+        {
 
             this.$confirm(`<strongt style='color:red'>是否要批量删除该文件? 请谨慎操作！</strong>`, '提示', {
                 confirmButtonText: '批量删除',
                 cancelButtonText: '取消',
                 type: 'warning',
                 dangerouslyUseHTMLString: true
-            }).then(async () => {
+            }).then(async () =>
+            {
                 this.deleteData(ids);
-            }).catch(() => {
+            }).catch(() =>
+            {
             });
 
         },
 
-        async dtlData(ids) {
+        async dtlData (ids)
+        {
 
-            this.dtlLoading= true;
+            this.dtlLoading = true;
             let res = await this.api.getDataDtl(ids);
-            this.dtlLoading= false;
-            if (!res) {
+            this.dtlLoading = false;
+            if (!res)
+            {
                 return;
             }
-            if (res.code === 1) {
+            if (res.code === 1)
+            {
                 this.dtlObjs = res.data;
                 this.$refs.dtlBox.show();
             }
         },
 
-        async dtlOne(id) {
-            this.dtlData([id]);
-           
+        async dtlOne (id)
+        {
+            this.dtlData([ id ]);
+
         },
-        
-        async dtlMany(ids) {
+
+        async dtlMany (ids)
+        {
             this.dtlData(ids);
-           
+
         },
+
+
+    }
+}
+
+export const transformHtml = {
+
+    methods: {
+
+        // 把文本转换成html
+        deHtml (txt)
+        {
+            txt = txt.replace(/&lt;/img, "<").replace(/&gt;/img, ">").replace(/&nbsp;/img, " ");
+            return txt;
+
+        },
+
+        // 把html换成文本
+        enHtml (txt)
+        {
+            txt = txt.replace(/</img, "&lt;").replace(/>/img, "&gt;").replace(/\s+/img, "&nbsp;");
+            return txt;
+
+        }
 
 
     }

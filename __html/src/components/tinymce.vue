@@ -1,12 +1,8 @@
 <template>
-  <div class="tinymce-box">
-    <editor
-      v-model="myValue"
-      :init="init"
-      :disabled="disabled"
-      @click="onClick">
+<div class="tinymce-box">
+    <editor v-model="myValue" :init="init" :disabled="disabled" @click="onClick">
     </editor>
-  </div>
+</div>
 </template>
 
 <script>
@@ -22,104 +18,139 @@ import 'tinymce/icons/default/icons' // 解决了icons.js 报错Unexpected token
 
 // 编辑器插件plugins
 // 更多插件参考：https://www.tiny.cloud/docs/plugins/
-import 'tinymce/plugins/image'// 插入上传图片插件
-import 'tinymce/plugins/media'// 插入视频插件
-import 'tinymce/plugins/table'// 插入表格插件
-import 'tinymce/plugins/lists'// 列表插件
-import 'tinymce/plugins/wordcount'// 字数统计插件
+import 'tinymce/plugins/image' // 插入上传图片插件
+import 'tinymce/plugins/media' // 插入视频插件
+import 'tinymce/plugins/table' // 插入表格插件
+import 'tinymce/plugins/lists' // 列表插件
+import 'tinymce/plugins/wordcount' // 字数统计插件
 import 'tinymce/plugins/link'
 import 'tinymce/plugins/code'
 import 'tinymce/plugins/preview'
 import 'tinymce/plugins/fullscreen'
 import 'tinymce/plugins/help'
-export default {
-  components: {
-    Editor
-  },
-  name: 'Tinymce',
-  props: {
-    // 默认的富文本内容
-    value: {
-      type: String,
-      default: ''
-    },
-    // 基本路径，默认为空根目录，如果你的项目发布后的地址为目录形式，
-    // 即abc.com/tinymce，baseUrl需要配置成tinymce，不然发布后资源会找不到
-    baseUrl: {
-      type: String,
-      default: window.location.origin ? window.location.origin : ''
-    },
-    // 禁用
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    plugins: {
-      type: [String, Array],
-      default: 'link lists image code table wordcount media preview fullscreen help'
-    },
-    toolbar: {
-      type: [String, Array],
-      default: 'bold italic underline strikethrough | fontsizeselect | formatselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | undo redo | link unlink code lists table image media | removeformat | fullscreen preview'
-    }
-  },
-  data () {
-    return {
-      init: {
-       language_url: `${this.baseUrl}/tinymce/langs/zh_CN.js`,
-       language: 'zh_CN',
-        skin_url: `${this.baseUrl}/tinymce/skins/ui/oxide`,
-       // skin_url: '/public/tinymce/skins/ui/oxide-dark', // 暗色系
-        convert_urls: false,
-        height: 300,
-        // content_css（为编辑区指定css文件）,加上就不显示字数统计了
-        // content_css: `${this.baseUrl}tinymce/skins/content/default/content.css`,
-        // （指定需加载的插件）
-        plugins: this.plugins,
-        toolbar: this.toolbar, // （自定义工具栏）
 
-        statusbar: true, // 底部的状态栏
-        menubar: 'file edit insert view format table tools help', // （1级菜单）最上方的菜单
-        branding: false, // （隐藏右下角技术支持）水印“Powered by TinyMCE”
-        // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
-        // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
-        images_upload_handler: (blobInfo, success, failure) => {
-          const img = 'data:image/jpeg;base64,' + blobInfo.base64()
-          success(img)
-          console.log(failure)
+import axios from '../api/ins';
+import config from "../api/_config";
+
+export default {
+    components: {
+        Editor
+    },
+    name: 'Tinymce',
+    props: {
+        // 默认的富文本内容
+        value: {
+            type: String,
+            default: ''
+        },
+        // 基本路径，默认为空根目录，如果你的项目发布后的地址为目录形式，
+        // 即abc.com/tinymce，baseUrl需要配置成tinymce，不然发布后资源会找不到
+        baseUrl: {
+            type: String,
+            default: window.location.origin ? window.location.origin : ''
+        },
+        // 禁用
+        disabled: {
+            type: Boolean,
+            default: false
+        },
+        plugins: {
+            type: [String, Array],
+            default: 'link lists image code table wordcount media preview fullscreen help'
+        },
+        toolbar: {
+            type: [String, Array],
+            default: 'bold italic underline strikethrough | fontsizeselect | formatselect |fullscreen preview| forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent blockquote | undo redo | link unlink code lists table image  | removeformat '
+        },
+        width: {
+            type: Number,
+            default: 300
+        },
+        height: {
+            type: Number,
+            default: 400
+        },
+        fileUrl:{
+          type:String,
+          default:"/file"
         }
-      },
-      myValue: this.value
-    }
-  },
-  mounted () {
-    console.log(window)
-    tinymce.init({})
-  },
-  methods: {
-    // 添加相关的事件，可用的事件参照文档=> https://github.com/tinymce/tinymce-vue => All available events
-    // 需要什么事件可以自己增加
-    onClick (e) {
-      this.$emit('onClick', e, tinymce)
+
     },
-    // 可以添加一些自己的自定义事件，如清空内容
-    clear () {
-      this.myValue = ''
-    }
-  },
-  watch: {
-    value (newValue) {
-      this.myValue = newValue
+    data() {
+        return {
+            init: {
+                language_url: `${this.baseUrl}/tinymce/langs/zh_CN.js`,
+                language: 'zh_CN',
+                skin_url: `${this.baseUrl}/tinymce/skins/ui/oxide`,
+                // skin_url: '/public/tinymce/skins/ui/oxide-dark', // 暗色系
+                convert_urls: false,
+                height: this.width,
+                width: this.height,
+                // content_css（为编辑区指定css文件）,加上就不显示字数统计了
+                // content_css: `${this.baseUrl}tinymce/skins/content/default/content.css`,
+                // （指定需加载的插件）
+                plugins: this.plugins,
+                toolbar: this.toolbar, // （自定义工具栏）
+
+                statusbar: true, // 底部的状态栏
+                menubar: 'file edit insert view format table tools help', // （1级菜单）最上方的菜单
+                branding: false, // （隐藏右下角技术支持）水印“Powered by TinyMCE”
+
+                // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
+                // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
+                images_upload_handler: (blobInfo, success, failure) => {
+                
+                    let formdata = new FormData();
+                    formdata.append("file", blobInfo.blob());
+                    axios.post(this.fileUrl, formdata)
+                        .then(function (res) {
+                            success(config.baseURL+res.data.data);
+                        }).catch(err => {
+                            failure(err);
+                        });
+                }
+            },
+            myValue: this.value
+        }
     },
-    myValue (newValue) {
-      this.$emit('input', newValue)
+    mounted() {
+        tinymce.init({})
+    },
+    methods: {
+        // 添加相关的事件，可用的事件参照文档=> https://github.com/tinymce/tinymce-vue => All available events
+        // 需要什么事件可以自己增加
+        onClick(e) {
+            this.$emit('onClick', e, tinymce)
+        },
+        // 可以添加一些自己的自定义事件，如清空内容
+        clear() {
+            this.myValue = ''
+        }
+    },
+    watch: {
+        value(newValue) {
+            this.myValue = newValue
+        },
+        myValue(newValue) {
+            this.$emit('input', newValue)
+        }
     }
-  }
+}
+</script>
+
+ 
+<style lang="scss">
+.tox-editor-container {
+    position: relative;
+
 }
 
-</script>
-<style scoped>
+.tox.tox-silver-sink.tox-tinymce-aux {
+    width: 100%;
+    z-index: 4000;
+}
 
-</style>
-
-
+.tox-fullscreen {
+    width: 100%;
+}
+</style>>

@@ -64369,9 +64369,10 @@ body,
   margin-bottom: 10px; }
 
 .user .form-validate .text-danger {
-  position: absolute;
-  margin-left: 10px;
-  white-space: nowrap; }
+  display: block;
+  margin-top: 6px;
+  margin-left: 2px;
+  line-height: 12px; }
 
 .user .imgs-cont {
   display: -webkit-box;
@@ -64413,3 +64414,11 @@ body,
 
 .user .file-upload .el-form-item--small.el-form-item {
   margin-bottom: 5px; }
+
+.user .el-select {
+  width: 100%; }
+
+.user .el-form img {
+  max-width: 100%;
+  width: 98%;
+  max-height: 240px; }

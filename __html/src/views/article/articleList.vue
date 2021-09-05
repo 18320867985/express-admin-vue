@@ -56,11 +56,11 @@
             <el-table-column prop="desc" label="描述" width="200px">
             </el-table-column>
 
-            <el-table-column prop="content" label="内容">
+            <!-- <el-table-column prop="content" label="内容">
                 <template v-slot="scope">
                     <div v-html="scope.row.content"></div>
                 </template>
-            </el-table-column>
+            </el-table-column> -->
 
             <el-table-column prop="order" label="排序"></el-table-column>
 
@@ -124,7 +124,7 @@
 
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="内容">
-                <vue-tinymce id="myedit" ref="editor" v-model="scope.addObj.content"></vue-tinymce>
+                <vue-tinymce id="myedit" ref="editor" v-model="scope.addObj.content" :height="600" :width="300"></vue-tinymce>
                 <span class="text-danger" v-if="failedRules.required">内容不能为空！</span>
             </el-form-item>
         </vee-item>
@@ -170,8 +170,8 @@
         
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="内容">
-                <vue-tinymce id="myedit" ref="editor" v-model="scope.editObj.content"></vue-tinymce>
-                <span class="text-danger" v-if="failedRules.required">内容不能为空！</span>
+                <vue-tinymce id="myedit" ref="editor" v-model="scope.editObj.content"  :height="600" :width="300"></vue-tinymce>
+                <div class="text-danger" v-if="failedRules.required" style="position:static">内容不能为空！</div>
             </el-form-item>
         </vee-item>
     </vue-edit>
@@ -335,10 +335,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss">
-#edui_fixedlayer,
-.edui-default {
-    z-index: 4000 !important;
-}
-</style>

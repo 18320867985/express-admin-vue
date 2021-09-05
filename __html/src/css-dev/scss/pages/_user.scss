@@ -53,9 +53,10 @@
 
 	.form-validate {
 		.text-danger {
-			position: absolute;
-			margin-left: 10px;
-			white-space: nowrap;
+			display: block;	
+			margin-top: 6px;
+			margin-left: 2px;
+			line-height: 12px;
 		}
 	}
 
@@ -98,4 +99,14 @@
 
 	}
 
+	// add edit
+	.el-select {
+		width: 100%;
+	}
+
+	.el-form img{
+		max-width: 100%;
+		width: 98%;
+		max-height: 240px;
+	}
 }

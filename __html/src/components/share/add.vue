@@ -1,7 +1,7 @@
 <template>
 <el-dialog :title="title" :visible.sync="addDialogVisible" :width="width" class="dtl">
     <vee ref="addform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
-        <el-form label-width="120px" style="width:400px">
+        <el-form label-width="120px" :style="{width:contentWidth}">
             <slot :addObj="addObj"></slot>
             <el-form-item>
                 <el-button type="primary" :disabled="invalid&&dirty" @click="addData(reset)" :loading="addLoading">{{btnText}}</el-button>
@@ -36,7 +36,11 @@ export default {
         },
         width: {
             type: String,
-            default: "650px"
+            default: "50%"
+        },
+        contentWidth:{
+             type: String,
+            default: "70%"
         }
 
     },

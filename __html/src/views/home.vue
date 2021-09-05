@@ -1,7 +1,7 @@
 <template>
 	<div >
-		<h1>Home</h1>
-		{{this.$store.state}}
+	
+	
 	</div>
 </template>
 

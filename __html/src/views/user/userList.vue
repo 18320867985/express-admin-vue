@@ -133,7 +133,7 @@
 
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="选择用户类型">
-                <el-select v-model="scope.addObj.roleId" placeholder="==选择用户类型==" style="width:280px">
+                <el-select v-model="scope.addObj.roleId" placeholder="==选择用户类型==">
                     <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
                     <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
@@ -166,7 +166,7 @@
 
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="选择用户类型">
-                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==" style="width:280px">
+                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==" >
                     <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
                     <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
