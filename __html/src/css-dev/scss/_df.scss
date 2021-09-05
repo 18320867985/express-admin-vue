@@ -6,7 +6,8 @@ body {
     line-height: $line-height;
     font-family: $font-family;
     background: $body-bg;
-	color:$font-color;
+	  color:$font-color;
+    margin: 0 !important;
 }
 
 * {
