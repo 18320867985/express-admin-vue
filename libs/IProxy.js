@@ -1,22 +1,23 @@
 
-let Ihandle=require("./IHandle");
+let Ihandle = require("./IHandler");
 
-let fnNames = [ "postData", "deleteData", "putData" ]; // 默认继承接口的函数名称
-function IProxy (obj = {}, agrs = [])
+class IProxy
 {
-    fnNames.push(...agrs);
-    Object.keys(obj).forEach(key =>
+    constructor (childObj, childFnNames=[])
     {
-        if (typeof obj[ key ] === "function" && fnNames.includes(key))
+        // 默认继承接口的函数名称
+        this.fnNames = [ "postData", "deleteData", "putData" ];
+        this.fnNames.push(...childFnNames);
+        Object.getOwnPropertyNames(childObj).forEach(key =>
         {
-            let proxy = new Proxy(obj[ key ], Ihandle);
-            obj[ key ] = proxy;
-        }
+            if (typeof childObj[ key ] === "function" && this.fnNames.includes(key))
+            {
+                let proxy = new Proxy(childObj[ key ], Ihandle);
+                childObj[ key ] = proxy;
+            }
 
-    })
-
-    return obj;
-
+        })
+    }
 }
 
 module.exports = IProxy;
