@@ -27,7 +27,7 @@ let jwt = require("./libs/jwt");
 let resData=require("./libs/resData");
 app.use((req, res, next) =>
 {
-    if (jwt.notSignTokenUrlList.indexOf(req.url) === -1)
+    if (!jwt.notSignTokenUrlList.includes(req.url))
     {    
         //[ 'Access-Token' ] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
         let token = req.headers[ 'access-token' ];  // 接受必须是小写
@@ -37,6 +37,8 @@ app.use((req, res, next) =>
             {
                 res.json(resData.notToken(null,{token:"无效的token,请登录去获取token"}));
             }else{
+               let decode= jwt.decode(token);
+               req.authInfo=decode.data; // 附加用户权限信息
                 next();
             }
         })

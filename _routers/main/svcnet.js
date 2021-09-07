@@ -4,30 +4,22 @@ const mainCtrl = require("../../_controllers/main");
 // unique
 router.get("/svcnet/data-unique", async (req, res) =>
 {
-    let query=req.query||{};
-    let value = query.value || "";
-    let id = query.id || "";
-    let data = await mainCtrl.svcnet.unique(value,id);
+   
+    let data = await mainCtrl.svcnet.unique(req);
     res.json(data)
 });
 
 // unique
 router.get("/svcnet/data-unique-vid", async (req, res) =>
 {
-    let query=req.query||{};
-    let value = query.value || "";
-    let id = query.id || "";
-    let data = await mainCtrl.svcnet.uniqueVid(value,id);
+    let data = await mainCtrl.svcnet.uniqueVid(req);
     res.json(data)
 });
 
 // get list
 router.get("/svcnet/data/:pageIndex/:pageSize", async (req, res) =>
 {
-    // paging start
-    let pageIndex = Number(req.params.pageIndex);
-    let pageSize = Number(req.params.pageSize);
-    let data = await mainCtrl.svcnet.getData(pageIndex, pageSize, req.query);
+    let data = await mainCtrl.svcnet.getData(req);
     res.json(data);
 
 });
@@ -35,9 +27,7 @@ router.get("/svcnet/data/:pageIndex/:pageSize", async (req, res) =>
 // get dtl
 router.get("/svcnet/data-dtl/:ids", async (req, res) =>
 {
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.svcnet.getDataDtl(ids);
+    let data = await mainCtrl.svcnet.getDataDtl(req);
     res.json(data);
 
 });
@@ -45,9 +35,7 @@ router.get("/svcnet/data-dtl/:ids", async (req, res) =>
 // delete
 router.delete("/svcnet/data/:ids", async (req, res) =>
 {
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.svcnet.deleteData(ids);
+    let data = await mainCtrl.svcnet.deleteData(req);
     res.json(data);
 
 });
@@ -55,15 +43,14 @@ router.delete("/svcnet/data/:ids", async (req, res) =>
 //  post
 router.post("/svcnet/data", async (req, res) =>
 {
-    let obj = req.body || {};
-    let data = await mainCtrl.svcnet.postData(obj);
+    let data = await mainCtrl.svcnet.postData(req);
     res.json(data);
 });
 
 // put
 router.put("/svcnet/data", async (req, res) =>
 {
-    let data = await mainCtrl.svcnet.putData(req.body || {})
+    let data = await mainCtrl.svcnet.putData(req)
     res.json(data);
 
 });

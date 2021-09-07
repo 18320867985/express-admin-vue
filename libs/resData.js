@@ -55,6 +55,25 @@ let resData = {
 
         o.msg = desc;
         return o;
+    },
+
+    
+    // not notAuth return data
+    notAuth (data, desc) 
+    {
+        let o = {
+            status: "not Authtion ",
+            code: 3,
+            data
+        };
+
+        if (desc instanceof Object)
+        {
+            return Object.assign(o, desc);
+        }
+
+        o.msg = desc;
+        return o;
     }
 
 }

@@ -6,14 +6,14 @@ const resData = require("../../libs/resData");
 // 登录
 async function loginData (params)
 {
-    let userinfo = await mainModel.User.findOne(params, {pwd: 0}).populate("roleId", "name code");
+    let userinfo = await mainModel.User.findOne(params, {pwd: 0, createDate: 0}).populate("roleId", "name vid");
     if (!userinfo)
     {
         return resData.err(null, "用户名与密码不匹配！");
     }
 
     // 生成token值 去校验
-    let token = jwt.sign(userinfo._id);
+    let token = jwt.sign(userinfo);
     let decode = jwt.decode(token);
     return resData.ok({token, userinfo}, {msg: "登录成功！", exp: decode.exp, iat: decode.iat});
 }
@@ -22,7 +22,7 @@ async function loginData (params)
 async function initData (token)
 {
     let decode = jwt.decode(token);
-    let userinfo = await mainModel.User.findById(decode.data, {pwd: 0}).populate("roleId", "name code");;
+    let userinfo = await mainModel.User.findById(decode.data._id, {pwd: 0, createDate: 0}).populate("roleId", "name vid");
     if (!userinfo)
     {
         return resData.err(null, "用户不存在！");
@@ -34,8 +34,12 @@ async function initData (token)
 
 /*** CRUD  ***/
 // unique
-async function unique (val,id)
+async function unique (req)
 {
+    let query = req.query || {};
+    let val = query.value || "";
+    let id = query.id || "";
+
     let obj = await mainModel.User.findOne({name: val});
     if (obj)
     {
@@ -55,8 +59,13 @@ async function unique (val,id)
 }
 
 // get list
-async function getData (pageIndex = 1, pageSize = 10, search = {})
+async function getData (req)
 {
+    // paging start
+    let pageIndex = Number(req.params.pageIndex);
+    let pageSize = Number(req.params.pageSize);
+    let search = req.query;
+
     let query = {
         name: new RegExp(search.name, "i"),
         createDate: {
@@ -95,8 +104,11 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 }
 
 // dtl
-async function getDataDtl (ids = [])
+async function getDataDtl (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+
     let list = await mainModel.User.find({
         _id: {
             $in: ids
@@ -107,8 +119,11 @@ async function getDataDtl (ids = [])
 }
 
 //  delete
-async function deleteData (ids = [])
+async function deleteData (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+
     let obj = await mainModel.User.deleteMany({
         _id: {
             $in: ids
@@ -123,8 +138,9 @@ async function deleteData (ids = [])
 }
 
 // post
-async function postData (params)
+async function postData (req)
 {
+    let params = req.body || {};
     var obj = {
         name: params.name,
         pwd: cpy.md5(params.pwd),
@@ -156,8 +172,9 @@ async function postData (params)
 }
 
 // put
-async function putData (obj)
+async function putData (req)
 {
+    let obj = req.body || {};
     let _id = obj._id || "";
     let roleId = obj.roleId;
     let phone = obj.phone;
@@ -181,8 +198,8 @@ async function putData (obj)
 
 }
 
-
-module.exports = {
+let IProxy = require("../../libs/IProxy");
+module.exports = IProxy({
     loginData,
     initData,
     unique,
@@ -192,4 +209,4 @@ module.exports = {
     postData,
     putData,
 
-}
+});

@@ -10,9 +10,6 @@ require("./userRole");
 // rotation
 require("./rotation");
 
-// banner
-require("./banner");
-
 // seriestype
 require("./seriestype");
 

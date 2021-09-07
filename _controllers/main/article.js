@@ -4,8 +4,11 @@ const resData = require("../../libs/resData");
 /*** CRUD  ***/
 
 // unique
-async function unique (val, id)
+async function unique (req)
 {
+    let query = req.query || {};
+    let val = query.value || "";
+    let id = query.id || "";
     let obj = await mainModel.Article.findOne({name: val});
     if (obj)
     {
@@ -22,8 +25,12 @@ async function unique (val, id)
 }
 
 // unique
-async function uniqueVid (val, id)
+async function uniqueVid (req)
 {
+    let query = req.query || {};
+    let val = query.value || "";
+    let id = query.id || "";
+
     let obj = await mainModel.Article.findOne({vname: val});
     if (obj)
     {
@@ -40,14 +47,19 @@ async function uniqueVid (val, id)
 }
 
 // get list
-async function getData (pageIndex = 1, pageSize = 10, search = {})
+async function getData (req)
 {
+    // paging start
+    let pageIndex = Number(req.params.pageIndex);
+    let pageSize = Number(req.params.pageSize);
+    let search = req.query;
+
     let query = {
         name: new RegExp(search.name, "i"),
-        // createDate: {
-        //     $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
-        //     $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
-        // }
+        createDate: {
+            $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
+            $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
+        }
     };
 
     let pageCount = await mainModel.Article.countDocuments(query);
@@ -75,8 +87,10 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 }
 
 // dtl
-async function getDataDtl (ids = [])
+async function getDataDtl (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
     let list = await mainModel.Article.find({
         _id: {
             $in: ids
@@ -87,8 +101,11 @@ async function getDataDtl (ids = [])
 }
 
 //  delete
-async function deleteData (ids = [])
+async function deleteData (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+
     let obj = await mainModel.Article.deleteMany({
         _id: {
             $in: ids
@@ -103,16 +120,17 @@ async function deleteData (ids = [])
 }
 
 // post
-async function postData (params)
-{  
+async function postData (req)
+{
+    let params = req.body || {};
     var obj = {
         name: params.name,
         vname: params.vname,
-        order:params.order||0,
-        content:params.content,
-        desc:params.desc,
+        order: params.order || 0,
+        content: params.content,
+        desc: params.desc,
     }
-    
+
     let Article = new mainModel.Article(obj);
     let isError = Article.validateSync();
     if (isError)
@@ -130,16 +148,17 @@ async function postData (params)
 }
 
 // put
-async function putData (obj)
+async function putData (req)
 {
+    let obj = req.body || {};
     let _id = obj._id || "";
     let name = obj.name;
     let vname = obj.vname;
     let order = obj.order;
     let desc = obj.desc;
     let content = obj.content;
-    
-    let v = await mainModel.Article.findByIdAndUpdate(_id, {$set: {name, vname, order,desc,content}}, {new: true});
+
+    let v = await mainModel.Article.findByIdAndUpdate(_id, {$set: {name, vname, order, desc, content}}, {new: true});
     if (!v)
     {
         return resData.err("修改失败");
@@ -150,7 +169,8 @@ async function putData (obj)
 
 }
 
-module.exports = {
+let IProxy = require("../../libs/IProxy");
+module.exports = IProxy({
     unique,
     uniqueVid,
     getData,
@@ -159,4 +179,4 @@ module.exports = {
     postData,
     putData,
 
-}
+});

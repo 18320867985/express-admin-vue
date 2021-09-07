@@ -4,40 +4,28 @@ const mainCtrl = require("../../_controllers/main");
 // unique
 router.get("/rotation/data-unique", async (req, res) =>
 {
-    let query=req.query||{};
-    let value = query.value || "";
-    let id = query.id || "";
-    let data = await mainCtrl.rotation.unique(value,id);
+    let data = await mainCtrl.rotation.unique(req);
     res.json(data)
 });
 
 // unique
 router.get("/rotation/data-unique-vid", async (req, res) =>
 {
-    let query=req.query||{};
-    let value = query.value || "";
-    let id = query.id || "";
-    let data = await mainCtrl.rotation.uniqueVid(value,id);
+    let data = await mainCtrl.rotation.uniqueVid(req);
     res.json(data)
 });
 
 // get list
 router.get("/rotation/data/:pageIndex/:pageSize", async (req, res) =>
 {
-    // paging start
-    let pageIndex = Number(req.params.pageIndex);
-    let pageSize = Number(req.params.pageSize);
-    let data = await mainCtrl.rotation.getData(pageIndex, pageSize, req.query);
+    let data = await mainCtrl.rotation.getData(req);
     res.json(data);
-
 });
 
 // get dtl
 router.get("/rotation/data-dtl/:ids", async (req, res) =>
 {
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.rotation.getDataDtl(ids);
+    let data = await mainCtrl.rotation.getDataDtl(req);
     res.json(data);
 
 });
@@ -45,9 +33,7 @@ router.get("/rotation/data-dtl/:ids", async (req, res) =>
 // delete
 router.delete("/rotation/data/:ids", async (req, res) =>
 {
-    let ids = req.params.ids || '';
-    ids = ids.split(',');
-    let data = await mainCtrl.rotation.deleteData(ids);
+    let data = await mainCtrl.rotation.deleteData(req);
     res.json(data);
 
 });
@@ -55,24 +41,16 @@ router.delete("/rotation/data/:ids", async (req, res) =>
 //  post
 router.post("/rotation/data", async (req, res) =>
 {
-    let obj = req.body || {};
-    var rotation = {
-        name: obj.name,
-        vname: obj.vname,
-        order:obj.order||0,
-        imgs:obj.imgs
-    }
-    let data = await mainCtrl.rotation.postData(rotation);
+    let data = await mainCtrl.rotation.postData(req);
     res.json(data);
 });
 
 // put
 router.put("/rotation/data", async (req, res) =>
 {
-    let data = await mainCtrl.rotation.putData(req.body || {})
+    let data = await mainCtrl.rotation.putData(req)
     res.json(data);
 
 });
-
 
 module.exports = router;

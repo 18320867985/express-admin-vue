@@ -70,9 +70,9 @@ export default {
             type: Number,
             default: 400
         },
-        fileUrl:{
-          type:String,
-          default:"/file"
+        fileUrl: {
+            type: String,
+            default: "/file"
         }
 
     },
@@ -87,11 +87,10 @@ export default {
                 height: this.width,
                 width: this.height,
                 // content_css（为编辑区指定css文件）,加上就不显示字数统计了
-                // content_css: `${this.baseUrl}tinymce/skins/content/default/content.css`,
+                //content_css: `${this.baseUrl}tinymce/skins/content/default/content.css`,
                 // （指定需加载的插件）
                 plugins: this.plugins,
                 toolbar: this.toolbar, // （自定义工具栏）
-
                 statusbar: true, // 底部的状态栏
                 menubar: 'file edit insert view format table tools help', // （1级菜单）最上方的菜单
                 branding: false, // （隐藏右下角技术支持）水印“Powered by TinyMCE”
@@ -99,12 +98,12 @@ export default {
                 // 此处为图片上传处理函数，这个直接用了base64的图片形式上传图片，
                 // 如需ajax上传可参考https://www.tiny.cloud/docs/configure/file-image-upload/#images_upload_handler
                 images_upload_handler: (blobInfo, success, failure) => {
-                
+
                     let formdata = new FormData();
                     formdata.append("file", blobInfo.blob());
                     axios.post(this.fileUrl, formdata)
                         .then(function (res) {
-                            success(config.baseURL+res.data.data);
+                            success(config.baseURL + res.data.data);
                         }).catch(err => {
                             failure(err);
                         });
@@ -138,7 +137,6 @@ export default {
 }
 </script>
 
- 
 <style lang="scss">
 .tox-editor-container {
     position: relative;

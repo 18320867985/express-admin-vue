@@ -12,8 +12,12 @@ async function getAll ()
 /*** CRUD  ***/
 
 // unique
-async function unique (val, id)
+async function unique (req)
 {
+    let query = req.query || {};
+    let val = query.value || "";
+    let id = query.id || "";
+
     let obj = await mainModel.UserRole.findOne({name: val});
     if (obj)
     {
@@ -29,8 +33,12 @@ async function unique (val, id)
     }
 }
 // unique
-async function uniqueVid (val, id)
+async function uniqueVid (req)
 {
+    let query = req.query || {};
+    let val = query.value || "";
+    let id = query.id || "";
+
     let obj = await mainModel.UserRole.findOne({vid: val});
     if (obj)
     {
@@ -47,8 +55,13 @@ async function uniqueVid (val, id)
 }
 
 // get list
-async function getData (pageIndex = 1, pageSize = 10, search = {})
+async function getData (req)
 {
+    // paging start
+    let pageIndex = Number(req.params.pageIndex);
+    let pageSize = Number(req.params.pageSize);
+    let search = req.query;
+
     let query = {
         name: new RegExp(search.name, "i"),
         createDate: {
@@ -87,8 +100,11 @@ async function getData (pageIndex = 1, pageSize = 10, search = {})
 }
 
 // dtl
-async function getDataDtl (ids = [])
+async function getDataDtl (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+
     let list = await mainModel.UserRole.find({
         _id: {
             $in: ids
@@ -99,8 +115,11 @@ async function getDataDtl (ids = [])
 }
 
 //  delete
-async function deleteData (ids = [])
+async function deleteData (req)
 {
+    let ids = req.params.ids || '';
+    ids = ids.split(',');
+
     let obj = await mainModel.UserRole.deleteMany({
         _id: {
             $in: ids
@@ -115,18 +134,19 @@ async function deleteData (ids = [])
 }
 
 // post
-async function postData (params)
-{  
+async function postData (req)
+{
+    let params = req.body || {};
     var obj = {
         name: params.name,
         vid: params.vid,
-        order:params.order||0,
+        order: params.order || 0,
     }
     let UserRole = new mainModel.UserRole(obj);
     let isError = UserRole.validateSync();
     if (isError)
-    {   
-        return  resData.err(null, isError);
+    {
+        return resData.err(null, isError);
     }
 
     var createObj = await mainModel.UserRole.create(UserRole)
@@ -139,8 +159,9 @@ async function postData (params)
 }
 
 // put
-async function putData (obj)
+async function putData (req)
 {
+    let obj = req.body || {};
     let _id = obj._id || "";
     let name = obj.name;
     let vid = obj.vid;
@@ -157,7 +178,8 @@ async function putData (obj)
 
 }
 
-module.exports = {
+let IProxy = require("../../libs/IProxy");
+module.exports = IProxy({
     getAll,
     unique,
     uniqueVid,
@@ -166,6 +188,4 @@ module.exports = {
     deleteData,
     postData,
     putData,
-
-
-}
+});
