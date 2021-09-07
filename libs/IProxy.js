@@ -1,5 +1,5 @@
 
-let Ihandle = require("./IHandler");
+let handler = require("./handler");
 
 class IProxy
 {
@@ -12,7 +12,7 @@ class IProxy
         {
             if (typeof childObj[ key ] === "function" && this.fnNames.includes(key))
             {
-                let proxy = new Proxy(childObj[ key ], Ihandle);
+                let proxy = new Proxy(childObj[ key ], handler);
                 childObj[ key ] = proxy;
             }
 

@@ -1,6 +1,6 @@
 
 let resData = require("./resData");
-let IHandle = {
+let handler = {
 
     apply (target, ctx, args)
     {
@@ -19,4 +19,4 @@ let IHandle = {
     }
 }
 
-module.exports = IHandle
+module.exports = handler
