@@ -130,7 +130,7 @@ class Rotation extends IProxy
     // post
     async postData (req)
     {
-        let params = req.body || {};
+        let obj = req.body || {};
         let Rotation = new mainModel.Rotation(obj);
         let isError = Rotation.validateSync();
         if (isError)

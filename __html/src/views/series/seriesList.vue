@@ -34,10 +34,10 @@
     <div class="form-btn-group">
         <el-button-group>
             <el-button type="primary" icon="el-icon-document" @click="dtlMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="dtlLoading"> 批量查看</el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
+            <el-button type="danger" icon="el-icon-delete" v-if="getUserVid===2" @click="deleteMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
         </el-button-group>
         <el-button-group style="margin-left:15px">
-            <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"> 添加</el-button>
+            <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"  v-if="getUserVid===2"> 添加</el-button>
         </el-button-group>
     </div>
 
@@ -77,8 +77,8 @@
             <el-table-column label="操作" width="150px">
                 <template v-slot="scope">
                     <el-link :underline="true" type="primary" @click="dtlOne(scope.row._id)">查看</el-link>
-                    <el-link :underline="true" type="warning" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
-                    <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
+                    <el-link :underline="true" type="warning" v-if="getUserVid>=1" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
+                    <el-link :underline="true" type="danger" v-if="getUserVid===2" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
                 </template>
             </el-table-column>
 
@@ -316,6 +316,11 @@ export default {
     async created() {
         this.getList();
         this.getSeriesTypeAll();
+    },
+      computed: {
+        getUserVid() {
+            return this.$store.getters.getUserVid;
+        }
     },
     methods: {
 

@@ -39,7 +39,7 @@ router.delete("/series/data/:ids", async (req, res) =>
 //  post
 router.post("/series/data", async (req, res) =>
 {
-    let data = await mainCtrl.series.postData(re);
+    let data = await mainCtrl.series.postData(req);
     res.json(data);
 });
 

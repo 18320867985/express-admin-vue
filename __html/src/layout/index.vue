@@ -24,9 +24,11 @@
                                 <span slot="title">{{ item.meta && item.meta.ttl }} </span>
                             </template>
                             <el-menu-item-group>
-                                <router-link :index="index + '-' + index2" class="el-menu-item" :to="child.path ? item.path + '/' + child.path : item.path" active-class="is-active" v-for="(child, index2) in item.children" :key="child.path" tag="li" exact :hidden="child.hidden">
-                                    {{ child.meta && child.meta.ttl }}
-                                </router-link>
+                                <template v-for="(child, index2) in item.children">
+                                    <router-link :index="index + '-' + index2" class="el-menu-item" :to="child.path ? item.path + '/' + child.path : item.path" active-class="is-active" :key="child.path" tag="li" exact v-if="!child.hidden">
+                                        {{ child.meta && child.meta.ttl }}
+                                    </router-link>
+                                </template>
                             </el-menu-item-group>
                         </el-submenu>
                         <el-menu-item :index="index++ + ''" :key="index" v-if="item.path==='/'" class="item-home" :class="{'active':$route.fullPath==='/'}">
@@ -104,24 +106,52 @@ export default {
                 if (path === currentPath) {
                     result = i;
                     break;
-                } 
+                }
                 let children = rts[i].children || [];
                 for (let i2 = 0; i2 < children.length; i2++) {
                     let path2 = children[i2].path === "" ? path : path + "/" + children[i2].path;
-                    if(currentPath===path2){
+                    if (currentPath === path2) {
                         result = i;
-                        break;  
+                        break;
                     }
-                    
+
                 }
             }
             return result;
         }
     },
     computed: {
-        activePaths() {
-            return this.$router.options.routes.filter((item) => !item.hidden);
+
+        getUserVid() {
+            return this.$store.getters.getUserVid;
         },
+        activePaths() {
+            return this.$router.options.routes.filter((item) => !item.hidden).filter((item) => {
+
+                // leve2 遍历vid修改hidden值
+                item.children.forEach(child => {
+                    if (child.meta) {
+                        if (child.meta.vid && child.meta.vid === this.getUserVid) {
+                            child.hidden = false;
+                        }
+                        if (child.meta.vid && child.meta.vid !== this.getUserVid) {
+                            child.hidden = true;
+                        }
+                    }
+                });
+
+                 // leve1 遍历vid的过滤每一项
+                if (!item.meta.vid) {
+                    return true;
+                }
+                if (item.meta.vid && item.meta.vid === this.getUserVid) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
+        },
+        
         getUserinfo() {
             return this.$store.getters.getUserinfo;
         }
@@ -155,10 +185,10 @@ export default {
 
         // open menu
         let openIndex = this.openCurrentMenu();
-        if(openIndex>0){
+        if (openIndex > 0) {
             this.$refs.menu.open(openIndex)
         }
-  
+
     },
 };
 </script>

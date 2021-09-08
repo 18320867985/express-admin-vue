@@ -9,6 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     userInfo: null,
+    authId:0, // 0 普通用户 1.系统管理员 2.超级管理员
     autoLogoutSetTimeoutId: 0,
     pageLoaded: false,
 
@@ -18,6 +19,12 @@ export default new Vuex.Store({
     {
       return state.userInfo;
     },
+
+    getUserVid: (state) =>
+    {
+      return state.authId;
+    },
+
     getPageLoaded: (state) =>
     {
       return state.pageLoaded;
@@ -30,6 +37,7 @@ export default new Vuex.Store({
     {
       window.sessionStorage.setItem("userinfo", JSON.stringify(userinfo))
       state.userInfo = userinfo;
+      state.authId=userinfo&&userinfo.roleId.vid;
     },
 
     setLoginUserinfo (state, res)
@@ -38,6 +46,7 @@ export default new Vuex.Store({
       window.sessionStorage.setItem("exp", res.exp);
       window.sessionStorage.setItem("userinfo", JSON.stringify(res.data.userinfo))
       state.userInfo = res.data.userinfo;
+      state.authId=res.data.userinfo&&res.data.userinfo.roleId.vid;
       state.pageLoaded = true;
     },
 

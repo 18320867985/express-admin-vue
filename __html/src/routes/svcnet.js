@@ -6,7 +6,7 @@ export default [
 		path: "",
 		component: SvcnetList,
 		meta:{ ttl:"服务网点"},
-
+	
 	},
 	
 ];

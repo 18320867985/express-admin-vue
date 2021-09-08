@@ -91,7 +91,7 @@ export const CRUD_Option = {
             {
                 this.$message({
                     type: "error",
-                    message: "数据删除失败！"
+                    message: res.msg
                 })
             }
         },

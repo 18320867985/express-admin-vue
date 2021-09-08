@@ -38,7 +38,7 @@ app.use((req, res, next) =>
                 res.json(resData.notToken(null,{token:"无效的token,请登录去获取token"}));
             }else{
                let decode= jwt.decode(token);
-               req.authInfo=decode.data; // 附加用户权限信息
+               req.authInfo=decode.data; // 附加auth用户权限信息
                 next();
             }
         })

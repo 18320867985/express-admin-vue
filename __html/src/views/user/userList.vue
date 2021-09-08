@@ -41,10 +41,10 @@
     <div class="form-btn-group">
         <el-button-group>
             <el-button type="primary" icon="el-icon-document" @click="dtlMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="dtlLoading"> 批量查看</el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
+            <el-button type="danger" icon="el-icon-delete" v-if="getUserVid===2" @click="deleteMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="deleteLoading">批量删除</el-button>
         </el-button-group>
         <el-button-group style="margin-left:15px">
-            <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"> 添加</el-button>
+            <el-button type="primary" icon="el-icon-folder-add" @click="addBtn"  v-if="getUserVid===2"> 添加</el-button>
         </el-button-group>
     </div>
 
@@ -73,11 +73,8 @@
             <el-table-column label="操作" width="150px">
                 <template v-slot="scope">
                     <el-link :underline="true" type="primary" @click="dtlOne(scope.row._id)">查看</el-link>
-                    <el-link :underline="true" type="warning" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
-                    <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
-                    <!-- <el-popconfirm title="你是否要确定删除吗？" @confirm="deleteData([scope.row._id])">
-                        <el-link :underline="true" type="danger" slot="reference" style="margin-left:8px">删除</el-link>
-                    </el-popconfirm> -->
+                    <el-link :underline="true" type="warning" v-if="getUserVid>=1" style="margin-left:8px" @click="editBtn(scope.row)">修改</el-link>
+                    <el-link :underline="true" type="danger" v-if="getUserVid===2" slot="reference" style="margin-left:8px" @click="deleteOne([scope.row._id])">删除</el-link>
                 </template>
             </el-table-column>
 
@@ -166,7 +163,7 @@
 
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="选择用户类型">
-                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==" >
+                <el-select v-model="scope.editObj.roleId" placeholder="==选择用户类型==">
                     <el-option label="==选择用户类型==" style="color:#999;" :value="null"></el-option>
                     <el-option v-for="item in userRoleList" :key="item.value" :label="item.label" :value="item.value"></el-option>
                 </el-select>
@@ -204,7 +201,7 @@ import {
     CRUD_Option
 } from "../../mixins";
 export default {
-    mixins: [pageOption, toDateStartOrEnd,CRUD_Option],
+    mixins: [pageOption, toDateStartOrEnd, CRUD_Option],
     data() {
         return {
 
@@ -241,7 +238,7 @@ export default {
 
             // 批量选择
             multipleSelection: [],
-          
+
             // loading 加载动画
             tableLoading: false,
             dtlLoading: false,
@@ -249,12 +246,17 @@ export default {
 
             // 其它 列表的
             userRoleList: [],
-           
+
         };
     },
     async created() {
         this.getList();
         this.getUserRoleAll();
+    },
+    computed: {
+        getUserVid() {
+            return this.$store.getters.getUserVid;
+        }
     },
     methods: {
 
@@ -313,7 +315,6 @@ export default {
             this.multipleSelection = val.map(item => item._id);
         },
 
-       
         addBtn() {
             this.$refs.addBox.show();
             this.getUserRoleAll();

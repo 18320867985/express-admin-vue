@@ -5,7 +5,7 @@ class IProxy
 {
     constructor (childObj, childFnNames=[])
     {
-        // 默认继承接口的函数名称
+        // 默认继承接口函数的名称
         this.fnNames = [ "postData", "deleteData", "putData" ];
         this.fnNames.push(...childFnNames);
         Object.getOwnPropertyNames(childObj).forEach(key =>
@@ -16,7 +16,7 @@ class IProxy
                 childObj[ key ] = proxy;
             }
 
-        })
+        });
     }
 }
 
