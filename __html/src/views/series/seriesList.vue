@@ -131,18 +131,28 @@
                         <el-form label-width="40px">
                             <img :src="$baseURL+item.src" alt="" v-if="scope.addObj.imgs.length>0" style="max-width:100%; " />
 
-                            <el-form-item label="标题">
-                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="URL">
-                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="排序">
-                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
-                            </el-form-item>
+                              <vee-item rules="required" v-slot="{ failedRules }">
+                                <el-form-item label="标题">
+                                    <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.required">图片标题不能为空！</span>
+                                </el-form-item>
+                            </vee-item>
+                            <vee-item rules="required" v-slot="{ failedRules }">
+                                <el-form-item label="URL">
+                                    <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.required">url地址不能为空！</span>
+                                </el-form-item>
+                            </vee-item>
+                            <vee-item rules="integer" v-slot="{ failedRules }">
+                                <el-form-item label="排序">
+                                    <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
+                                </el-form-item>
+                            </vee-item>
                             <el-form-item label="显示">
                                 <el-switch v-model="item.enabled"></el-switch>
                             </el-form-item>
+                            
                             <el-link type="danger" class="del" @click="addDelImg(index)">删除</el-link>
                         </el-form>
 
@@ -195,18 +205,29 @@
                         <el-form label-width="40px">
                             <img :src="$baseURL+item.src" alt="" v-if="scope.editObj.imgs.length>0" style="max-width:100%; " />
 
-                            <el-form-item label="标题">
-                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="URL">
-                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
-                            </el-form-item>
-                            <el-form-item label="排序">
-                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
-                            </el-form-item>
+                               <vee-item rules="required" v-slot="{ failedRules }">
+                                <el-form-item label="标题">
+                                    <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.required">图片标题不能为空！</span>
+                                </el-form-item>
+                            </vee-item>
+                            <vee-item rules="required" v-slot="{ failedRules }">
+                                <el-form-item label="URL">
+                                    <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.required">url地址不能为空！</span>
+                                </el-form-item>
+                            </vee-item>
+                            <vee-item rules="integer" v-slot="{ failedRules }">
+                                <el-form-item label="排序">
+                                    <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
+                                    <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
+                                </el-form-item>
+                            </vee-item>
                             <el-form-item label="显示">
                                 <el-switch v-model="item.enabled"></el-switch>
                             </el-form-item>
+                            
+
                             <el-link type="danger" class="del" @click="editDelImg(index)">删除</el-link>
                         </el-form>
 
