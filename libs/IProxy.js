@@ -3,10 +3,15 @@ let handler = require("./handler");
 
 class IProxy
 {
-    constructor (childObj, childFnNames=[])
+    constructor (childFnNames = [])
     {
-        // 默认继承接口函数的名称
-        this.fnNames = [ "postData", "deleteData", "putData" ];
+        if (new.target === IProxy) 
+        {
+            throw new Error('本接口类不能实例化,必须继承才可以用');
+        }
+
+        let childObj = new.target.prototype;
+        this.fnNames = [ "postData", "deleteData", "putData" ]; // 默认继承接口函数的名称
         this.fnNames.push(...childFnNames);
         Object.getOwnPropertyNames(childObj).forEach(key =>
         {

@@ -7,7 +7,7 @@ class SeriesType extends IProxy
 {
     constructor (fnNams = [])
     {
-        super(new.target.prototype, fnNams);
+        super(fnNams);
     }
 
     // get all list
