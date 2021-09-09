@@ -4,7 +4,7 @@
             <el-form label-width="120px" :style="{width:contentWidth}">
                <slot :editObj="editObj"></slot>
                 <el-form-item>
-                    <el-button type="primary" :disabled="invalid&&dirty" @click="editData(reset)" :loading="eidtLoading">{{btnText}}</el-button>
+                    <el-button type="primary"  :class="{'disabled':invalid&&dirty}"  @click="editData(reset)" :loading="eidtLoading">{{btnText}}</el-button>
                     <el-button @click="editDialogVisible = false">取消</el-button>
                 </el-form-item>
             </el-form>

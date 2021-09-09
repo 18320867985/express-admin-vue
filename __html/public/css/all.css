@@ -64422,3 +64422,7 @@ body,
   max-width: 100%;
   width: 98%;
   max-height: 240px; }
+
+.user .el-button--primary.el-button--small.disabled {
+  background: #a6d2ff;
+  border: solid 1px #a6d2ff; }

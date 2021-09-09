@@ -115,11 +115,11 @@
 
         <vee-item>
             <el-form-item label="上传图片" class="file-upload">
-                <file-upload url="/file" @change="addFileChange" :size="5" :fileType="'image/*'"></file-upload>
+                <file-upload ref="addFileUpload" url="/file" @change="addFileChange" :size="5" :fileType="'image/*'" :changeFileObj="addChangeFileObj"></file-upload>
                 <template v-for="(item ,index) in scope.addObj.imgs">
                     <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
                         <el-form label-width="40px">
-                            <img :src="$baseURL+item.src" alt="" v-if="scope.addObj.imgs.length>0" style="max-width:100%; " />
+                            <img :src="$baseURL+item.src" alt="" v-if="scope.addObj.imgs.length>0" style="max-width:100%; " @click="addChangeFileObjClick(item)" />
 
                             <vee-item rules="required" v-slot="{ failedRules }">
                                 <el-form-item label="标题">
@@ -142,7 +142,7 @@
                             <el-form-item label="显示">
                                 <el-switch v-model="item.enabled"></el-switch>
                             </el-form-item>
-                            
+
                             <el-link type="danger" class="del" @click="addDelImg(index)">删除</el-link>
                         </el-form>
 
@@ -178,44 +178,43 @@
                 <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
             </el-form-item>
         </vee-item>
-        <vee-item>
-            <el-form-item label="上传图片" class="file-upload">
-                <file-upload url="/file" @change="editFileChange" :size="5" :fileType="'image/*'"></file-upload>
-                <template v-for="(item ,index) in scope.editObj.imgs">
-                    <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
-                        <el-form label-width="40px">
-                            <img :src="$baseURL+item.src" alt="" v-if="scope.editObj.imgs.length>0" style="max-width:100%; " />
 
-                            <vee-item rules="required" v-slot="{ failedRules }">
-                                <el-form-item label="标题">
-                                    <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
-                                    <span class="text-danger" v-if="failedRules.required">图片标题不能为空！</span>
-                                </el-form-item>
-                            </vee-item>
-                            <vee-item rules="required" v-slot="{ failedRules }">
-                                <el-form-item label="URL">
-                                    <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
-                                    <span class="text-danger" v-if="failedRules.required">url地址不能为空！</span>
-                                </el-form-item>
-                            </vee-item>
-                            <vee-item rules="integer" v-slot="{ failedRules }">
-                                <el-form-item label="排序">
-                                    <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
-                                    <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
-                                </el-form-item>
-                            </vee-item>
-                            <el-form-item label="显示">
-                                <el-switch v-model="item.enabled"></el-switch>
+        <el-form-item label="上传图片" class="file-upload">
+            <file-upload ref="editFileUpload" url="/file" @change="editFileChange" :size="5" :fileType="'image/*'" :changeFileObj="editChangeFileObj"></file-upload>
+            <template v-for="(item ,index) in scope.editObj.imgs">
+                <div :key="index" style="border: 1px solid #ddd;  margin-top:15px; padding: 5px;">
+                    <el-form label-width="40px">
+                        <img :src="$baseURL+item.src" alt="" v-if="scope.editObj.imgs.length>0" style="max-width:100%; " @click="editChangeFileObjClick(item)" />
+
+                        <vee-item rules="required" v-slot="{ failedRules }">
+                            <el-form-item label="标题">
+                                <el-input placeholder="==图片标题==" v-model="item.ttl"> </el-input>
+                                <span class="text-danger" v-if="failedRules.required">图片标题不能为空！</span>
                             </el-form-item>
+                        </vee-item>
+                        <vee-item rules="required" v-slot="{ failedRules }">
+                            <el-form-item label="URL">
+                                <el-input placeholder="==跳转的url地址==" v-model="item.url"> </el-input>
+                                <span class="text-danger" v-if="failedRules.required">url地址不能为空！</span>
+                            </el-form-item>
+                        </vee-item>
+                        <vee-item rules="integer" v-slot="{ failedRules }">
+                            <el-form-item label="排序">
+                                <el-input placeholder="==图片排序==" v-model="item.order"> </el-input>
+                                <span class="text-danger" v-if="failedRules.integer ">必须为整型数字！</span>
+                            </el-form-item>
+                        </vee-item>
+                        <el-form-item label="显示">
+                            <el-switch v-model="item.enabled"></el-switch>
+                        </el-form-item>
 
-                            <el-link type="danger" class="del" @click="editDelImg(index)">删除</el-link>
-                        </el-form>
+                        <el-link type="danger" class="del" @click="editDelImg(index)">删除</el-link>
+                    </el-form>
 
-                    </div>
-                </template>
+                </div>
+            </template>
 
-            </el-form-item>
-        </vee-item>
+        </el-form-item>
 
     </vue-edit>
 
@@ -308,6 +307,12 @@ export default {
             dtlLoading: false,
             deleteLoading: false,
 
+            // add上传编辑图片
+            addChangeFileObj: null,
+
+            // edit上传编辑图片
+            editChangeFileObj: null,
+
             // 其它 列表的
 
         };
@@ -368,14 +373,20 @@ export default {
         },
 
         editBtn(item) {
-            console.log(item)
             this.editDialogVisible = true;
             this.editObj = Object.assign({}, item);
             this.$refs.editBox.show()
         },
 
-        addFileChange(data) {
+        addFileChange(data, editObj) {
+            // 编辑图片
+            if (editObj) {
+                editObj.src = data.data;
+                this.addChangeFileObj = null;
+                return;
+            }
 
+            // 添加图片
             let obj = {
                 url: null,
                 src: data.data,
@@ -392,8 +403,15 @@ export default {
             this.addObj.imgs.splice(index, 1);
         },
 
-        editFileChange(data) {
+        editFileChange(data, editObj) {
+            // 编辑图片
+            if (editObj) {
+                editObj.src = data.data;
+                this.editChangeFileObj = null;
+                return;
+            }
 
+            // 添加图片
             let obj = {
                 url: null,
                 src: data.data,
@@ -407,6 +425,16 @@ export default {
         },
         editDelImg(index) {
             this.editObj.imgs.splice(index, 1);
+        },
+
+        addChangeFileObjClick(item) {
+            this.addChangeFileObj = item;
+            this.$refs.addFileUpload.fileBtnClick();
+        },
+
+        editChangeFileObjClick(item) {
+            this.editChangeFileObj = item;
+            this.$refs.editFileUpload.fileBtnClick();
         }
 
     },

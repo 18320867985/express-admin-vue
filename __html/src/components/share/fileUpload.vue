@@ -21,7 +21,9 @@ export default {
         fileType:{
             type:String,
             default:"image/*"
-        }
+        },
+        // 重新编辑图片的转入的对象
+        changeFileObj:{}
       
     },
     data() {
@@ -54,10 +56,13 @@ export default {
                 data: formData
             }).then(res => {
                 this.fileUploading = false;
-                this.$emit("change", res.data)
+                this.$emit("change", res.data,this.changeFileObj);
+                this.editObj=null;
+                this.$refs.fileInput.value=null;
             }).catch(error => {
                 this.fileUploading = false;
                 this.percentage = 0;
+                this.$refs.fileInput.value=null;
                 console.log(error)
             })
         }

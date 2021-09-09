@@ -1,0 +1,9 @@
+服务器运行在 localhost:\\.\pipe\384bf5f3-781a-4f12-94aa-a045b7c2df2b 端口上...
+processId:1756
+mongodb connection success 
+[0mOPTIONS /main/seriesType/all/ [32m200 [0m5.250 ms - 100[0m
+[0mOPTIONS /main/series/data/1/10 [32m200 [0m0.701 ms - 100[0m
+[0mOPTIONS /init/data [32m200 [0m0.578 ms - 100[0m
+[0mGET /main/seriesType/all/ [32m200 [0m24.844 ms - 736[0m
+[0mGET /main/series/data/1/10 [32m200 [0m23.963 ms - 3771[0m
+[0mGET /init/data [32m200 [0m34.056 ms - 270[0m
