@@ -546,3 +546,5 @@ mongodb connection success
 [0mGET /main/UserRole/data/1/10 [36m304 [0m6.508 ms - -[0m
 [0mOPTIONS /main/rotation/data/1/10 [32m200 [0m0.335 ms - 100[0m
 [0mGET /main/rotation/data/1/10 [36m304 [0m11.031 ms - -[0m
+[0mOPTIONS /main/rotation/data/2/10 [32m200 [0m0.544 ms - 100[0m
+[0mGET /main/rotation/data/2/10 [36m304 [0m15.170 ms - -[0m
