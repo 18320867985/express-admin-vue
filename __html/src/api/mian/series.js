@@ -1,6 +1,5 @@
 import axios from "../ins.js";
 
-
 // get list 
 async function getData (pageIndex=1,pageSize=10,params)
 {
@@ -50,8 +49,6 @@ async function putData (obj)
 	});
 	return res && res.data;
 }
-
-
 
 export default {
 	getData,

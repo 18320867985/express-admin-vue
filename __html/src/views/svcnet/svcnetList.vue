@@ -302,10 +302,11 @@ import FileUpload from '../../components/share/fileUpload.vue'
 import {
     pageOption,
     toDateStartOrEnd,
-    CRUD_Option
+    CRUD_Option,
+    copyObj
 } from "../../mixins";
 export default {
-    mixins: [pageOption, toDateStartOrEnd, CRUD_Option],
+    mixins: [pageOption, toDateStartOrEnd, CRUD_Option,copyObj],
     data() {
         return {
 
@@ -409,20 +410,23 @@ export default {
 
         addBtn() {
             this.$refs.addBox.show();
-            this.addObj.imgs = [];
+            if(!this.addObj.imgs){
+                this.addObj.imgs = [];
+            }
+           
         },
 
         editBtn(item) {
             console.log(item)
             this.editDialogVisible = true;
-            this.editObj = Object.assign({}, item);
+            this.editObj = this.copyDeep(item,{});
             this.$refs.editBox.show()
         },
 
-        addFileChange(data, editObj) {
+        addFileChange(data, editImgObj) {
             // 编辑图片
-            if (editObj) {
-                editObj.src = data.data;
+            if (editImgObj) {
+                editImgObj.src = data.data;
                 this.addChangeFileObj = null;
                 return;
             }
@@ -444,10 +448,10 @@ export default {
             this.addObj.imgs.splice(index, 1);
         },
 
-        editFileChange(data, editObj) {
+        editFileChange(data, editImgObj) {
             // 编辑图片
-            if (editObj) {
-                editObj.src = data.data;
+            if (editImgObj) {
+                editImgObj.src = data.data;
                 this.editChangeFileObj = null;
                 return;
             }

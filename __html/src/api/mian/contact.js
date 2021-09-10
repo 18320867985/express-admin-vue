@@ -51,8 +51,6 @@ async function putData (obj)
 	return res && res.data;
 }
 
-
-
 export default {
 	getData,
 	deleteData,

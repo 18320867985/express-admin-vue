@@ -184,3 +184,40 @@ export const transformHtml = {
 
     }
 }
+
+export const copyObj = {
+
+    methods: {
+
+        // 浅复制 parentObj,childObj
+        copy (parentObj, childObj)
+        {
+            childObj = childObj || {};
+            for (var prop in parentObj)
+            {
+                childObj[ prop ] = parentObj[ prop ];
+            }
+            return childObj;
+        },
+
+        // 深复制 parentObj,childObj
+        copyDeep (parentObj, childObj)
+        {
+            childObj = childObj || {};
+            for (var prop in parentObj)
+            {
+                if (typeof parentObj[ prop ] === "object" && parentObj[ prop ] !== null)
+                {
+                    childObj[ prop ] = parentObj[ prop ].constructor === Array ? [] : {};
+                    this.copyDeep(parentObj[ prop ], childObj[ prop ]);
+                } else
+                {
+                    childObj[ prop ] = parentObj[ prop ];
+                }
+            }
+            return childObj;
+        }
+
+    }
+
+}
