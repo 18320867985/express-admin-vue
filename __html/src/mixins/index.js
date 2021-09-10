@@ -63,7 +63,6 @@ export const toDateStartOrEnd = {
             return fmt;
         },
 
-
     }
 }
 
@@ -113,7 +112,6 @@ export const CRUD_Option = {
 
         deleteMany (ids)
         {
-
             this.$confirm(`<strongt style='color:red'>是否要批量删除该文件? 请谨慎操作！</strong>`, '提示', {
                 confirmButtonText: '批量删除',
                 cancelButtonText: '取消',
@@ -130,7 +128,6 @@ export const CRUD_Option = {
 
         async dtlData (ids)
         {
-
             this.dtlLoading = true;
             let res = await this.api.getDataDtl(ids);
             this.dtlLoading = false;
@@ -148,13 +145,11 @@ export const CRUD_Option = {
         async dtlOne (id)
         {
             this.dtlData([ id ]);
-
         },
 
         async dtlMany (ids)
         {
             this.dtlData(ids);
-
         },
 
 
@@ -170,7 +165,6 @@ export const transformHtml = {
         {
             txt = txt.replace(/&lt;/img, "<").replace(/&gt;/img, ">").replace(/&nbsp;/img, " ");
             return txt;
-
         },
 
         // 把html换成文本
@@ -178,10 +172,7 @@ export const transformHtml = {
         {
             txt = txt.replace(/</img, "&lt;").replace(/>/img, "&gt;").replace(/\s+/img, "&nbsp;");
             return txt;
-
         }
-
-
     }
 }
 
