@@ -129,7 +129,7 @@ export default {
     },
     watch: {
         value(newValue) {
-            this.myValue = newValue
+            this.tinymceValue = newValue
         },
         tinymceValue(newValue) {
             this.$emit('input', newValue)
