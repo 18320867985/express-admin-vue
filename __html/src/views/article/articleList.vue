@@ -123,20 +123,15 @@
 
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="内容">
-                <vue-tinymce id="myedit" ref="editor" v-model="scope.addObj.content" :height="600" :width="300"></vue-tinymce>
+                <vue-tinymce  v-model="scope.addObj.content"  :height="320" :width="610"></vue-tinymce>
                 <span class="text-danger" v-if="failedRules.required">内容不能为空！</span>
             </el-form-item>
         </vee-item>
     </vue-add>
 
     <!--edit-->
-    <vue-edit ref="editBox" title="修改联系" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope">
-        <vee-item :rules="
-          'required|unique:/main/' +
-          itemName +
-          '/data-unique,' +
-          scope.editObj._id
-        " v-slot="{ failedRules }">
+    <vue-edit ref="editBox" title="修改联系" :editObj="editObj" :getList="getList" :putData="api.putData" v-slot="scope" >
+        <vee-item :rules="'required|unique:/main/' +itemName +'/data-unique,' +scope.editObj._id" v-slot="{ failedRules }">
             <el-form-item label="名称">
                 <el-input placeholder="==名称==" v-model="scope.editObj.name"></el-input>
                 <span class="text-danger" v-if="failedRules.required">名称不能为空！</span>
@@ -169,7 +164,7 @@
         
         <vee-item rules="required" v-slot="{ failedRules }">
             <el-form-item label="内容">
-                <vue-tinymce id="myedit" ref="editor" v-model="scope.editObj.content"  :height="600" :width="300"></vue-tinymce>
+                <vue-tinymce  v-model="scope.editObj.content"  :height="320" :width="610"></vue-tinymce>
                 <div class="text-danger" v-if="failedRules.required" style="position:static">内容不能为空！</div>
             </el-form-item>
         </vee-item>
@@ -195,7 +190,6 @@
             </el-descriptions-item>
         </el-descriptions>
     </vue-dtl>
-
 </div>
 </template>
 
@@ -322,12 +316,12 @@ export default {
         },
 
         editBtn(item) {
-            console.log(item);
             this.editDialogVisible = true;
             this.editObj = Object.assign({}, item);
             this.$refs.editBox.show();
         },
 
+      
     },
 
     components: {

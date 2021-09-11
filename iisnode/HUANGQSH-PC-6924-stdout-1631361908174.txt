@@ -1,0 +1,21 @@
+服务器运行在 localhost:\\.\pipe\a6787ad0-4855-4c09-bfe8-5508a06a269f 端口上...
+processId:6924
+[0mOPTIONS /init/data [32m200 [0m7.676 ms - 100[0m
+mongodb connection success 
+[0mGET /init/data [36m304 [0m1.376 ms - -[0m
+[0mOPTIONS /init/data [32m200 [0m0.567 ms - 100[0m
+[0mGET /init/data [36m304 [0m0.484 ms - -[0m
+[0mOPTIONS /init/data [32m200 [0m0.808 ms - 100[0m
+[0mGET /init/data [36m304 [0m0.780 ms - -[0m
+[0mOPTIONS /login/data [32m200 [0m1.821 ms - 4[0m
+[0mPOST /login/data [32m200 [0m306.095 ms - 687[0m
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.876 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.813 ms - 100[0m
+[0mGET /main/userRole/all/ [36m304 [0m22.595 ms - -[0m
+[0mGET /main/user/data/1/10 [36m304 [0m37.046 ms - -[0m
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.505 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m13.999 ms - -[0m
+[0mOPTIONS /main/article/data/1/10 [32m200 [0m0.383 ms - 100[0m
+[0mGET /main/article/data/1/10 [32m200 [0m17.500 ms - 2545[0m
+[0mOPTIONS /main/article/data/2/10 [32m200 [0m0.410 ms - 100[0m
+[0mGET /main/article/data/2/10 [32m200 [0m13.545 ms - 4924[0m

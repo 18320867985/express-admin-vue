@@ -19,7 +19,7 @@ const routes = [
 		component: Layout,
 		name: "",
 		meta: {ttl: "首页", icon: "el-icon-s-home"},
-		//	redirect: '/basic',
+		//	redirect: '/home',
 		children: [
 			{
 				path: "",

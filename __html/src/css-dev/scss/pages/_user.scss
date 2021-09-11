@@ -53,7 +53,7 @@
 
 	.form-validate {
 		.text-danger {
-			display: block;	
+			display: block;
 			margin-top: 6px;
 			margin-left: 2px;
 			line-height: 12px;
@@ -86,17 +86,15 @@
 		flex: 1;
 	}
 
-	.file-upload{
-
-		.del{
+	.file-upload {
+		.del {
 			position: absolute;
 			right: 15px;
 			margin-top: -38px;
 		}
-		.el-form-item--small.el-form-item{
+		.el-form-item--small.el-form-item {
 			margin-bottom: 5px;
 		}
-
 	}
 
 	// add edit
@@ -104,15 +102,15 @@
 		width: 100%;
 	}
 
-	.el-form img{
+	.el-form img {
 		max-width: 100%;
 		width: 98%;
 		max-height: 240px;
 	}
 
 	// btn disabled
-	.el-button--primary.el-button--small.disabled{
-		background: lighten($--color-primary,20%);
-		border: solid 1px  lighten($--color-primary,20%);
-	  }
+	.el-button--primary.el-button--small.disabled {
+		background: lighten($--color-primary, 20%);
+		border: solid 1px lighten($--color-primary, 20%);
+	}
 }

@@ -11,18 +11,18 @@ export default [
 		meta:{ ttl:"用户列表",vid:2},
 
 	},
-	
-	{
-		path: "userInfo",
-		component: usertype,
-		meta:{ ttl:"用户信息"},
-
-	},
 
 	{
 		path: "userType",
 		component: usertype,
 		meta:{ ttl:"用户类型",vid:2},
+
+	},
+	
+	{
+		path: "userInfo",
+		component: usertype,
+		meta:{ ttl:"用户信息"},
 
 	},
 
