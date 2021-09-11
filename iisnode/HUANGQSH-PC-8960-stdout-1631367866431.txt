@@ -1,0 +1,7 @@
+服务器运行在 localhost:\\.\pipe\480ffcb4-1d8b-45f5-aa3e-2a309ac2dc12 端口上...
+processId:8960
+[0mOPTIONS /init/data [32m200 [0m3.960 ms - 100[0m
+[0mOPTIONS /main/article/data/1/10 [32m200 [0m0.550 ms - 100[0m
+mongodb connection success 
+[0mGET /init/data [32m200 [0m38.252 ms - 270[0m
+[0mGET /main/article/data/1/10 [32m200 [0m16.226 ms - 2545[0m
