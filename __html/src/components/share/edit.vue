@@ -1,70 +1,72 @@
 <template>
-    <el-dialog :title="title" :visible.sync="editDialogVisible" :width="width" class="dtl">
-        <vee ref="editform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
-            <el-form label-width="120px" :style="{width:contentWidth}">
-               <slot :editObj="editObj"></slot>
-                <el-form-item>
-                    <el-button type="primary"  :class="{'disabled':invalid&&dirty}"  @click="editData(reset)" :loading="eidtLoading">{{btnText}}</el-button>
-                    <el-button @click="editDialogVisible = false">取消</el-button>
-                </el-form-item>
-            </el-form>
-        </vee>
+<el-dialog :title="title" :visible.sync="editDialogVisible" :width="width" class="dtl" @close="closeFn">
+    <vee ref="editform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
+        <el-form label-width="120px" :style="{width:contentWidth}">
+            <slot :editObj="editObj"></slot>
+            <el-form-item>
+                <el-button type="primary" :class="{'disabled':invalid&&dirty}" @click="editData(reset)" :loading="eidtLoading">{{btnText}}</el-button>
+                <el-button @click="editDialogVisible = false">取消</el-button>
+            </el-form-item>
+        </el-form>
+    </vee>
 
-    </el-dialog>
+</el-dialog>
 </template>
 
 <script>
 export default {
-    props:{
-        putData:{
-            type:Function,
-            default:function(){}
+    props: {
+        putData: {
+            type: Function,
+            default: function () {}
         },
-        editObj:{
-            type:Object,
+        editObj: {
+            type: Object,
         },
-        getList:{
-              type:Function,
-            default:function(){} 
+        getList: {
+            type: Function,
+            default: function () {}
         },
-        btnText:{
-            type:String,
-            default:"保存修改"
+        btnText: {
+            type: String,
+            default: "保存修改"
         },
-        title:{
-            type:String,
-            default:"修改信息"
+        title: {
+            type: String,
+            default: "修改信息"
         },
-         width:{
-            type:String,
-            default:"50%"
+        width: {
+            type: String,
+            default: "50%"
         },
-          contentWidth:{
-             type: String,
+        contentWidth: {
+            type: String,
             default: "70%"
+        },
+        close: {
+            type: Function
         }
-
 
     },
     data() {
-          return{
-               eidtLoading:false,
-               editDialogVisible:false,
-          
-          }
+        return {
+            eidtLoading: false,
+            editDialogVisible: false,
+
+        }
 
     },
     methods: {
-          editData(reset){
-          
-             this.$refs.editform.validate().then(async (success) => {
+        editData(reset) {
+
+            this.$refs.editform.validate().then(async (success) => {
                 if (!success) {
                     return;
                 }
-                
-                this.eidtLoading=true;
+
+                this.eidtLoading = true;
                 let res = await this.putData(this.editObj);
-                this.eidtLoading=false;
+                this.eidtLoading = false;
                 if (!res) {
                     return
                 }
@@ -91,11 +93,19 @@ export default {
             });
 
         },
-        show(){
-            this.editDialogVisible=true;
+        closeFn() {
+            if (typeof this.close === "function") {
+                this.close();
+            }
+            for (let prop of Object.keys(this.editObj)) {
+                this.editObj[prop] = null;
+            }
         },
-        hide(){
-             this.editDialogVisible=false;
+        show() {
+            this.editDialogVisible = true;
+        },
+        hide() {
+            this.editDialogVisible = false;
         }
     },
 }

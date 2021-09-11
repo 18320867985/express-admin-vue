@@ -1,5 +1,5 @@
 <template>
-<el-dialog :title="title" :visible.sync="addDialogVisible" :width="width" class="dtl">
+<el-dialog :title="title" :visible.sync="addDialogVisible" :width="width" class="dtl" @!close="close">
     <vee ref="addform" v-slot="{ invalid ,dirty,reset}" class="form-validate">
         <el-form label-width="120px" :style="{width:contentWidth}">
             <slot :addObj="addObj"></slot>
@@ -39,9 +39,13 @@ export default {
             type: String,
             default: "50%"
         },
-        contentWidth:{
-             type: String,
+        contentWidth: {
+            type: String,
             default: "70%"
+        },
+        close: {
+            type: Function,
+            default:function(){}
         }
 
     },
@@ -89,7 +93,7 @@ export default {
 
             });
         },
-
+       
         show() {
             this.addDialogVisible = true;
         },
