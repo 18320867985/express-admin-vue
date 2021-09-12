@@ -49,7 +49,7 @@
 
             <el-table-column prop="_id" label="id" width="200"> </el-table-column>
 
-            <el-table-column prop="name" label="名称" sortable> </el-table-column>
+            <el-table-column prop="name" label="名称" sortable  > </el-table-column>
 
             <el-table-column prop="vname" label="标记名称" sortable> </el-table-column>
 
@@ -164,7 +164,7 @@
             </el-form-item>
         </vee-item>
 
-        <vee-item :rules="'required|unique:/main/rotation/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
+        <vee-item :rules="'required|unique:/main/rotation/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }"  v-if="getUserVid===2">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.editObj.vname" maxlength="32">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
@@ -223,7 +223,7 @@
         <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="ID" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
             <el-descriptions-item label="名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.name}} </el-descriptions-item>
-            <el-descriptions-item label="标记名称" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.vname}}</el-descriptions-item>
+            <el-descriptions-item label="标记名称" label-class-name="table-1-5" content-class-name="table-3-5" > {{scope.dtlObj.vname}}</el-descriptions-item>
             <el-descriptions-item label="排序" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.order}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>
             <el-descriptions-item label="修改时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.editDate|date}}</el-descriptions-item>

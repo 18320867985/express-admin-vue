@@ -108,7 +108,7 @@
             </el-form-item>
         </vee-item>
     
-         <vee-item :rules="'required|unique:/main/seriesType/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }">
+         <vee-item :rules="'required|unique:/main/seriesType/data-unique-vid,'+scope.editObj._id" v-slot="{ failedRules  }"  v-if="getUserVid===2">
             <el-form-item label="标记名称">
                 <el-input placeholder="==标记名称==" v-model="scope.editObj.vname" maxlength="64">></el-input>
                 <span class="text-danger" v-if="failedRules.required">标记名称不能为空！</span>
