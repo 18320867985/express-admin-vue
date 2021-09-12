@@ -1,5 +1,5 @@
 <template>
-<div :id="echartId" class="echart-box"></div>
+<div :id="echartId" class="echart-box" :style="{height:height+'px'}"></div>
 </template>
 
 <script>
@@ -28,6 +28,10 @@ export default {
         echartId: {
             type: String,
             default: "echartId"
+        },
+         height:{
+            type:Number,
+            default:400
         }
     },
 
@@ -46,7 +50,7 @@ export default {
                 },
                 dataset: {
                     source: [
-                        ['产品', '2012', '2013', '2014', '2015', '2016', '2017'],
+                        ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
                         ['成品奶茶', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
                         ['牛奶火柴', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
                         ['芝士可可', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
@@ -144,7 +148,6 @@ export default {
 
 <style lang="scss" scoped>
 .echart-box {
-    height: 600px;
     width: 100%;
     padding-top:15px ;
     background: #fff;

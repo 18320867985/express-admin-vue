@@ -7,7 +7,7 @@
                 <el-button size="small" @click="logout" round>退出登录</el-button>
             </div>
             <img src="../assets/vue.png" alt="Alternate Text" />
-            结算系统后台
+            网站后台-管理系统
         </div>
     </el-header>
 
@@ -49,8 +49,8 @@
                     <li>
                         <i class="index-h-icon" @click="isCollapse = !isCollapse" :class="isCollapse ? 'el-icon-s-unfold ' : 'el-icon-s-fold'"></i>
                     </li>
-                    <router-link class="li-link" tag="li" to="/">首页</router-link>
-                    <router-link class="li-link" tag="li" v-for="(item, index) in navbars" :key="index" :to="'' + item.path">{{ item.meta.ttl }}</router-link>
+                    <router-link class="li-link home-link" tag="li" to="/" >首页</router-link>
+                    <router-link class="li-link child-link" tag="li" v-for="(item, index) in navbars" :key="index" to="" >{{ item.meta.ttl }}</router-link>
 
                 </ul>
 
@@ -193,4 +193,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>

@@ -2,6 +2,8 @@
 //  user
 import  user from "../views/user/userList.vue";
 import  usertype from "../views/user/userType.vue";
+import  userInfo from "../views/user/userInfo.vue";
+import  userPwd from "../views/user/userPwd.vue";
 
 export default [
 
@@ -21,14 +23,14 @@ export default [
 	
 	{
 		path: "userInfo",
-		component: usertype,
+		component: userInfo,
 		meta:{ ttl:"用户信息"},
 
 	},
 
 	{
-		path: "editPwd",
-		component: usertype,
+		path: "userPwd",
+		component: userPwd,
 		meta:{ ttl:"修改密码"},
 
 	},

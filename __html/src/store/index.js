@@ -3,7 +3,6 @@ import Vue from "vue";
 import Vuex from "vuex";
 import router from "../routes"
 import commonApi from "../api/commonApi";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -17,6 +16,9 @@ export default new Vuex.Store({
   getters: {
     getUserinfo: (state) =>
     {
+      if(!state.userInfo){
+        state.userInfo= JSON.parse(window.sessionStorage.getItem("userinfo"));
+      }
       return state.userInfo;
     },
 
@@ -103,7 +105,8 @@ export default new Vuex.Store({
         commit("setPageLoaded");
       }).catch(err => {console.log(err)})
 
-    }
+    },
+    
 
   },
 

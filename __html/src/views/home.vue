@@ -1,7 +1,7 @@
 <template>
 <div>
 
-    <h3 class="echart-ttl">柱状图数据分析</h3>
+    <h3 class="echart-ttl" style="margin-top:10px">柱状图数据分析</h3>
     <bar-chart echartId="bar"></bar-chart>
 
     <!-- <h3 class="echart-ttl">饼状图数据分析</h3>
@@ -18,13 +18,13 @@
         </div>
     </div>
 
-    <h3 class="echart-ttl">线状图数据分析</h3>
-    <line-chart></line-chart>
+    <h3 class="echart-ttl" >线状图数据分析</h3>
+    <line-chart  echartId="line-1" :height="450"></line-chart>
 
     <h3 class="echart-ttl">饼状图数据分析</h3>
     <div class="pie-box">
         <div>
-            <pie-chart-3 echartId="pie-3"></pie-chart-3>
+            <pie-chart-3 echartId="pie-3" :height="600"></pie-chart-3>
         </div>
     </div>
 
@@ -62,7 +62,7 @@ export default {
 .echart-ttl {
     text-align: center;
     color: #777;
-    padding: 5px;
+    padding-bottom: 10px;
     font-size: 18px;
 }
 

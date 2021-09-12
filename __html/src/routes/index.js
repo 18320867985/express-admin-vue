@@ -31,7 +31,7 @@ const routes = [
 	{
 		path: "/user",
 		component: Layout,
-		meta: {ttl: "用户信息", icon: "el-icon-user"},
+		meta: {ttl: "用户中心", icon: "el-icon-user"},
 		children: User
 
 	},

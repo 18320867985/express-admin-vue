@@ -63693,12 +63693,15 @@ body,
   .index-main-nav .li-link {
     padding: 8px 15px; }
     .index-main-nav .li-link:hover {
-      color: #409EFF; }
-    .index-main-nav .li-link:nth-last-of-type(1) {
-      color: #999;
       cursor: default; }
-    .index-main-nav .li-link:nth-last-of-type(1):hover {
+    .index-main-nav .li-link.home-link:hover {
+      color: #409EFF;
+      cursor: pointer; }
+    .index-main-nav .li-link.child-link {
       color: #999; }
+    .index-main-nav .li-link:nth-last-of-type(2) {
+      color: #888;
+      cursor: default; }
   .index-main-nav .li-link + .li-link::before {
     position: absolute;
     top: 14px;

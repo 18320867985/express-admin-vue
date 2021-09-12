@@ -1,5 +1,5 @@
 <template>
-<div :id="echartId" class="echart-box"></div>
+<div :id="echartId" class="echart-box"  :style="{height:height+'px'}">></div>
 </template>
 
 <script>
@@ -26,6 +26,10 @@ export default {
         echartId: {
             type: String,
             default: "echartId"
+        },
+         height:{
+            type:Number,
+            default:500
         }
     },
 
@@ -123,7 +127,7 @@ option && myChart.setOption(option);
 
 <style lang="scss" scoped>
 .echart-box {
-    height: 400px;
+ 
     width: 100%;
     background: #fff;
     padding-top: 15px;

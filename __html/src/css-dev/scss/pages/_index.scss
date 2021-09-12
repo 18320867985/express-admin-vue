@@ -138,16 +138,25 @@ body,
 		padding: 8px 15px;
 
 		&:hover {
-			color: $--color-primary;
-		}
-
-		&:nth-last-of-type(1) {
-			color: #999;
+			//color: $--color-primary;
 			cursor: default;
 		}
-		&:nth-last-of-type(1):hover {
+
+		&.home-link:hover{
+			color: $--color-primary;
+			cursor: pointer;
+		}
+
+		&.child-link{
 			color: #999;
 		}
+		&:nth-last-of-type(2) {
+			color: #888;
+			cursor: default;
+		}
+		// &:nth-last-of-type(1):hover {
+		// 	color: #777;
+		// }
 	}
 
 	.li-link + .li-link::before {

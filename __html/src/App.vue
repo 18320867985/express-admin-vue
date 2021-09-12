@@ -12,7 +12,6 @@
 			}
 		},
 		created() {
-			
 			this.$store.dispatch("initData");
 		},
 	}

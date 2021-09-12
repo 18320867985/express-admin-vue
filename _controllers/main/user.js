@@ -131,6 +131,12 @@ class User extends IProxy
         let ids = req.params.ids || '';
         ids = ids.split(',');
 
+        let user_id = req.authInfo._id.toString();
+        if (ids.includes(user_id))
+        {
+            return resData.err(null, "当前是活动用户不能删除");
+        }
+
         let obj = await mainModel.User.deleteMany({
             _id: {
                 $in: ids
