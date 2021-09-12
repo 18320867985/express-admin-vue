@@ -63,7 +63,10 @@ export default {
                 if (!success) {
                     return;
                 }
-
+                
+                if (this.eidtLoading) {
+                    return;
+                }
                 this.eidtLoading = true;
                 let res = await this.putData(this.editObj);
                 this.eidtLoading = false;

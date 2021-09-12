@@ -84,6 +84,7 @@ export default {
                     return;
                 }
                 this.user._id=this.getUserinfo._id;
+                if(this.loading){return;}
                 this.loading = true;
                 let res = await this.api.putEditPwd(this.user);
                 this.loading = false;

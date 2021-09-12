@@ -45,7 +45,7 @@ export default {
         },
         close: {
             type: Function,
-            default:function(){}
+            default: function () {}
         }
 
     },
@@ -62,6 +62,10 @@ export default {
         addData(reset) {
             this.$refs.addform.validate().then(async (success) => {
                 if (!success) {
+                    return;
+                }
+
+                if (this.addLoading) {
                     return;
                 }
                 this.addLoading = true;
@@ -93,7 +97,7 @@ export default {
 
             });
         },
-       
+
         show() {
             this.addDialogVisible = true;
         },
