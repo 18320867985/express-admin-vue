@@ -11,17 +11,17 @@
         </div>
     </div> -->
 
-    <h3 class="echart-ttl">饼状图数据分析</h3>
+    <h3 class="echart-ttl"  >饼状图数据分析</h3>
     <div class="pie-box">
         <div>
-            <pie-chart-2 echartId="pie-2"></pie-chart-2>
+            <pie-chart-2 echartId="pie-2" :height="550"></pie-chart-2>
         </div>
     </div>
 
     <h3 class="echart-ttl" >线状图数据分析</h3>
     <line-chart  echartId="line-1" :height="450"></line-chart>
 
-    <h3 class="echart-ttl">饼状图数据分析</h3>
+    <h3 class="echart-ttl">线状和饼状图综合数据分析</h3>
     <div class="pie-box">
         <div>
             <pie-chart-3 echartId="pie-3" :height="600"></pie-chart-3>

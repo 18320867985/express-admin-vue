@@ -109,7 +109,7 @@
 	}
 
 	// btn disabled
-	.el-button--primary.el-button--small.disabled {
+	.el-button--primary.disabled {
 		background: lighten($--color-primary, 20%);
 		border: solid 1px lighten($--color-primary, 20%);
 	}

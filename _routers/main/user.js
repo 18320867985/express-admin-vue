@@ -47,4 +47,12 @@ router.put("/user/data", async (req, res) =>
    
 });
 
+// editPwd
+router.put("/user/editPwd", async (req, res) =>
+{
+   let data=await mainCtrl.user.editPwd(req)
+    res.json(data);
+   
+});
+
 module.exports = router;

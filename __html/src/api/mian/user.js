@@ -50,11 +50,24 @@ async function putData (obj)
 	return res && res.data;
 }
 
+// put editPwd 
+async function putEditPwd (obj)
+{
+	let res = await axios.put(`/main/user/editPwd/`,obj).catch(err =>
+	{
+		console.log(err)
+	});
+	return res && res.data;
+}
+
+
+
 export default {
 	getData,
 	deleteData,
 	getDataDtl,
 	postData,
-	putData
+	putData,
+	putEditPwd
 
 }

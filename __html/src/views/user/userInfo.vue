@@ -6,7 +6,7 @@
 
             <el-descriptions-item label="id" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo._id}} </el-descriptions-item>
             <el-descriptions-item label="用户名" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.name}} </el-descriptions-item>
-            <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo&&userinfo.roleId.name}} </el-descriptions-item>
+            <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.roleId&&userinfo.roleId.name}} </el-descriptions-item>
             <el-descriptions-item label="手机" label-class-name="table-1-5" content-class-name="table-3-5">  <el-tag size="small">{{userinfo.phone}}</el-tag></el-descriptions-item>
             <el-descriptions-item label="邮箱" label-class-name="table-1-5" content-class-name="table-3-5">   <el-tag size="small">{{userinfo.email}}</el-tag></el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.createDate|date}} </el-descriptions-item>
@@ -39,8 +39,6 @@ export default {
             return;
         }
         this.userinfo = data.data && data.data[0];
-        console.log("userinfo", this.userinfo)
-
     },
 }
 </script>

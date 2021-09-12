@@ -104,7 +104,6 @@
         </vee-item>
 
         <vee-item rules="required|confirmed:addObj.pwd" v-slot="{ failedRules }">
-
             <el-form-item label="确认密码">
                 <el-input placeholder="==确认密码==" type="password" v-model="scope.addObj.pwd2"></el-input>
                 <span class="text-danger" v-if="failedRules.required ">确认密码不能为空！</span>

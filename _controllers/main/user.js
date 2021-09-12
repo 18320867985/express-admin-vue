@@ -211,6 +211,30 @@ class User extends IProxy
 
     }
 
+    // editPwd
+    async editPwd (req)
+    {
+        let obj = req.body || {};
+        let _id=obj._id;
+        let oldPwd =cpy.md5(obj.oldPwd);
+        let pwd =cpy.md5(obj.newPwd);
+        let user=await mainModel.User.findOne({_id,pwd:oldPwd});
+        if(!user)
+        {
+          return  resData.err(null,"原密码有误！")
+        }
+
+        let v=await mainModel.User.findByIdAndUpdate(_id,{$set:{pwd}},{new:true});
+        if (!v)
+        {
+            return resData.err("密码修改失败");
+        } else
+        {
+            return resData.ok(v);
+        }
+
+    }
+
 }
 
 module.exports = new User();
