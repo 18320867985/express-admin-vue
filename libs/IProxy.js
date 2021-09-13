@@ -1,5 +1,5 @@
 
-let handler = require("./handler");
+const handler = require("./handler");
 
 class IProxy
 {
@@ -27,7 +27,6 @@ class IProxy
         ];
 
         this.fnNames.push(...childFnNames);
-
         Object.getOwnPropertyNames(childObj).forEach(key =>
         {
             if (typeof childObj[ key ] === "function" && this.fnNames.findIndex(item => item.fnName.trim() === key) !== -1)

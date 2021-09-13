@@ -7,7 +7,7 @@ let handler = {
     apply (target, ctx, args)
     {
         let authInfo = args[ 0 ] && args[ 0 ].authInfo;
-        if (!authInfo) {return new Error("没有实例authInfo对象");}
+        if (!authInfo) {return new Error("没有实例的authInfo对象");}
 
         let log = {
             docName: ctx.constructor.name,
@@ -17,11 +17,7 @@ let handler = {
         }
 
         console.log("IProxy success function name:", target.name);
-        if (authInfo.roleId && authInfo.roleId.vid === 0) 
-        {
-            return resData.notAuth(null, "没有操作权限");
-        }
-        else if (authInfo.roleId && authInfo.roleId.vid === 1) 
+        if (authInfo.roleId && authInfo.roleId.vid === 1) 
         {
             if (target.name === "putData")
             {
