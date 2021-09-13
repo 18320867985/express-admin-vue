@@ -2,7 +2,7 @@ const mainModel = require("../../_models/main");
 const jwt = require("../../libs/jwt");
 const cpy = require("../../libs/crypto");
 const resData = require("../../libs/resData");
-const log=require("./log");
+const log = require("./log");
 let IProxy = require("../../libs/IProxy");
 
 class User extends IProxy
@@ -22,8 +22,8 @@ class User extends IProxy
         }
 
         // 写入日志
-        log.postData({ docName:this.constructor.name,fnName: "loginData",user_id: userinfo._id});
-        
+        log.postData({docName: this.constructor.name, fnName: "loginData", desc: "登录成功", user_id: userinfo._id});
+
         // 生成token值 去校验
         let token = jwt.sign(userinfo);
         let decode = jwt.decode(token);
@@ -219,16 +219,16 @@ class User extends IProxy
     async editPwd (req)
     {
         let obj = req.body || {};
-        let _id=obj._id;
-        let oldPwd =cpy.md5(obj.oldPwd);
-        let pwd =cpy.md5(obj.newPwd);
-        let user=await mainModel.User.findOne({_id,pwd:oldPwd});
-        if(!user)
+        let _id = obj._id;
+        let oldPwd = cpy.md5(obj.oldPwd);
+        let pwd = cpy.md5(obj.newPwd);
+        let user = await mainModel.User.findOne({_id, pwd: oldPwd});
+        if (!user)
         {
-          return  resData.err(null,"原密码有误！")
+            return resData.err(null, "原密码有误！")
         }
 
-        let v=await mainModel.User.findByIdAndUpdate(_id,{$set:{pwd}},{new:true});
+        let v = await mainModel.User.findByIdAndUpdate(_id, {$set: {pwd}}, {new: true});
         if (!v)
         {
             return resData.err("密码修改失败");

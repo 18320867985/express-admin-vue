@@ -18,8 +18,8 @@ let schema = new orm.mongoose.Schema({
         type: orm.mongoose.Schema.Types.ObjectId,
         ref: "User",
         require: true
-
     },
+    
     desc:{
         type: String
     },

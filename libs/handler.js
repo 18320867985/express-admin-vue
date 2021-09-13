@@ -12,9 +12,11 @@ let handler = {
         let log = {
             docName: ctx.constructor.name,
             fnName: target.name,
+            desc: ctx.fnNames.find(item => item.fnName.trim() === target.name).desc,
             user_id: authInfo._id
         }
 
+        console.log("IProxy success function name:", target.name);
         if (authInfo.roleId && authInfo.roleId.vid === 0) 
         {
             return resData.notAuth(null, "没有操作权限");
@@ -42,6 +44,7 @@ let handler = {
 
         return resData.notAuth(null, "没有操作权限");
     }
+
 }
 
 module.exports = handler

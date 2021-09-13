@@ -11,12 +11,26 @@ class IProxy
         }
         let childObj = new.target.prototype;
 
-        this.fnNames = [ "postData", "deleteData", "putData" ]; // 默认继承接口函数的名称
+        this.fnNames = [
+            {
+                fnName: "postData", //函数名称
+                desc: "添加"        //描述
+            },
+            {
+                fnName: "putData",
+                desc: "修改"
+            },
+            {
+                fnName: "deleteData",
+                desc: "删除"
+            }
+        ];
+
         this.fnNames.push(...childFnNames);
-        
+
         Object.getOwnPropertyNames(childObj).forEach(key =>
         {
-            if (typeof childObj[ key ] === "function" && this.fnNames.includes(key))
+            if (typeof childObj[ key ] === "function" && this.fnNames.findIndex(item => item.fnName.trim() === key) !== -1)
             {
                 let proxy = new Proxy(childObj[ key ], handler);
                 childObj[ key ] = proxy;

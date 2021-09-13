@@ -90,10 +90,10 @@ class Log
         var createObj = await mainModel.Log.create(Log)
         if (!createObj)
         {
-            console.log("log add fail");
+            console.log("log insert fail");
         } else
         {
-            console.log("log add success");
+            console.log("log insert success");
         }
     }
 }
