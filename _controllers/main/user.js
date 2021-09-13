@@ -2,6 +2,7 @@ const mainModel = require("../../_models/main");
 const jwt = require("../../libs/jwt");
 const cpy = require("../../libs/crypto");
 const resData = require("../../libs/resData");
+const log=require("./log");
 let IProxy = require("../../libs/IProxy");
 
 class User extends IProxy
@@ -20,6 +21,9 @@ class User extends IProxy
             return resData.err(null, "用户名与密码不匹配！");
         }
 
+        // 写入日志
+        log.postData({ docName:this.constructor.name,fnName: "loginData",user_id: userinfo._id});
+        
         // 生成token值 去校验
         let token = jwt.sign(userinfo);
         let decode = jwt.decode(token);

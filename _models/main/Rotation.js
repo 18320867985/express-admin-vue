@@ -1,7 +1,7 @@
 // 轮播图
 const  orm= require("./_mongoose");
 
-var childSchema = new orm.mongoose.Schema({
+let childSchema = new orm.mongoose.Schema({
    ttl:{
        type:String,
        default:""
@@ -24,7 +24,7 @@ var childSchema = new orm.mongoose.Schema({
    }
 });
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name:{type:String,
        index:true,
       },
@@ -53,6 +53,6 @@ var schema = new orm.mongoose.Schema({
    
 });
 
-var Rotation =orm.db.model("Rotation", schema);
+let Rotation =orm.db.model("Rotation", schema);
 
 module.exports = Rotation;

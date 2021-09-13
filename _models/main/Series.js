@@ -2,7 +2,7 @@
 // 系列
 const orm = require("./_mongoose");
 
-var childSchema = new orm.mongoose.Schema({
+let childSchema = new orm.mongoose.Schema({
 
     ttl: {
         type: String,
@@ -26,7 +26,7 @@ var childSchema = new orm.mongoose.Schema({
     }
 });
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         default:"",
@@ -53,6 +53,6 @@ var schema = new orm.mongoose.Schema({
     imgs: [childSchema]
 });
 
-var Series = orm.db.model("Series", schema);
+let Series = orm.db.model("Series", schema);
 
 module.exports = Series;

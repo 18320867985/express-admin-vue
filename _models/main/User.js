@@ -2,7 +2,7 @@
 // 用户列表
 const orm = require("./_mongoose");
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         index: true,
@@ -26,6 +26,6 @@ var schema = new orm.mongoose.Schema({
     }
 });
 
-var User = orm.db.model("User", schema);
+let User = orm.db.model("User", schema);
 
 module.exports = User;

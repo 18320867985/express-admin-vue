@@ -1,14 +1,14 @@
 // 用户类型
 const orm = require("./_mongoose");
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         unique: true
     },
     vid: {
         type: Number,
-      
+
     },
     createDate: {
         type: Date, default: Date.now
@@ -17,9 +17,9 @@ var schema = new orm.mongoose.Schema({
         type: Number,
         default: 0
     }
-   
+
 });
 
-var UserRole = orm.db.model("UserRole", schema);
+let UserRole = orm.db.model("UserRole", schema);
 
 module.exports = UserRole;

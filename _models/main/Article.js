@@ -2,7 +2,7 @@
 // 文章
 const orm = require("./_mongoose");
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         default: ""
@@ -30,6 +30,6 @@ var schema = new orm.mongoose.Schema({
 
 });
 
-var Article = orm.db.model("Article", schema);
+let Article = orm.db.model("Article", schema);
 
 module.exports = Article;

@@ -2,7 +2,7 @@
 // 系列类型
 const orm = require("./_mongoose");
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         default: ""
@@ -22,6 +22,6 @@ var schema = new orm.mongoose.Schema({
 
 });
 
-var SeriesType = orm.db.model("SeriesType", schema);
+let SeriesType = orm.db.model("SeriesType", schema);
 
 module.exports = SeriesType;

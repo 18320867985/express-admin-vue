@@ -2,7 +2,7 @@
 // 服务网点
 const orm = require("./_mongoose");
 
-var childSchema = new orm.mongoose.Schema({
+let childSchema = new orm.mongoose.Schema({
     ttl: {
         type: String,
         default: ""
@@ -25,9 +25,10 @@ var childSchema = new orm.mongoose.Schema({
     }
 });
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
+        
     },
     vname:{
         type:String,
@@ -58,6 +59,6 @@ var schema = new orm.mongoose.Schema({
    
 });
 
-var Svcnet = orm.db.model("Svcnet", schema);
+let Svcnet = orm.db.model("Svcnet", schema);
 
 module.exports = Svcnet;

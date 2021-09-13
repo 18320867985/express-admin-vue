@@ -17,3 +17,7 @@ exports.Contact = require("./Contact"); //  联系我们
 exports.Svcnet = require("./Svcnet"); //  联系我们
 
 exports.Article = require("./Article"); //  文章
+
+exports.Log = require("./Log"); //  日志
+
+

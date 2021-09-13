@@ -1,12 +1,12 @@
 // 招商合作
 const orm = require("./_mongoose");
 
-var schema = new orm.mongoose.Schema({
+let schema = new orm.mongoose.Schema({
     name: {
         type: String,
         default:""
     },
-    code:{
+    vname:{
         type:String,
         required:true,
         default:""
@@ -19,7 +19,7 @@ var schema = new orm.mongoose.Schema({
         type: Number,
         default: 1
     },
-    createdt: {
+    createDate: {
         type: Date,
         default: Date.now
     },
@@ -36,6 +36,6 @@ var schema = new orm.mongoose.Schema({
    
 });
 
-var Partnership = orm.db.model("Partnership", schema);
+let Partnership = orm.db.model("Partnership", schema);
 
 module.exports = Partnership;
