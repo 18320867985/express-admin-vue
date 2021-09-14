@@ -19,7 +19,7 @@ class Log
             }
         };
 
-        let pageCount = await mainModel.Article.countDocuments(query);
+        let pageCount = await mainModel.Log.countDocuments(query);
         if (pageCount <= 0)
         {
             // not data
@@ -34,7 +34,7 @@ class Log
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.Article.find(query).skip(index2).limit(pageSize);
+        let list = await mainModel.Log.find(query).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex,
@@ -48,7 +48,7 @@ class Log
     {
         let ids = req.params.ids || '';
         ids = ids.split(',');
-        let list = await mainModel.Article.find({
+        let list = await mainModel.Log.find({
             _id: {
                 $in: ids
             }
@@ -63,7 +63,7 @@ class Log
         let ids = req.params.ids || '';
         ids = ids.split(',');
 
-        let obj = await mainModel.Article.deleteMany({
+        let obj = await mainModel.Log.deleteMany({
             _id: {
                 $in: ids
             }

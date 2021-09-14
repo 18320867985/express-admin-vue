@@ -25,4 +25,8 @@ require("./svcnet");
 // article
 require("./article");
 
+// log
+require("./log");
+
+
 module.exports = router;
