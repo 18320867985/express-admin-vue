@@ -30,11 +30,11 @@
 
     </el-form>
 
- <!--批量操作-->
+    <!--批量操作-->
     <div class="form-btn-group">
         <el-button-group>
             <el-button type="primary" icon="el-icon-document" @click="dtlMany(multipleSelection)" :disabled="multipleSelection.length===0" v-loading.fullscreen.lock="dtlLoading"> 批量查看</el-button>
-            </el-button-group>
+        </el-button-group>
     </div>
 
     <!-- 查询表格 -->
@@ -43,21 +43,25 @@
 
             <el-table-column type="selection" width="55"></el-table-column>
             <el-table-column prop="_id" label="id" width="200"> </el-table-column>
-            <el-table-column prop="docName" label="数据表" ></el-table-column>
+            <el-table-column prop="docName" label="数据表"></el-table-column>
             <el-table-column prop="fnName" label="操作类型" sortable> </el-table-column>
-            <el-table-column prop="desc" label="操作状态" sortable> </el-table-column>
-              <el-table-column label="操作用户" sortable>
+            <el-table-column prop="desc" label="操作状态" sortable>
+                <template v-slot="scope">
+                    <el-link :type="getType(scope.row.fnName)" :underline="false">{{scope.row.desc}}</el-link>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作用户" sortable>
                 <template v-slot="scope">
                     <span>{{scope.row.user_id&&scope.row.user_id.name}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="操作时间" >
+            <el-table-column label="操作时间">
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
                 </template>
             </el-table-column>
 
-           <el-table-column label="操作" width="150px">
+            <el-table-column label="操作" width="150px">
                 <template v-slot="scope">
                     <el-link :underline="true" type="primary" @click="dtlOne(scope.row._id)">查看</el-link>
                 </template>
@@ -73,12 +77,14 @@
     <vue-dtl ref="dtlBox" title="查看详情" :dtlObjs="dtlObjs" v-slot="scope">
         <el-descriptions class="margin-top" title="" :column="2" border size="small">
             <el-descriptions-item label="id" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj._id}} </el-descriptions-item>
-            <el-descriptions-item label="数据表" label-class-name="table-1-5" content-class-name="table-3-5" >{{scope.dtlObj.docName}} </el-descriptions-item>
+            <el-descriptions-item label="数据表" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.docName}} </el-descriptions-item>
             <el-descriptions-item label="操作类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.fnName}}</el-descriptions-item>
-            <el-descriptions-item label="状态" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.desc}}</el-descriptions-item>
+            <el-descriptions-item label="状态" label-class-name="table-1-5" content-class-name="table-3-5">
+                <el-link :type="getType(scope.dtlObj.fnName)" :underline="false">{{scope.dtlObj.desc}}</el-link>
+            </el-descriptions-item>
             <el-descriptions-item label="用户" label-class-name="table-1-5" content-class-name="table-3-5">{{scope.dtlObj.user_id&&scope.dtlObj.user_id.name}}</el-descriptions-item>
             <el-descriptions-item label="操作时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{scope.dtlObj.createDate|date}}</el-descriptions-item>
-           </el-descriptions>
+        </el-descriptions>
     </vue-dtl>
 
 </div>
@@ -95,7 +101,7 @@ import {
     CRUD_Option
 } from "../../mixins";
 export default {
-    mixins: [pageOption, toDateStartOrEnd,CRUD_Option],
+    mixins: [pageOption, toDateStartOrEnd, CRUD_Option],
     data() {
         return {
 
@@ -106,7 +112,7 @@ export default {
                 postData: mianApi.log.postData,
                 putData: mianApi.log.putData,
                 deleteData: mianApi.log.deleteData,
-              
+
             },
 
             // 增删查改的对象
@@ -115,7 +121,7 @@ export default {
                 createDateStart: null,
                 createDateEnd: null,
             },
-           
+
             dtlObjs: [],
 
             // 表格列表数据
@@ -123,21 +129,20 @@ export default {
 
             // 批量选择
             multipleSelection: [],
-          
+
             // loading 加载动画
             tableLoading: false,
             dtlLoading: false,
             deleteLoading: false,
 
             // 其它 列表的
-          
-           
+
         };
     },
     async created() {
         this.getList();
     },
-      computed: {
+    computed: {
         getUserVid() {
             return this.$store.getters.getUserVid;
         }
@@ -182,6 +187,29 @@ export default {
 
         handleSelectionChange(val) {
             this.multipleSelection = val.map(item => item._id);
+        },
+
+        getType(desc) {
+            let type = '';
+            switch (desc) {
+                case 'postData':
+                    type = "primary ";
+                    break;
+                case 'putData':
+                    type = "warning  ";
+                    break;
+                case 'deleteData':
+                    type = "danger  ";
+                    break;
+                case 'loginData':
+                    type = "success  ";
+                    break;
+                default:
+                    type = 'info ';
+                    break;
+            }
+
+            return type;
         },
 
     },

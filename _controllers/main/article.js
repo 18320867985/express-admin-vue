@@ -83,7 +83,7 @@ class Article extends IProxy
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.Article.find(query).skip(index2).limit(pageSize);
+        let list = await mainModel.Article.find(query).sort({createDate:-1}).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex,
@@ -101,7 +101,7 @@ class Article extends IProxy
             _id: {
                 $in: ids
             }
-        });
+        }).sort({createDate:-1});
 
         return resData.ok(list);
     }

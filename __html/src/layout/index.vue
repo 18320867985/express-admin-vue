@@ -99,7 +99,7 @@ export default {
 
         openCurrentMenu() {
             let currentPath = this.$router.history.current.fullPath;
-            let rts = this.$router.options.routes;
+            let rts =this.activePaths; //this.$router.options.routes;
             let result = 0;
             for (let i = 0; i < rts.length; i++) {
                 let path = rts[i].path;
@@ -140,7 +140,7 @@ export default {
                     }
                 });
 
-                 // leve1 遍历vid的过滤每一项
+                 // leve1 遍历vid的过滤每一项 
                 if (!item.meta.vid) {
                     return true;
                 }

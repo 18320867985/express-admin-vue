@@ -84,7 +84,11 @@ export default {
                     reset();
                     for (let prop of Object.keys(this.addObj)) {
                         this.addObj[prop] = null;
+                        if(prop==="content"){
+                           this.addObj[prop] = "";  
+                        }
                     }
+                     this.addObj.content="";
                     this.addDialogVisible = false;
                     this.getList();
                 } else {

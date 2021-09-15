@@ -67,7 +67,7 @@
 
             </el-table-column>
 
-            <el-table-column label="创建时间" sortable width="150px">
+            <el-table-column label="创建时间" width="150px">
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
                 </template>

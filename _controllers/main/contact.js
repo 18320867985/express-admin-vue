@@ -85,7 +85,7 @@ class Contact extends IProxy
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.Contact.find(query).skip(index2).limit(pageSize);
+        let list = await mainModel.Contact.find(query).sort({createDate:-1}).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex,

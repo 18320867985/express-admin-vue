@@ -24,6 +24,10 @@ export default new Vuex.Store({
 
     getUserVid: (state) =>
     {
+      if(!state.authId){
+        let userinfo=JSON.parse(window.sessionStorage.getItem("userinfo"));
+        state.authId=state.authId=userinfo&&userinfo.roleId.vid;
+      }
       return state.authId;
     },
 

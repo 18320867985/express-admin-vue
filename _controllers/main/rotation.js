@@ -84,7 +84,7 @@ class Rotation extends IProxy
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.Rotation.find(query).skip(index2).limit(pageSize);
+        let list = await mainModel.Rotation.find(query).sort({createDate:-1}).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex,
@@ -103,7 +103,7 @@ class Rotation extends IProxy
             _id: {
                 $in: ids
             }
-        });
+        }).sort({createDate:-1});
 
         return resData.ok(list);
     }

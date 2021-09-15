@@ -105,7 +105,7 @@ class User extends IProxy
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.User.find(query, {pwd: 0}).populate("roleId", "name code").skip(index2).limit(pageSize);
+        let list = await mainModel.User.find(query, {pwd: 0}).populate("roleId", "name code").sort({createDate:-1}).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex, //	当前页
@@ -124,7 +124,7 @@ class User extends IProxy
             _id: {
                 $in: ids
             }
-        }).populate("roleId", "name code");
+        }).populate("roleId", "name code").sort({createDate:-1});
 
         return resData.ok(list);
     }

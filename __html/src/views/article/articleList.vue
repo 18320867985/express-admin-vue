@@ -231,7 +231,7 @@ export default {
                 name: null,
                 vname: null,
                 desc: null,
-                content: null,
+                content: "",
                 order: 0,
             },
             editObj: {},

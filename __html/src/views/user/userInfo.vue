@@ -8,7 +8,7 @@
             <el-descriptions-item label="用户名" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.name}} </el-descriptions-item>
             <el-descriptions-item label="用户类型" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.roleId&&userinfo.roleId.name}} </el-descriptions-item>
             <el-descriptions-item label="手机" label-class-name="table-1-5" content-class-name="table-3-5">  <el-tag size="small">{{userinfo.phone}}</el-tag></el-descriptions-item>
-            <el-descriptions-item label="邮箱" label-class-name="table-1-5" content-class-name="table-3-5">   <el-tag size="small">{{userinfo.email}}</el-tag></el-descriptions-item>
+            <el-descriptions-item label="邮箱" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.email}}</el-descriptions-item>
             <el-descriptions-item label="创建时间" label-class-name="table-1-5" content-class-name="table-3-5"> {{userinfo.createDate|date}} </el-descriptions-item>
              <el-descriptions-item label="联系地址" label-class-name="table-1-5" content-class-name="table-3-5"></el-descriptions-item>
 

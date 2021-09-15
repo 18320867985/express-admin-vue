@@ -82,6 +82,9 @@ export default {
                     reset();
                     for (let prop of Object.keys(this.editObj)) {
                         this.editObj[prop] = null;
+                         if(prop==="content"){
+                          // this.editObj[prop] = "";  
+                        }
                     }
                     this.editDialogVisible = false;
                     this.getList();

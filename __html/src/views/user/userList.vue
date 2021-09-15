@@ -64,7 +64,7 @@
 
             <el-table-column prop="roleId.name" label="用户类型" sortable> </el-table-column>
 
-            <el-table-column label="创建时间" sortable>
+            <el-table-column label="创建时间" >
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
                 </template>

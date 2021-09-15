@@ -50,7 +50,7 @@
             <el-table-column prop="vid" label="标记id" v-if="getUserVid===2"></el-table-column>
             <el-table-column prop="name" label="用户类型" sortable> </el-table-column>
             <el-table-column prop="order" label="排序" sortable> </el-table-column>
-            <el-table-column label="创建时间" sortable>
+            <el-table-column label="创建时间" >
                 <template v-slot="scope">
                     <span>{{scope.row.createDate | date("yyyy-MM-dd HH:mm:ss")}}</span>
                 </template>
