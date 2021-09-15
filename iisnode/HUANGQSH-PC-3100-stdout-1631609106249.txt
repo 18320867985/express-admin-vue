@@ -1,0 +1,96 @@
+服务器运行在 localhost:\\.\pipe\09c37a77-bfcf-4d76-b733-35fd723afd84 端口上...
+processId:3100
+mongodb connection success 
+[0mOPTIONS /init/data [32m200 [0m6.477 ms - 100[0m
+[0mOPTIONS /login/data [32m200 [0m2.432 ms - 4[0m
+[0mGET /init/data [32m200 [0m0.583 ms - 100[0m
+[0mPOST /login/data [32m200 [0m76.304 ms - 687[0m
+log insert success
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.381 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.338 ms - 100[0m
+[0mGET /main/userRole/all/ [32m200 [0m10.445 ms - 431[0m
+[0mGET /main/user/data/1/10 [32m200 [0m28.889 ms - 745[0m
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.360 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [32m200 [0m12.255 ms - 473[0m
+[0mOPTIONS /init/data [32m200 [0m0.413 ms - 100[0m
+[0mGET /init/data [32m200 [0m19.435 ms - 270[0m
+[0mOPTIONS /init/data [32m200 [0m0.618 ms - 100[0m
+[0mGET /init/data [32m200 [0m0.501 ms - 100[0m
+[0mOPTIONS /init/data [32m200 [0m0.540 ms - 100[0m
+[0mGET /init/data [36m304 [0m0.596 ms - -[0m
+[0mGET /init/data [36m304 [0m0.309 ms - -[0m
+[0mOPTIONS /login/data [32m200 [0m0.504 ms - 4[0m
+[0mPOST /login/data [32m200 [0m9.852 ms - 687[0m
+log insert success
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.311 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m8.725 ms - -[0m
+[0mOPTIONS /main/user/data-dtl/61373774109a2120503b323e [32m200 [0m0.338 ms - 100[0m
+[0mGET /main/user/data-dtl/61373774109a2120503b323e [32m200 [0m10.880 ms - 305[0m
+[0mOPTIONS /main/series/data/1/10 [32m200 [0m0.313 ms - 100[0m
+[0mOPTIONS /main/seriesType/all/ [32m200 [0m0.348 ms - 100[0m
+[0mGET /main/seriesType/all/ [32m200 [0m14.521 ms - 736[0m
+[0mGET /main/series/data/1/10 [32m200 [0m28.536 ms - 2990[0m
+[0mOPTIONS /login/data [32m200 [0m0.419 ms - 4[0m
+[0mPOST /login/data [32m200 [0m11.236 ms - 687[0m
+log insert success
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.395 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.453 ms - 100[0m
+[0mGET /main/userRole/all/ [36m304 [0m5.054 ms - -[0m
+[0mGET /main/user/data/1/10 [36m304 [0m15.754 ms - -[0m
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.261 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m8.442 ms - -[0m
+[0mOPTIONS /main/user/data-dtl/61373774109a2120503b323e [32m200 [0m1.052 ms - 100[0m
+[0mGET /main/user/data-dtl/61373774109a2120503b323e [36m304 [0m7.302 ms - -[0m
+[0mOPTIONS /main/rotation/data/1/10 [32m200 [0m0.368 ms - 100[0m
+[0mGET /main/rotation/data/1/10 [32m200 [0m22.158 ms - 4013[0m
+[0mOPTIONS /main/series/data/1/10 [32m200 [0m0.285 ms - 100[0m
+[0mOPTIONS /main/seriesType/all/ [32m200 [0m0.345 ms - 100[0m
+[0mGET /main/seriesType/all/ [36m304 [0m6.036 ms - -[0m
+[0mGET /main/series/data/1/10 [36m304 [0m16.946 ms - -[0m
+[0mGET /main/rotation/data/1/10 [36m304 [0m16.725 ms - -[0m
+[0mOPTIONS /main/rotation/data/3/10 [32m200 [0m0.257 ms - 100[0m
+[0mGET /main/rotation/data/3/10 [32m200 [0m8.566 ms - 2995[0m
+[0mOPTIONS /main/rotation/data/4/10 [32m200 [0m0.257 ms - 100[0m
+[0mGET /main/rotation/data/4/10 [32m200 [0m5.485 ms - 421[0m
+[0mOPTIONS /main/rotation/data-unique?value=ttt&id=613f47d2cc62831920df2ef3 [32m200 [0m0.273 ms - 100[0m
+[0mOPTIONS /main/rotation/data-unique-vid?value=ttt&id=613f47d2cc62831920df2ef3 [32m200 [0m0.360 ms - 100[0m
+[0mGET /main/rotation/data-unique?value=ttt&id=613f47d2cc62831920df2ef3 [32m200 [0m4.971 ms - 4[0m
+[0mGET /main/rotation/data-unique-vid?value=ttt&id=613f47d2cc62831920df2ef3 [32m200 [0m5.533 ms - 4[0m
+[0mGET /main/rotation/data-unique-vid?value=ttt&id=613f47d2cc62831920df2ef3 [36m304 [0m3.235 ms - -[0m
+[0mGET /main/rotation/data-unique?value=ttt&id=613f47d2cc62831920df2ef3 [36m304 [0m3.285 ms - -[0m
+[0mOPTIONS /main/rotation/data/ [32m200 [0m0.263 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /main/rotation/data/ [32m200 [0m14.701 ms - 207[0m
+[0mGET /main/rotation/data/4/10 [36m304 [0m9.276 ms - -[0m
+[0mGET /main/rotation/data-unique?value=ttt&id=613f47d2cc62831920df2ef3 [36m304 [0m6.770 ms - -[0m
+[0mGET /main/rotation/data-unique-vid?value=ttt&id=613f47d2cc62831920df2ef3 [36m304 [0m4.098 ms - -[0m
+[0mOPTIONS /login/data [32m200 [0m0.353 ms - 4[0m
+[0mPOST /login/data [32m200 [0m10.037 ms - 687[0m
+log insert success
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.390 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.368 ms - 100[0m
+[0mGET /main/userRole/all/ [36m304 [0m9.244 ms - -[0m
+[0mGET /main/user/data/1/10 [36m304 [0m19.810 ms - -[0m
+[0mOPTIONS /main/user/data-dtl/61373774109a2120503b323e [32m200 [0m0.385 ms - 100[0m
+[0mGET /main/user/data-dtl/61373774109a2120503b323e [36m304 [0m6.716 ms - -[0m
+[0mOPTIONS /main/rotation/data/1/10 [32m200 [0m0.262 ms - 100[0m
+[0mGET /main/rotation/data/1/10 [36m304 [0m18.106 ms - -[0m
+[0mGET /main/user/data-dtl/61373774109a2120503b323e [36m304 [0m5.217 ms - -[0m
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.390 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m5.860 ms - -[0m
+[0mOPTIONS /main/svcnet/data/1/10 [32m200 [0m0.379 ms - 100[0m
+[0mGET /main/svcnet/data/1/10 [32m200 [0m16.222 ms - 2775[0m
+[0mOPTIONS /main/user/data-dtl/61373774109a2120503b323e [32m200 [0m0.402 ms - 100[0m
+[0mGET /main/user/data-dtl/61373774109a2120503b323e [36m304 [0m4.802 ms - -[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m8.357 ms - -[0m
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.432 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.317 ms - 100[0m
+[0mGET /main/userRole/all/ [36m304 [0m5.549 ms - -[0m
+[0mGET /main/user/data/1/10 [36m304 [0m20.931 ms - -[0m
+[0mOPTIONS /main/user/data/1/10 [32m200 [0m0.336 ms - 100[0m
+[0mOPTIONS /main/userRole/all/ [32m200 [0m0.357 ms - 100[0m
+[0mGET /main/userRole/all/ [36m304 [0m5.145 ms - -[0m
+[0mGET /main/user/data/1/10 [36m304 [0m13.168 ms - -[0m
+[0mOPTIONS /main/UserRole/data/1/10 [32m200 [0m0.279 ms - 100[0m
+[0mGET /main/UserRole/data/1/10 [36m304 [0m7.478 ms - -[0m
