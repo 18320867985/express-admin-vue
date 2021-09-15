@@ -11,6 +11,7 @@ import Series from "./series.js";
 import Svcnet from "./svcnet.js";
 import Contact from "./contact.js";
 import Article from "./article.js";
+import Log from "./log.js";
 
 const routes = [
 
@@ -73,6 +74,14 @@ const routes = [
 		component: Layout,
 		meta: {ttl: "关于我们", icon: "el-icon-office-building"},
 		children: Contact
+
+	},
+	
+	{
+		path: "/log",
+		component: Layout,
+		meta: {ttl: "日志", icon: "el-icon-reading",vid:2},
+		children: Log
 
 	},
 

@@ -8,6 +8,7 @@ import series  from "./series";
 import svcnet  from "./svcnet";
 import contact  from "./contact";
 import article  from "./article";
+import log  from "./log";
 
 export default{
 	user,
@@ -17,5 +18,6 @@ export default{
 	series,
 	svcnet,
 	contact,
-	article
+	article,
+	log
 }

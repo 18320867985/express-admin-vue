@@ -1,5 +1,5 @@
 
-//  user
+//  Article
 import  ArticleList from "../views/article/articleList.vue";
 export default [
     {

@@ -33,8 +33,7 @@ let jwt = require("./libs/jwt");
 let resData = require("./libs/resData");
 app.use((req, res, next) => {
     if (!notSignTokenUrlList.includes(req.url)) {
-        console.log(notSignTokenUrlList)
-        console.log(req.url)
+        
         //[ 'Access-Token' ] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
         let token = req.headers['access-token'];  // 接受必须是小写
         jwt.verify(token, function (err, decorded) {

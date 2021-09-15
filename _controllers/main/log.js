@@ -12,7 +12,7 @@ class Log
         let search = req.query;
 
         let query = {
-            name: new RegExp(search.name, "i"),
+            docName: new RegExp(search.docName, "i"),
             createDate: {
                 $gte: search.createDateStart ? new Date(search.createDateStart) : new Date("1970-1-1"),
                 $lte: search.createDateEnd ? new Date(search.createDateEnd) : new Date("2999-1-1"),
@@ -34,7 +34,7 @@ class Log
         pageIndex = pageIndex > maxIndex ? maxIndex : pageIndex;
         let index2 = (pageIndex - 1) * pageSize;
 
-        let list = await mainModel.Log.find(query).skip(index2).limit(pageSize);
+        let list = await mainModel.Log.find(query).populate("user_id", "name").sort({createDate:-1}).skip(index2).limit(pageSize);
 
         return resData.ok(list, {
             pageIndex,
@@ -52,7 +52,7 @@ class Log
             _id: {
                 $in: ids
             }
-        });
+        }).populate("user_id", "name").sort({createDate:-1});
 
         return resData.ok(list);
     }

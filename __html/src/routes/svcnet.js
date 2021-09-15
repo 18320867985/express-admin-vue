@@ -1,5 +1,5 @@
 
-//  user
+//  Svcnet
 import  SvcnetList from "../views/svcnet/svcnetList.vue";
 export default [
     {

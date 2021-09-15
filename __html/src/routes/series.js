@@ -1,5 +1,5 @@
 
-//  user
+//  Series
 import  Series from "../views/series/seriesList.vue";
 import  SeriesType from "../views/series/seriesType.vue"
 

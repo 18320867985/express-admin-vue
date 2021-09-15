@@ -1,4 +1,4 @@
-//  user
+//  Rotation
 import  Rotation from "../views/rotation/rotationList.vue";
 
 
