@@ -23,6 +23,10 @@ let schema = new orm.mongoose.Schema({
     desc:{
         type: String
     },
+
+    ip:{
+        type: String
+    },
     createDate: {
         type: Date,
         default: Date.now

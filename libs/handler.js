@@ -6,14 +6,15 @@ let handler = {
 
     apply (target, ctx, args)
     {
-        let authInfo = args[ 0 ] && args[ 0 ].authInfo;
+        let req= args[ 0 ] && args[ 0 ];
+        let authInfo = req.authInfo;
         if (!authInfo) {return new Error("没有实例的authInfo对象");}
 
         let log = {
             docName: ctx.constructor.name,
             fnName: target.name,
             desc: ctx.fnNames.find(item => item.fnName.trim() === target.name).desc,
-            user_id: authInfo._id
+            user_id: authInfo._id,   
         }
 
         console.log("IProxy success function name:", target.name);

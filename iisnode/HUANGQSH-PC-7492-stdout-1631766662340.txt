@@ -1,0 +1,57 @@
+服务器运行在 localhost:\\.\pipe\f6537ce7-9614-47fe-92db-2ba5704707c5 端口上...
+processId:7492
+[0mOPTIONS /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [32m200 [0m4.551 ms - 100[0m
+[0mOPTIONS /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [32m200 [0m0.908 ms - 100[0m
+mongodb connection success 
+[0mGET /api/public/upload/upload_accd74506eae770d54d71de04337e6a1.svg [36m304 [0m33.909 ms - -[0m
+[0mGET /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m25.804 ms - -[0m
+[0mGET /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m3.914 ms - -[0m
+[0mOPTIONS /api/file [32m200 [0m0.349 ms - 100[0m
+[0mPOST /api/file [32m200 [0m19.783 ms - 97[0m
+[0mGET /api/public/upload/upload_561a1f4514cb333cf163f36d71c5c37f.png [32m200 [0m3.836 ms - 269116[0m
+[0mGET /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m4.591 ms - -[0m
+[0mGET /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m4.090 ms - -[0m
+[0mOPTIONS /api/main/rotation/data/ [32m200 [0m0.326 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/rotation/data/ [32m200 [0m54.429 ms - 356[0m
+[0mOPTIONS /api/main/rotation/data/1/10 [32m200 [0m0.369 ms - 100[0m
+[0mGET /api/main/rotation/data/1/10 [32m200 [0m23.046 ms - 2078[0m
+[0mGET /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m9.231 ms - -[0m
+[0mGET /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m8.057 ms - -[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.253 ms - 100[0m
+[0mGET /api/main/log/data/1/10 [32m200 [0m30.884 ms - 2123[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c88acf8bde1d44585440 [32m200 [0m0.377 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c88acf8bde1d44585440 [32m200 [0m8.452 ms - 237[0m
+[0mGET /api/main/log/data-dtl/6142c88acf8bde1d44585440 [36m304 [0m6.743 ms - -[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c88acf8bde1d44585440 [32m200 [0m0.679 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c88acf8bde1d44585440 [36m304 [0m12.012 ms - -[0m
+[0mOPTIONS /api/init/data [32m200 [0m0.713 ms - 100[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.640 ms - 100[0m
+[0mGET /api/init/data [36m304 [0m19.291 ms - -[0m
+[0mGET /api/main/log/data/1/10 [36m304 [0m32.129 ms - -[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c880798e2c1fccdf666a [32m200 [0m0.401 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c880798e2c1fccdf666a [32m200 [0m6.112 ms - 237[0m
+[0mOPTIONS /api/main/svcnet/data/1/10 [32m200 [0m0.359 ms - 100[0m
+[0mGET /api/main/svcnet/data/1/10 [32m200 [0m14.118 ms - 2775[0m
+[0mGET /api/public/upload/upload_7774d5dc53a1b1baef1142c4f510ef1e.png [32m200 [0m3.070 ms - 2072[0m
+[0mGET /api/public/upload/upload_f6e790bcb73d3680d5f0648ddd05b8ff.png [32m200 [0m1.845 ms - 29448[0m
+[0mOPTIONS /api/main/svcnet/data-unique?value=yy&id=613ed52fe5604e283ca7ebeb [32m200 [0m0.343 ms - 100[0m
+[0mOPTIONS /api/main/svcnet/data-unique-vid?value=yy&id=613ed52fe5604e283ca7ebeb [32m200 [0m0.344 ms - 100[0m
+[0mGET /api/main/svcnet/data-unique-vid?value=yy&id=613ed52fe5604e283ca7ebeb [32m200 [0m7.543 ms - 4[0m
+[0mGET /api/main/svcnet/data-unique?value=yy&id=613ed52fe5604e283ca7ebeb [32m200 [0m6.237 ms - 4[0m
+[0mGET /api/main/svcnet/data-unique?value=yy&id=613ed52fe5604e283ca7ebeb [36m304 [0m4.990 ms - -[0m
+[0mGET /api/main/svcnet/data-unique-vid?value=yy&id=613ed52fe5604e283ca7ebeb [36m304 [0m5.051 ms - -[0m
+[0mOPTIONS /api/main/svcnet/data/ [32m200 [0m0.291 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/svcnet/data/ [32m200 [0m20.242 ms - 508[0m
+[0mGET /api/main/svcnet/data/1/10 [36m304 [0m13.283 ms - -[0m
+[0mGET /api/main/svcnet/data-unique?value=yy&id=613ed52fe5604e283ca7ebeb [36m304 [0m14.504 ms - -[0m
+[0mGET /api/main/svcnet/data-unique-vid?value=yy&id=613ed52fe5604e283ca7ebeb [36m304 [0m5.687 ms - -[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.874 ms - 100[0m
+[0mGET /api/main/log/data/1/10 [32m200 [0m18.468 ms - 2117[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c8d1cf8bde1d4458545e [32m200 [0m0.260 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c8d1cf8bde1d4458545e [32m200 [0m5.988 ms - 235[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c8d1cf8bde1d4458545e [32m200 [0m0.344 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c8d1cf8bde1d4458545e [36m304 [0m6.091 ms - -[0m

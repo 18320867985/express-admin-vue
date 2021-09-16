@@ -1,0 +1,43 @@
+服务器运行在 localhost:\\.\pipe\03a84d95-551c-4693-90a4-f223719b8f5d 端口上...
+processId:5148
+mongodb connection success 
+[0mOPTIONS /api/main/user/data/1/10 [32m200 [0m4.115 ms - 100[0m
+[0mOPTIONS /api/main/userRole/all/ [32m200 [0m0.776 ms - 100[0m
+[0mGET /api/main/user/data/1/10 [32m200 [0m46.400 ms - 745[0m
+[0mGET /api/main/userRole/all/ [36m304 [0m17.947 ms - -[0m
+[0mGET /api/main/userRole/all/ [36m304 [0m3.335 ms - -[0m
+[0mOPTIONS /api/main/user/data/ [32m200 [0m0.381 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/user/data/ [32m200 [0m67.371 ms - 261[0m
+[0mGET /api/main/user/data/1/10 [36m304 [0m11.916 ms - -[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.352 ms - 100[0m
+[0mGET /api/main/log/data/1/10 [32m200 [0m29.426 ms - 2128[0m
+[0mOPTIONS /api/main/log/data-dtl/6142c8f8bd6310141c221351 [32m200 [0m0.778 ms - 100[0m
+[0mGET /api/main/log/data-dtl/6142c8f8bd6310141c221351 [32m200 [0m13.223 ms - 252[0m
+[0mOPTIONS /api/init/data [32m200 [0m0.744 ms - 100[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.590 ms - 100[0m
+[0mGET /api/init/data [36m304 [0m25.112 ms - -[0m
+[0mGET /api/main/log/data/1/10 [36m304 [0m37.003 ms - -[0m
+[0mOPTIONS /api/main/user/data/1/10 [32m200 [0m0.483 ms - 100[0m
+[0mOPTIONS /api/main/userRole/all/ [32m200 [0m0.357 ms - 100[0m
+[0mGET /api/main/user/data/1/10 [36m304 [0m14.409 ms - -[0m
+[0mGET /api/main/userRole/all/ [36m304 [0m8.043 ms - -[0m
+[0mGET /api/main/userRole/all/ [36m304 [0m3.303 ms - -[0m
+[0mOPTIONS /api/main/user/data/ [32m200 [0m0.363 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/user/data/ [32m200 [0m13.406 ms - 261[0m
+[0mGET /api/main/user/data/1/10 [36m304 [0m8.121 ms - -[0m
+[0mOPTIONS /api/main/userRole/all/ [32m200 [0m0.393 ms - 100[0m
+[0mGET /api/main/userRole/all/ [36m304 [0m4.250 ms - -[0m
+[0mOPTIONS /api/main/user/data/ [32m200 [0m0.383 ms - 100[0m
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/user/data/ [32m200 [0m8.518 ms - 261[0m
+[0mOPTIONS /api/main/user/data/1/10 [32m200 [0m0.402 ms - 100[0m
+[0mGET /api/main/user/data/1/10 [36m304 [0m12.501 ms - -[0m
+[0mOPTIONS /api/main/UserRole/data/1/10 [32m200 [0m0.292 ms - 100[0m
+[0mGET /api/main/UserRole/data/1/10 [32m200 [0m7.493 ms - 473[0m
+[0mOPTIONS /api/main/user/data-dtl/61373774109a2120503b323e [32m200 [0m0.325 ms - 100[0m
+[0mGET /api/main/user/data-dtl/61373774109a2120503b323e [36m304 [0m10.714 ms - -[0m

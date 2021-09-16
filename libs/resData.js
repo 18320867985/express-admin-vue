@@ -9,7 +9,8 @@ let resData = {
         let o = {
             status: "error",
             code: 0,
-            data
+            data,
+            msg:"错误"
         };
 
         if (desc instanceof Object)
@@ -27,7 +28,8 @@ let resData = {
         let o = {
             status: "success",
             code: 1,
-            data
+            data,
+            msg:"成功"
         };
 
         if (desc instanceof Object)
@@ -45,7 +47,8 @@ let resData = {
         let o = {
             status: "not access token ",
             code: 2,
-            data
+            data,
+            msg: "没有访问的token",
         };
 
         if (desc instanceof Object)
@@ -64,7 +67,8 @@ let resData = {
         let o = {
             status: "not Authtion ",
             code: 3,
-            data
+            data,
+            msg:"没有操作权限"
         };
 
         if (desc instanceof Object)

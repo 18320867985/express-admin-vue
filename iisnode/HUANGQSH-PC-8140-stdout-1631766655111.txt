@@ -1,0 +1,12 @@
+服务器运行在 localhost:\\.\pipe\b9cc66d2-d29b-4a90-b982-2056281ad115 端口上...
+processId:8140
+mongodb connection success 
+IProxy success function name: putData
+log insert success
+[0mPUT /api/main/rotation/data/ [32m200 [0m65.403 ms - 356[0m
+[0mOPTIONS /api/main/rotation/data/1/10 [32m200 [0m0.698 ms - 100[0m
+[0mOPTIONS /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [32m200 [0m0.600 ms - 100[0m
+[0mOPTIONS /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [32m200 [0m0.333 ms - 100[0m
+[0mGET /api/main/rotation/data/1/10 [36m304 [0m17.994 ms - -[0m
+[0mGET /api/main/rotation/data-unique?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m7.082 ms - -[0m
+[0mGET /api/main/rotation/data-unique-vid?value=hhh&id=613f481f10385521f0a8d58c [36m304 [0m5.347 ms - -[0m
