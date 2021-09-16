@@ -1,0 +1,34 @@
+服务器运行在 localhost:\\.\pipe\abb20fb2-79fe-4928-a552-1278e3344cd6 端口上...
+processId:1128
+[0mOPTIONS /api/login/data [32m200 [0m25.048 ms - 4[0m
+mongodb connection success 
+[0mPOST /api/login/data [32m200 [0m212.699 ms - 687[0m
+log insert success
+[0mPOST /api/login/data [32m200 [0m11.899 ms - 687[0m
+log insert success
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m1.236 ms - 100[0m
+[0mGET /api/main/log/data/1/10 [32m200 [0m45.373 ms - 2104[0m
+[0mOPTIONS /api/main/log/data/1/30 [32m200 [0m0.414 ms - 100[0m
+[0mGET /api/main/log/data/1/30 [32m200 [0m42.228 ms - 6125[0m
+[0mOPTIONS /api/main/log/data/3/30 [32m200 [0m0.728 ms - 100[0m
+[0mGET /api/main/log/data/3/30 [32m200 [0m57.801 ms - 6100[0m
+[0mOPTIONS /api/main/rotation/data/1/10 [32m200 [0m0.846 ms - 100[0m
+[0mGET /api/main/rotation/data/1/10 [32m200 [0m23.169 ms - 2078[0m
+[0mOPTIONS /api/file [32m200 [0m0.390 ms - 100[0m
+[0mPOST /api/file [32m200 [0m282.005 ms - 97[0m
+[0mGET /api/public/upload/upload_775c9ad2808be22664f00ca95da7c2f2.png [32m200 [0m5.757 ms - 132073[0m
+[0mOPTIONS /api/file [32m200 [0m0.376 ms - 100[0m
+[0mPOST /api/file [32m200 [0m4.577 ms - 97[0m
+[0mGET /api/public/upload/upload_2be27a7e5700570ad24ccd0d7093bc67.png [32m200 [0m1.110 ms - 11159[0m
+[0mOPTIONS /api/file [32m200 [0m0.386 ms - 100[0m
+[0mPOST /api/file [32m200 [0m2633.360 ms - 97[0m
+[0mGET /api/public/upload/upload_3319a22a5ac7064a9120a334473d80e2.png [32m200 [0m0.719 ms - 1330100[0m
+[0mOPTIONS /api/file [32m200 [0m0.655 ms - 100[0m
+[0mPOST /api/file [32m200 [0m20.056 ms - 97[0m
+[0mGET /api/public/upload/upload_c7fa1d9fde4510883c3268f137754946.jpg [32m200 [0m1.778 ms - 19196[0m
+[0mOPTIONS /api/file [32m200 [0m0.376 ms - 100[0m
+[0mPOST /api/file [32m200 [0m55.117 ms - 98[0m
+[0mGET /api/public/upload/upload_ba0045138cafa791170fa05d7c202ac8.webp [32m200 [0m0.841 ms - 29638[0m
+[0mOPTIONS /api/file [32m200 [0m0.667 ms - 100[0m
+[0mPOST /api/file [32m200 [0m17.445 ms - 98[0m
+[0mGET /api/public/upload/upload_159d4ac45a18fcb0a3c5c75892ab415b.webp [32m200 [0m0.706 ms - 15168[0m

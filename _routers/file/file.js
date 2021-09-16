@@ -24,6 +24,7 @@ router.post("/", (req, res) =>
         form.keepExtensions = true;
         form.uploadDir = "./public/upload"; // 相对路径
         form.multiples = true;
+        form.maxFields=10000;
         form.parse(req, (err, fileds, files) =>
         {
             // 写入数据库

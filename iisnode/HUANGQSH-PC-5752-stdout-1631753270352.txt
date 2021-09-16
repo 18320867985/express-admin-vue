@@ -1,0 +1,43 @@
+服务器运行在 localhost:\\.\pipe\452cf039-8066-4602-8f8d-acbcfa536af7 端口上...
+processId:5752
+mongodb connection success 
+[0mOPTIONS /api/file [32m200 [0m8.050 ms - 100[0m
+[0mPOST /api/file [32m200 [0m42.636 ms - 97[0m
+[0mGET /api/public/upload/upload_f94c2a9350861dc96190420999eab4c7.png [32m200 [0m5.044 ms - 225844[0m
+[0mPOST /api/file [32m200 [0m11.502 ms - 97[0m
+[0mGET /api/public/upload/upload_5ae47c05bf23d55759ab77d8cd950c4e.png [32m200 [0m1.410 ms - 269116[0m
+[0mOPTIONS /api/file [32m200 [0m0.678 ms - 100[0m
+[0mPOST /api/file [32m200 [0m12.867 ms - 97[0m
+[0mGET /api/public/upload/upload_2a6f5e5def2905963b47d6b2887cd2bd.jpg [32m200 [0m1.570 ms - 207944[0m
+[0mPOST /api/file [32m200 [0m4.690 ms - 97[0m
+[0mGET /api/public/upload/upload_16b6f74e6fa377bc1e011ad41a09b00b.png [32m200 [0m0.806 ms - 112116[0m
+[0mOPTIONS /api/file [32m200 [0m0.420 ms - 100[0m
+[0mPOST /api/file [32m200 [0m4.550 ms - 97[0m
+[0mGET /api/public/upload/upload_f6161f5fd5e22cedcc366af928cbf081.png [32m200 [0m0.688 ms - 225844[0m
+[0mOPTIONS /api/file [32m200 [0m0.343 ms - 100[0m
+[0mPOST /api/file [32m200 [0m26.820 ms - 97[0m
+[0mGET /api/public/upload/upload_f57189cbe194726b0a776b11b35ca177.png [32m200 [0m0.519 ms - 1025715[0m
+[0mPOST /api/file [32m200 [0m2.485 ms - 97[0m
+[0mGET /api/public/upload/upload_8e93fbb27e5798ae45ece1484895dd12.png [32m200 [0m0.784 ms - 49239[0m
+[0mOPTIONS /api/init/data [32m200 [0m0.278 ms - 100[0m
+[0mOPTIONS /api/main/rotation/data/1/10 [32m200 [0m0.400 ms - 100[0m
+[0mGET /api/init/data [32m200 [0m66.514 ms - 270[0m
+[0mGET /api/main/rotation/data/1/10 [36m304 [0m60.579 ms - -[0m
+[0mOPTIONS /api/main/series/data/1/10 [32m200 [0m0.272 ms - 100[0m
+[0mOPTIONS /api/main/seriesType/all/ [32m200 [0m0.304 ms - 100[0m
+[0mGET /api/main/seriesType/all/ [32m200 [0m5.835 ms - 736[0m
+[0mGET /api/main/series/data/1/10 [32m200 [0m21.440 ms - 2990[0m
+[0mOPTIONS /api/init/data [32m200 [0m1.082 ms - 100[0m
+[0mOPTIONS /api/main/series/data/1/10 [32m200 [0m0.357 ms - 100[0m
+[0mOPTIONS /api/main/seriesType/all/ [32m200 [0m0.359 ms - 100[0m
+[0mGET /api/main/seriesType/all/ [36m304 [0m12.932 ms - -[0m
+[0mGET /api/init/data [36m304 [0m21.350 ms - -[0m
+[0mGET /api/main/series/data/1/10 [36m304 [0m36.471 ms - -[0m
+[0mOPTIONS /api/main/log/data/1/10 [32m200 [0m0.274 ms - 100[0m
+[0mGET /api/main/log/data/1/10 [32m200 [0m17.631 ms - 2109[0m
+[0mOPTIONS /api/main/log/data-dtl/614294150ee9ab1f1c792f5e,61428c352da6800468929409,61428c332da6800468929405,6141f546cbee6e219c27ed52,6141f2898e93481f20a41ced,6141a8bb9ab68718a0ed66db,6141a8aa9ab68718a0ed66d4,6141a1bed71d6810bcf3e03e,6141a1a2d71d6810bcf3e034,61419b987820ac04101023ca [32m200 [0m0.267 ms - 100[0m
+[0mGET /api/main/log/data-dtl/614294150ee9ab1f1c792f5e,61428c352da6800468929409,61428c332da6800468929405,6141f546cbee6e219c27ed52,6141f2898e93481f20a41ced,6141a8bb9ab68718a0ed66db,6141a8aa9ab68718a0ed66d4,6141a1bed71d6810bcf3e03e,6141a1a2d71d6810bcf3e034,61419b987820ac04101023ca [32m200 [0m9.766 ms - 2065[0m
+[0mOPTIONS /api/main/log/data/1/20 [32m200 [0m0.302 ms - 100[0m
+[0mGET /api/main/log/data/1/20 [32m200 [0m26.362 ms - 4104[0m
+[0mOPTIONS /api/main/log/data/3/20 [32m200 [0m0.325 ms - 100[0m
+[0mGET /api/main/log/data/3/20 [32m200 [0m14.887 ms - 4113[0m

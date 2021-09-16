@@ -1,6 +1,0 @@
-服务器运行在 localhost:\\.\pipe\a92e2bff-36d5-43d8-bedb-f1c6b3a0ae67 端口上...
-processId:7920
-mongodb connection success 
-[0mGET /public/upload/upload_eb86f522a8663a0386548f25fb1b9d69.png [32m200 [0m7.745 ms - 100[0m
-[0mGET /public/upload/upload_f5f6c2c36fe05b45c4610940e56ad133.png [32m200 [0m0.665 ms - 100[0m
-[0mGET /public/upload/upload_82816bbb6732925417f95861f51cf15a.png [32m200 [0m0.750 ms - 100[0m
