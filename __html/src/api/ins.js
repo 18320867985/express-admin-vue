@@ -2,15 +2,14 @@ import axios from 'axios'; // 引入axio
 import router from "../routes"
 import config from "./_config"
 
-let axios_ins = axios.create({
-	timeout: 10000
-});
+let axios_ins = axios.create();
 import {Notification} from "element-ui"
 
 // config
 // 注意 开启跨域要于vue.config.js文件配置优先 
 
 axios_ins.defaults.baseURL =config.baseURL;
+axios_ins.defaults.timeout = 30000;
 //let contentType = "application/x-www-form-urlencoded;charset=UTF-8";
 // axios_ins.defaults.headers.post[ 'Content-Type' ] = contentType;
 // axios_ins.defaults.headers.put[ 'Content-Type' ] = contentType;
